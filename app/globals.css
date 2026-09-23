@@ -214,7 +214,7 @@
    RESPONSIVE
    ========================= */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .report-title-ribbon {
     min-width: auto;
     width: calc(100% - 24px);
@@ -237,7 +237,7 @@
   .report-body {
     padding: 22px 14px 24px;
   }
-}
+} */
 
 /* =========================
    PRINT
