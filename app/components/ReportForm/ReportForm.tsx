@@ -12,8 +12,9 @@ import { ReportFormValues } from "@/app/types/reports";
 
 const DEFAULT_ACTIVITY_LEADER = "أ.عمر سعيد الصاعدي";
 const DEFAULT_SCHOOL_MANAGER = "أ.عبدالعزيز عوض العلوي";
-
-
+const DEFAULT_SCHOOL = "مدرسة ابتدائية أبيار الماشي"
+const DEFAULT_REGION =
+  "المدينة المنورة";
 const ReportForm = () => {
   /* =========================================
      Mobile Preview Modal
@@ -517,26 +518,51 @@ const ReportForm = () => {
                 "
               >
                 <InputField
-                  label="اسم المنطقة"
+                  label="اسم المنطقه"
                   name="regionName"
-                  value={
-                    formik.values.regionName
-                  }
-                  onChange={
-                    formik.handleChange
-                  }
+                  value={formik.values.regionName}
+                  onChange={formik.handleChange}
+                  onFocus={() => {
+                    if (
+                      formik.values.regionName ===
+                      DEFAULT_REGION
+                    ) {
+                      formik.setFieldValue("regionName", "");
+                    }
+                  }}
+                  onBlur={() => {
+                    if (!formik.values.regionName.trim()) {
+                      formik.setFieldValue(
+                        "regionName",
+                        DEFAULT_REGION,
+                      );
+                    }
+                  }}
                 />
 
                 <InputField
                   label="اسم المدرسة"
                   name="schoolName"
-                  value={
-                    formik.values.schoolName
-                  }
-                  onChange={
-                    formik.handleChange
-                  }
+                  value={formik.values.schoolName}
+                  onChange={formik.handleChange}
+                  onFocus={() => {
+                    if (
+                      formik.values.schoolName ===
+                      DEFAULT_SCHOOL
+                    ) {
+                      formik.setFieldValue("schoolName", "");
+                    }
+                  }}
+                  onBlur={() => {
+                    if (!formik.values.schoolName.trim()) {
+                      formik.setFieldValue(
+                        "schoolName",
+                        DEFAULT_SCHOOL,
+                      );
+                    }
+                  }}
                 />
+
               </div>
 
               {/* Teacher */}
