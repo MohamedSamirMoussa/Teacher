@@ -1,51 +1,51 @@
-  export type Gender = "male" | "female";
+export type Gender = "male" | "female";
 
-  export type Category = {
-    id: string;
-    name: string;
-  };
+export type Category = {
+  id: string;
+  name: string;
+};
 
-  export type CustomField = {
-    id: string;
-    label: string;
-    value: string;
-  };
+export type CustomField = {
+  id: string;
+  label: string;
+  value: string;
+};
 
-  export type ReportFormValues = {
-    gender: Gender;
+export type ReportFormValues = {
+  gender: Gender;
 
-    selectedCategory: string;
+  selectedCategory: string;
 
-    categories: Category[];
+  categories: Category[];
 
-    regionName: string;
-    schoolName: string;
+  regionName: string;
+  schoolName: string;
 
-    teacherName: string;
-    specialization: string;
+  teacherName: string;
+  specialization: string;
 
-    grade: string;
-    className: string;
+  grade: string;
+  className: string;
 
-    period: string;
-    day: string;
+  period: string;
+  day: string;
 
-    gregorianDate: string;
-    hijriDate: string;
+  gregorianDate: string;
+  hijriDate: string;
 
-    programName: string;
+  programName: string;
 
-    location: string;
-    attendance: string;
-    absence: string;
+  location: string;
+  attendance: string;
+  absence: string;
 
-    objectives: string;
-    impact: string;
+  objectives: string;
+  impact: string;
 
-    activityLeaderName: string;
-    supervisorName: string;
+  activityLeaderName: string;
+  supervisorName: string;
 
-    customFields: CustomField[];
+  customFields: CustomField[];
 
-    evidenceImages: string[];
-  };
+  evidenceImages: string[];
+};

@@ -41,6 +41,10 @@ const formatGregorianDate = (
   return `${day}/${month}/${year}`;
 };
 
+/* =========================================
+   Report Preview
+========================================= */
+
 const ReportPreview = ({
   values,
   labels,
@@ -54,78 +58,60 @@ const ReportPreview = ({
         className="report-preview-shell"
       >
         <div className="report-sheet">
-          {/* =========================================
-              Header
-          ========================================= */}
+          {/* Decorative Header */}
 
-          <div className="report-header-top">
-            <div className="report-header-grid">
-              {/* School */}
+          <Image
+            src="/report-header.png"
+            alt=""
+            width={1448}
+            height={205}
+            priority
+            aria-hidden="true"
+            className="report-frame-header"
+          />
 
-              <div className="report-header-block">
-                <p className="report-school-name">
-                  {
-                    values.schoolName
-                  }
-                </p>
+          {/* Decorative Footer */}
 
-                <p className="report-header-main">
-                  الإدارة العامة
-                  للتعليم
-                </p>
+          <Image
+            src="/report-footer.png"
+            alt=""
+            width={1448}
+            height={150}
+            priority
+            aria-hidden="true"
+            className="report-frame-footer"
+          />
 
-                <p>
-                  بمنطقة{" "}
-                  {
-                    values.regionName
-                  }
-                </p>
-              </div>
+          {/* Dynamic School Data */}
 
-              {/* Ministry */}
+          <div className="report-school-header">
+            <p className="report-school-name">
+              {values.schoolName}
+            </p>
 
-              <div
-                className="
-                  report-header-block
-                  report-header-ministry
-                "
-              >
-                <div className="report-header-logo-mark">
-                  وزارة التعليم
-                </div>
+            <p className="report-header-main">
+              الإدارة العامة للتعليم
+            </p>
 
-                <p>
-                  Ministry of
-                  Education
-                </p>
-              </div>
+            <p>
+              بمنطقة{" "}
+              {values.regionName}
+            </p>
+          </div>
+
+          {/* Report Content */}
+
+          <div className="report-content">
+            <div className="report-title-ribbon">
+              برامج الأنشطة الطلابية
             </div>
-          </div>
-
-          {/* =========================================
-              Title
-          ========================================= */}
-
-          <div className="report-title-ribbon">
-            برامج الأنشطة الطلابية
-          </div>
-
-          {/* =========================================
-              Body
-          ========================================= */}
-
-          <div className="report-body">
-            {/* Category */}
 
             <h2 className="report-category-title">
               {categoryName ||
                 "مجال البرنامج"}
             </h2>
 
-            {/* =========================================
-                ROW 1
-                3 Columns
-            ========================================= */}
+            {/* ROW 1 */}
 
             <div className="report-fields-grid report-fields-grid-3">
               <FieldBox
@@ -152,11 +138,7 @@ const ReportPreview = ({
               />
             </div>
 
-            {/* =========================================
-                ROW 2
-                4 Columns
-                Keep grid untouched
-            ========================================= */}
+            {/* ROW 2 */}
 
             <div className="report-fields-grid report-fields-grid-4">
               <FieldBox
@@ -190,10 +172,7 @@ const ReportPreview = ({
               />
             </div>
 
-            {/* =========================================
-                ROW 3
-                4 Columns
-            ========================================= */}
+            {/* ROW 3 */}
 
             <div className="report-fields-grid report-fields-grid-4">
               <FieldBox
@@ -225,15 +204,11 @@ const ReportPreview = ({
               />
             </div>
 
-            {/* =========================================
-                Custom Fields
-                فوق الأهداف
-                بدون عنوان
-            ========================================= */}
+            {/* Custom Fields */}
 
-            {values.customFields
-              .length > 0 && (
-              <div className="report-fields-grid report-fields-grid-4">
+            {values.customFields.length >
+              0 && (
+              <div className="report-fields-grid report-fields-grid-4 report-custom-fields">
                 {values.customFields.map(
                   (field) => (
                     <FieldBox
@@ -253,9 +228,7 @@ const ReportPreview = ({
               </div>
             )}
 
-            {/* =========================================
-                Objectives
-            ========================================= */}
+            {/* Objectives */}
 
             <ReportTextSection
               title="أهداف البرنامج"
@@ -264,9 +237,7 @@ const ReportPreview = ({
               }
             />
 
-            {/* =========================================
-                Impact
-            ========================================= */}
+            {/* Impact */}
 
             <ReportTextSection
               title="الأثر الإيجابي للبرنامج"
@@ -275,9 +246,7 @@ const ReportPreview = ({
               }
             />
 
-            {/* =========================================
-                Evidence
-            ========================================= */}
+            {/* Evidence */}
 
             <div className="report-evidence-section">
               <h3 className="report-section-title">
@@ -287,13 +256,11 @@ const ReportPreview = ({
               {values.evidenceImages
                 .length > 0 ? (
                 <div
-                  className={`report-images-grid ${
-                    values
-                      .evidenceImages
-                      .length === 2
-                      ? "report-images-2"
-                      : ""
-                  }`}
+                  className="report-images-grid"
+                  style={{
+                    gridTemplateColumns:
+                      `repeat(${values.evidenceImages.length}, minmax(0, 1fr))`,
+                  }}
                 >
                   {values.evidenceImages.map(
                     (
@@ -301,21 +268,13 @@ const ReportPreview = ({
                       index,
                     ) => (
                       <div
-                        key={
-                          image
-                        }
+                        key={image}
                         className="report-image-box"
                       >
                         <Image
-                          width={
-                            600
-                          }
-                          height={
-                            450
-                          }
-                          src={
-                            image
-                          }
+                          width={600}
+                          height={450}
+                          src={image}
                           alt={`شاهد ${
                             index +
                             1
@@ -332,9 +291,7 @@ const ReportPreview = ({
               )}
             </div>
 
-            {/* =========================================
-                Signatures
-            ========================================= */}
+            {/* Signatures */}
 
             <div className="report-signatures">
               <SignatureBox
@@ -391,10 +348,7 @@ const FieldBox = ({
 };
 
 /* =========================================
-   Date Box
-
-   ميلادي + هجري
-   داخل نفس العمود
+   Date
 ========================================= */
 
 const DateFieldBox = ({
@@ -480,6 +434,10 @@ const SignatureBox = ({
 
       <div className="report-signature-name">
         {name || ""}
+      </div>
+
+      <div className="report-signature-line">
+        التوقيع
       </div>
     </div>
   );

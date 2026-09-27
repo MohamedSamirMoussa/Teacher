@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+
 import { Cairo } from "next/font/google";
+
+import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 
 import Navbar from "./components/Navbar/Navbar";
-import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer/Footer";
 
 const cairo = Cairo({
@@ -25,14 +27,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body
-        className={`${cairo.className}`}
-      >
-        <Navbar />
+      <body className={cairo.className}>
+        <div className="no-print">
+          <Navbar />
+        </div>
 
         {children}
-        <Footer />
-        <Toaster position="bottom-right" reverseOrder={false} />
+
+        <div className="no-print">
+          <Footer />
+        </div>
+
+        <div className="no-print">
+          <Toaster position="bottom-right" reverseOrder={false} />
+        </div>
       </body>
     </html>
   );
