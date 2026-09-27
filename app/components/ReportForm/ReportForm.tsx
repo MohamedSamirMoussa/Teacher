@@ -1,15 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { useFormik } from "formik";
-
 import Image from "next/image";
-
 import toast from "react-hot-toast";
 
 import ReportPreview from "../ReportPreview/ReportPreview";
-
 import CategorySelector from "../CategorySelector/CategorySelector";
 
 import { ReportFormValues } from "@/app/types/reports";
@@ -66,6 +62,10 @@ const convertToHijri = (
     },
   ).format(date);
 };
+
+/* =========================================
+   Component
+========================================= */
 
 const ReportForm = () => {
   /* =========================================
@@ -399,8 +399,8 @@ const ReportForm = () => {
       id="report"
       className="
         bg-gray-50
-        px-4
-        py-8
+        px-3
+        py-6
         sm:px-6
         sm:py-12
         lg:px-8
@@ -446,16 +446,16 @@ const ReportForm = () => {
         <div
           className="
             no-print
-            mb-8
+            mb-6
             flex
             items-center
             justify-between
-            gap-4
+            gap-3
             sm:mb-10
           "
         >
           <div>
-            <h2 className="text-2xl font-bold text-gray-950 sm:text-3xl">
+            <h2 className="text-xl font-bold text-gray-950 sm:text-3xl">
               إنشاء التقرير
             </h2>
 
@@ -471,15 +471,18 @@ const ReportForm = () => {
               flex
               shrink-0
               items-center
-              rounded-xl
+              rounded-lg
               bg-black
-              px-4
+              px-3
               py-2.5
-              text-sm
+              text-xs
               font-semibold
               text-white
               transition
               hover:bg-gray-800
+              sm:rounded-xl
+              sm:px-4
+              sm:text-sm
               lg:hidden
             "
           >
@@ -515,20 +518,22 @@ const ReportForm = () => {
               border
               border-gray-200
               bg-white
-              p-4
+              p-3
               shadow-sm
               sm:p-6
             "
           >
-            <div className="space-y-6">
-              {/* Gender */}
+            <div className="space-y-4 sm:space-y-6">
+              {/* =====================================
+                  Gender
+              ====================================== */}
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-gray-800">
+                <label className="mb-2 block text-xs font-semibold text-gray-800 sm:text-sm">
                   النوع
                 </label>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   <button
                     type="button"
                     onClick={() =>
@@ -538,13 +543,17 @@ const ReportForm = () => {
                       )
                     }
                     className={`
-                      rounded-xl
+                      rounded-lg
                       border
-                      px-4
-                      py-3
-                      text-sm
+                      px-3
+                      py-2.5
+                      text-xs
                       font-medium
                       transition
+                      sm:rounded-xl
+                      sm:px-4
+                      sm:py-3
+                      sm:text-sm
                       ${
                         formik.values.gender ===
                         "male"
@@ -565,13 +574,17 @@ const ReportForm = () => {
                       )
                     }
                     className={`
-                      rounded-xl
+                      rounded-lg
                       border
-                      px-4
-                      py-3
-                      text-sm
+                      px-3
+                      py-2.5
+                      text-xs
                       font-medium
                       transition
+                      sm:rounded-xl
+                      sm:px-4
+                      sm:py-3
+                      sm:text-sm
                       ${
                         formik.values.gender ===
                         "female"
@@ -585,9 +598,11 @@ const ReportForm = () => {
                 </div>
               </div>
 
-              {/* Region + School */}
+              {/* =====================================
+                  Region + School
+              ====================================== */}
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mobile-form-grid">
                 <InputField
                   label="اسم المنطقة"
                   name="regionName"
@@ -657,37 +672,43 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* Teacher */}
+              {/* =====================================
+                  Teacher + Specialization
+              ====================================== */}
 
-              <InputField
-                label={
-                  labels.teacherName
-                }
-                name="teacherName"
-                value={
-                  formik.values
-                    .teacherName
-                }
-                onChange={
-                  formik.handleChange
-                }
-              />
+              <div className="mobile-form-grid">
+                <InputField
+                  label={
+                    labels.teacherName
+                  }
+                  name="teacherName"
+                  value={
+                    formik.values
+                      .teacherName
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
 
-              <InputField
-                label="التخصص"
-                name="specialization"
-                value={
-                  formik.values
-                    .specialization
-                }
-                onChange={
-                  formik.handleChange
-                }
-              />
+                <InputField
+                  label="التخصص"
+                  name="specialization"
+                  value={
+                    formik.values
+                      .specialization
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
+              </div>
 
-              {/* Grade + Class */}
+              {/* =====================================
+                  Grade + Class
+              ====================================== */}
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mobile-form-grid">
                 <InputField
                   label="الصف"
                   name="grade"
@@ -713,9 +734,11 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* Period + Day */}
+              {/* =====================================
+                  Period + Day
+              ====================================== */}
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mobile-form-grid">
                 <InputField
                   label="الحصة"
                   name="period"
@@ -740,9 +763,11 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* Dates */}
+              {/* =====================================
+                  Dates
+              ====================================== */}
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mobile-form-grid">
                 <InputField
                   label="التاريخ الميلادي"
                   name="gregorianDate"
@@ -782,39 +807,45 @@ const ReportForm = () => {
                   onChange={
                     formik.handleChange
                   }
-                  placeholder="مثال: ١٥/٠٤/١٤٤٨ هـ"
+                  placeholder="التاريخ الهجري"
                 />
               </div>
 
-              {/* Program */}
+              {/* =====================================
+                  Program + Location
+              ====================================== */}
 
-              <InputField
-                label="اسم البرنامج"
-                name="programName"
-                value={
-                  formik.values
-                    .programName
-                }
-                onChange={
-                  formik.handleChange
-                }
-              />
+              <div className="mobile-form-grid">
+                <InputField
+                  label="اسم البرنامج"
+                  name="programName"
+                  value={
+                    formik.values
+                      .programName
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
 
-              <InputField
-                label="مكان التنفيذ"
-                name="location"
-                value={
-                  formik.values
-                    .location
-                }
-                onChange={
-                  formik.handleChange
-                }
-              />
+                <InputField
+                  label="مكان التنفيذ"
+                  name="location"
+                  value={
+                    formik.values
+                      .location
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
+              </div>
 
-              {/* Attendance */}
+              {/* =====================================
+                  Attendance
+              ====================================== */}
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mobile-form-grid">
                 <InputField
                   label="الحضور"
                   name="attendance"
@@ -840,9 +871,11 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* Leader + Manager */}
+              {/* =====================================
+                  Leader + Manager
+              ====================================== */}
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mobile-form-grid">
                 <InputField
                   label="اسم رائد النشاط"
                   name="activityLeaderName"
@@ -912,10 +945,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =========================================
+              {/* =====================================
                   Custom Fields
-                  قبل أهداف البرنامج
-              ========================================= */}
+              ====================================== */}
 
               {formik.values.customFields.map(
                 (
@@ -929,11 +961,12 @@ const ReportForm = () => {
                       border
                       border-gray-200
                       bg-gray-50
-                      p-4
+                      p-3
+                      sm:p-4
                     "
                   >
-                    <div className="mb-3 flex items-center justify-between">
-                      <span className="text-sm font-semibold text-gray-700">
+                    <div className="mb-2 flex items-center justify-between sm:mb-3">
+                      <span className="text-xs font-semibold text-gray-700 sm:text-sm">
                         حقل إضافي
                       </span>
 
@@ -944,13 +977,13 @@ const ReportForm = () => {
                             field.id,
                           )
                         }
-                        className="text-sm font-medium text-red-500 hover:text-red-700"
+                        className="text-xs font-medium text-red-500 hover:text-red-700 sm:text-sm"
                       >
                         حذف
                       </button>
                     </div>
 
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       <input
                         name={`customFields.${index}.label`}
                         value={
@@ -961,15 +994,21 @@ const ReportForm = () => {
                         }
                         placeholder="اسم الحقل"
                         className="
-                          w-full
-                          rounded-xl
+                          min-w-0
+                          rounded-lg
                           border
                           border-gray-200
                           bg-white
-                          px-4
-                          py-3
+                          px-2.5
+                          py-2.5
+                          text-xs
                           outline-none
+                          transition
                           focus:border-gray-900
+                          sm:rounded-xl
+                          sm:px-4
+                          sm:py-3
+                          sm:text-sm
                         "
                       />
 
@@ -983,15 +1022,21 @@ const ReportForm = () => {
                         }
                         placeholder="القيمة"
                         className="
-                          w-full
-                          rounded-xl
+                          min-w-0
+                          rounded-lg
                           border
                           border-gray-200
                           bg-white
-                          px-4
-                          py-3
+                          px-2.5
+                          py-2.5
+                          text-xs
                           outline-none
+                          transition
                           focus:border-gray-900
+                          sm:rounded-xl
+                          sm:px-4
+                          sm:py-3
+                          sm:text-sm
                         "
                       />
                     </div>
@@ -999,10 +1044,12 @@ const ReportForm = () => {
                 ),
               )}
 
-              {/* Objectives */}
+              {/* =====================================
+                  Objectives
+              ====================================== */}
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-gray-800">
+                <label className="mb-1.5 block text-xs font-semibold text-gray-800 sm:mb-2 sm:text-sm">
                   أهداف البرنامج
                 </label>
 
@@ -1015,26 +1062,33 @@ const ReportForm = () => {
                   onChange={
                     formik.handleChange
                   }
-                  rows={4}
+                  rows={3}
                   className="
                     w-full
                     resize-none
-                    rounded-xl
+                    rounded-lg
                     border
                     border-gray-200
-                    px-4
-                    py-3
+                    px-3
+                    py-2.5
+                    text-xs
                     outline-none
                     transition
                     focus:border-gray-900
+                    sm:rounded-xl
+                    sm:px-4
+                    sm:py-3
+                    sm:text-sm
                   "
                 />
               </div>
 
-              {/* Impact */}
+              {/* =====================================
+                  Impact
+              ====================================== */}
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-gray-800">
+                <label className="mb-1.5 block text-xs font-semibold text-gray-800 sm:mb-2 sm:text-sm">
                   أثر البرنامج
                 </label>
 
@@ -1047,31 +1101,38 @@ const ReportForm = () => {
                   onChange={
                     formik.handleChange
                   }
-                  rows={4}
+                  rows={3}
                   className="
                     w-full
                     resize-none
-                    rounded-xl
+                    rounded-lg
                     border
                     border-gray-200
-                    px-4
-                    py-3
+                    px-3
+                    py-2.5
+                    text-xs
                     outline-none
                     transition
                     focus:border-gray-900
+                    sm:rounded-xl
+                    sm:px-4
+                    sm:py-3
+                    sm:text-sm
                   "
                 />
               </div>
 
-              {/* Evidence Images */}
+              {/* =====================================
+                  Evidence Images
+              ====================================== */}
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
-                  <label className="text-sm font-semibold text-gray-800">
+                  <label className="text-xs font-semibold text-gray-800 sm:text-sm">
                     صور الشواهد
                   </label>
 
-                  <span className="text-xs text-gray-500">
+                  <span className="text-[11px] text-gray-500 sm:text-xs">
                     {
                       formik.values
                         .evidenceImages
@@ -1081,7 +1142,7 @@ const ReportForm = () => {
                   </span>
                 </div>
 
-                <p className="mb-3 text-xs text-gray-500">
+                <p className="mb-2 text-[11px] text-gray-500 sm:mb-3 sm:text-xs">
                   يجب إضافة صورتين على الأقل، والحد الأقصى 4 صور.
                 </p>
 
@@ -1095,18 +1156,22 @@ const ReportForm = () => {
                       cursor-pointer
                       items-center
                       justify-center
-                      rounded-xl
+                      rounded-lg
                       border
                       border-dashed
                       border-gray-300
-                      px-4
-                      py-5
-                      text-sm
+                      px-3
+                      py-3
+                      text-xs
                       font-medium
                       text-gray-600
                       transition
                       hover:border-gray-700
                       hover:text-gray-900
+                      sm:rounded-xl
+                      sm:px-4
+                      sm:py-5
+                      sm:text-sm
                     "
                   >
                     + إضافة صور الشواهد
@@ -1127,7 +1192,7 @@ const ReportForm = () => {
                 {formik.values
                   .evidenceImages
                   .length > 0 && (
-                  <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-3">
                     {formik.values.evidenceImages.map(
                       (
                         image,
@@ -1148,7 +1213,8 @@ const ReportForm = () => {
                             height={450}
                             src={image}
                             alt={`الشاهد ${
-                              index + 1
+                              index +
+                              1
                             }`}
                             unoptimized
                             className="
@@ -1168,16 +1234,19 @@ const ReportForm = () => {
                             }
                             className="
                               absolute
-                              left-2
-                              top-2
+                              left-1.5
+                              top-1.5
                               rounded-md
                               bg-white/95
                               px-2
                               py-1
-                              text-xs
+                              text-[10px]
                               font-semibold
                               text-red-600
                               shadow-sm
+                              sm:left-2
+                              sm:top-2
+                              sm:text-xs
                             "
                           >
                             حذف
@@ -1191,58 +1260,68 @@ const ReportForm = () => {
                 {formik.values
                   .evidenceImages
                   .length === 1 && (
-                  <p className="mt-2 text-xs font-medium text-red-500">
+                  <p className="mt-2 text-[11px] font-medium text-red-500 sm:text-xs">
                     أضف صورة أخرى على الأقل حتى تتمكن من طباعة التقرير.
                   </p>
                 )}
               </div>
 
-              {/* Add Custom */}
+              {/* =====================================
+                  Buttons
+              ====================================== */}
 
-              <button
-                type="button"
-                onClick={
-                  addCustomField
-                }
-                className="
-                  w-full
-                  rounded-xl
-                  border
-                  border-dashed
-                  border-gray-300
-                  px-4
-                  py-3
-                  font-medium
-                  text-gray-700
-                  transition
-                  hover:border-gray-900
-                  hover:text-black
-                "
-              >
-                + إضافة حقل
-              </button>
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <button
+                  type="button"
+                  onClick={
+                    addCustomField
+                  }
+                  className="
+                    rounded-lg
+                    border
+                    border-dashed
+                    border-gray-300
+                    px-2
+                    py-2.5
+                    text-xs
+                    font-medium
+                    text-gray-700
+                    transition
+                    hover:border-gray-900
+                    hover:text-black
+                    sm:rounded-xl
+                    sm:px-4
+                    sm:py-3
+                    sm:text-sm
+                  "
+                >
+                  + إضافة حقل
+                </button>
 
-              {/* Print */}
-
-              <button
-                type="button"
-                onClick={
-                  printReport
-                }
-                className="
-                  w-full
-                  rounded-xl
-                  bg-black
-                  px-4
-                  py-3
-                  font-semibold
-                  text-white
-                  transition
-                  hover:bg-gray-800
-                "
-              >
-                طباعة / حفظ PDF
-              </button>
+                <button
+                  type="button"
+                  onClick={
+                    printReport
+                  }
+                  className="
+                    rounded-lg
+                    bg-black
+                    px-2
+                    py-2.5
+                    text-xs
+                    font-semibold
+                    text-white
+                    transition
+                    hover:bg-gray-800
+                    sm:rounded-xl
+                    sm:px-4
+                    sm:py-3
+                    sm:text-sm
+                  "
+                >
+                  طباعة / PDF
+                </button>
+              </div>
             </div>
           </form>
 
@@ -1283,6 +1362,8 @@ const ReportForm = () => {
           "
         >
           <div className="flex h-[100dvh] w-full flex-col bg-white">
+            {/* Header */}
+
             <div
               className="
                 flex
@@ -1297,11 +1378,11 @@ const ReportForm = () => {
               "
             >
               <div>
-                <h3 className="font-bold text-gray-950">
+                <h3 className="text-sm font-bold text-gray-950">
                   معاينة التقرير
                 </h3>
 
-                <p className="mt-0.5 text-xs text-gray-500">
+                <p className="mt-0.5 text-[11px] text-gray-500">
                   راجع التقرير قبل الطباعة
                 </p>
               </div>
@@ -1314,13 +1395,13 @@ const ReportForm = () => {
                 aria-label="إغلاق المعاينة"
                 className="
                   flex
-                  h-10
-                  w-10
+                  h-9
+                  w-9
                   items-center
                   justify-center
                   rounded-full
                   bg-gray-100
-                  text-2xl
+                  text-xl
                   text-gray-700
                 "
               >
@@ -1328,7 +1409,9 @@ const ReportForm = () => {
               </button>
             </div>
 
-            <div className="flex-1 overflow-auto bg-gray-100 p-3 sm:p-5">
+            {/* Preview */}
+
+            <div className="flex-1 overflow-auto bg-gray-100 p-2 sm:p-5">
               <ReportPreview
                 previewId="report-preview-mobile"
                 values={
@@ -1342,21 +1425,23 @@ const ReportForm = () => {
               />
             </div>
 
+            {/* Buttons */}
+
             <div className="shrink-0 border-t border-gray-200 bg-white p-3">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={
                     closePreview
                   }
                   className="
-                    rounded-xl
+                    rounded-lg
                     border
                     border-gray-300
                     bg-white
-                    px-4
-                    py-3
-                    text-sm
+                    px-3
+                    py-2.5
+                    text-xs
                     font-semibold
                     text-gray-700
                   "
@@ -1370,11 +1455,11 @@ const ReportForm = () => {
                     printReport
                   }
                   className="
-                    rounded-xl
+                    rounded-lg
                     bg-black
-                    px-4
-                    py-3
-                    text-sm
+                    px-3
+                    py-2.5
+                    text-xs
                     font-semibold
                     text-white
                   "
@@ -1431,10 +1516,22 @@ const InputField = ({
   onBlur,
 }: InputFieldProps) => {
   return (
-    <div>
+    <div className="min-w-0">
       <label
         htmlFor={name}
-        className="mb-2 block text-sm font-semibold text-gray-800"
+        className="
+          mb-1.5
+          block
+          min-h-8
+          text-xs
+          font-semibold
+          leading-4
+          text-gray-800
+          sm:mb-2
+          sm:min-h-0
+          sm:text-sm
+          sm:leading-normal
+        "
       >
         {label}
       </label>
@@ -1445,25 +1542,29 @@ const InputField = ({
         type={type}
         value={value}
         disabled={disabled}
-        placeholder={
-          placeholder
-        }
+        placeholder={placeholder}
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
         className="
           w-full
-          rounded-xl
+          min-w-0
+          rounded-lg
           border
           border-gray-200
-          px-4
-          py-3
+          px-2.5
+          py-2.5
+          text-xs
           outline-none
           transition
           focus:border-gray-900
           disabled:cursor-not-allowed
           disabled:bg-gray-100
           disabled:text-gray-500
+          sm:rounded-xl
+          sm:px-4
+          sm:py-3
+          sm:text-sm
         "
       />
     </div>

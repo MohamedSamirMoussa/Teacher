@@ -142,10 +142,7 @@
 
   box-sizing: border-box;
 
-  padding:
-    31mm
-    7mm
-    22mm;
+  padding: 31mm 7mm 22mm;
 }
 
 /* =========================================
@@ -205,27 +202,15 @@
 }
 
 .report-fields-grid-2 {
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .report-fields-grid-3 {
-  grid-template-columns:
-    repeat(
-      3,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .report-fields-grid-4 {
-  grid-template-columns:
-    repeat(
-      4,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 /* =========================================
@@ -259,9 +244,7 @@
 
   justify-content: center;
 
-  padding:
-    1mm
-    2mm;
+  padding: 1mm 2mm;
 
   border: 1px solid #bfc4c3;
 
@@ -291,9 +274,7 @@
 
   line-height: 1.2;
 
-  padding:
-    0.5mm
-    1mm;
+  padding: 0.5mm 1mm;
 }
 
 .report-date-row {
@@ -333,10 +314,7 @@
 }
 
 .report-section-title {
-  margin:
-    0
-    0
-    1.5mm;
+  margin: 0 0 1.5mm;
 
   text-align: center;
 
@@ -393,9 +371,7 @@
 
   align-items: center;
 
-  padding:
-    1mm
-    2mm;
+  padding: 1mm 2mm;
 
   border: 1px solid #bfc4c3;
 
@@ -468,20 +444,13 @@
 .report-signatures {
   display: grid;
 
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
   gap: 8mm;
 
   width: 70%;
 
-  margin:
-    4mm
-    auto
-    0;
+  margin: 4mm auto 0;
 }
 
 .report-signature-box {
@@ -489,10 +458,7 @@
 }
 
 .report-signature-title {
-  margin:
-    0
-    0
-    1.5mm;
+  margin: 0 0 1.5mm;
 
   color: #111111;
 
@@ -514,9 +480,7 @@
 
   justify-content: center;
 
-  padding:
-    1mm
-    2mm;
+  padding: 1mm 2mm;
 
   border: 1px solid #bfc4c3;
 
@@ -532,10 +496,7 @@
 .report-signature-line {
   width: 65%;
 
-  margin:
-    2mm
-    auto
-    0;
+  margin: 2mm auto 0;
 
   padding-top: 1mm;
 
@@ -571,11 +532,9 @@
 
     background: #ffffff !important;
 
-    -webkit-print-color-adjust:
-      exact !important;
+    -webkit-print-color-adjust: exact !important;
 
-    print-color-adjust:
-      exact !important;
+    print-color-adjust: exact !important;
   }
 
   /*
@@ -714,23 +673,17 @@
 
     background: #ffffff !important;
 
-    page-break-before:
-      avoid !important;
+    page-break-before: avoid !important;
 
-    page-break-after:
-      avoid !important;
+    page-break-after: avoid !important;
 
-    page-break-inside:
-      avoid !important;
+    page-break-inside: avoid !important;
 
-    break-before:
-      avoid-page !important;
+    break-before: avoid-page !important;
 
-    break-after:
-      avoid-page !important;
+    break-after: avoid-page !important;
 
-    break-inside:
-      avoid-page !important;
+    break-inside: avoid-page !important;
   }
 
   /* =====================================
@@ -814,10 +767,7 @@
 
     box-sizing: border-box !important;
 
-    padding:
-      31mm
-      7mm
-      22mm !important;
+    padding: 31mm 7mm 22mm !important;
 
     overflow: hidden !important;
   }
@@ -831,27 +781,15 @@
   }
 
   .report-fields-grid-2 {
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      ) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
   .report-fields-grid-3 {
-    grid-template-columns:
-      repeat(
-        3,
-        minmax(0, 1fr)
-      ) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 
   .report-fields-grid-4 {
-    grid-template-columns:
-      repeat(
-        4,
-        minmax(0, 1fr)
-      ) !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
 
   /* =====================================
@@ -859,11 +797,9 @@
   ====================================== */
 
   .report-section {
-    break-inside:
-      avoid !important;
+    break-inside: avoid !important;
 
-    page-break-inside:
-      avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .report-textarea-box {
@@ -877,11 +813,9 @@
 
     background: #ffffff !important;
 
-    break-inside:
-      avoid !important;
+    break-inside: avoid !important;
 
-    page-break-inside:
-      avoid !important;
+    page-break-inside: avoid !important;
   }
 
   /* =====================================
@@ -889,11 +823,9 @@
   ====================================== */
 
   .report-evidence-section {
-    break-inside:
-      avoid !important;
+    break-inside: avoid !important;
 
-    page-break-inside:
-      avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .report-images-grid {
@@ -903,11 +835,9 @@
 
     gap: 2mm !important;
 
-    break-inside:
-      avoid !important;
+    break-inside: avoid !important;
 
-    page-break-inside:
-      avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .report-image-box {
@@ -915,11 +845,9 @@
 
     overflow: hidden !important;
 
-    break-inside:
-      avoid !important;
+    break-inside: avoid !important;
 
-    page-break-inside:
-      avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .report-image {
@@ -938,17 +866,11 @@
   .report-signatures {
     display: grid !important;
 
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      ) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 
-    break-inside:
-      avoid !important;
+    break-inside: avoid !important;
 
-    page-break-inside:
-      avoid !important;
+    page-break-inside: avoid !important;
   }
 
   /* =====================================
@@ -960,11 +882,9 @@
   .report-textarea-box,
   .report-evidence-box,
   .report-signature-name {
-    border-color:
-      #aaaaaa !important;
+    border-color: #aaaaaa !important;
 
-    background:
-      #ffffff !important;
+    background: #ffffff !important;
   }
 
   /* =====================================
@@ -974,16 +894,24 @@
   *,
   *::before,
   *::after {
-    box-shadow:
-      none !important;
+    box-shadow: none !important;
 
-    text-shadow:
-      none !important;
+    text-shadow: none !important;
 
-    -webkit-print-color-adjust:
-      exact !important;
+    -webkit-print-color-adjust: exact !important;
 
-    print-color-adjust:
-      exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+.mobile-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-form-grid {
+    gap: 1rem;
   }
 }
