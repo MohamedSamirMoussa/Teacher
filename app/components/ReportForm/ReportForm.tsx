@@ -10,17 +10,72 @@ import CategorySelector from "../CategorySelector/CategorySelector";
 
 import { ReportFormValues } from "@/app/types/reports";
 
-const DEFAULT_ACTIVITY_LEADER = "أ.عمر سعيد الصاعدي";
-const DEFAULT_SCHOOL_MANAGER = "أ.عبدالعزيز عوض العلوي";
-const DEFAULT_SCHOOL = "مدرسة ابتدائية أبيار الماشي"
+/* =========================================
+   Defaults
+========================================= */
+
+const DEFAULT_ACTIVITY_LEADER =
+  "أ.عمر سعيد الصاعدي";
+
+const DEFAULT_SCHOOL_MANAGER =
+  "أ.عبدالعزيز عوض العلوي";
+
+const DEFAULT_SCHOOL =
+  "مدرسة ابتدائية أبيار الماشي";
+
 const DEFAULT_REGION =
   "المدينة المنورة";
+
+/* =========================================
+   Gregorian -> Hijri
+   Umm Al-Qura
+========================================= */
+
+const convertToHijri = (
+  gregorianDate: string,
+) => {
+  if (!gregorianDate) return "";
+
+  const [year, month, day] =
+    gregorianDate
+      .split("-")
+      .map(Number);
+
+  if (!year || !month || !day) {
+    return "";
+  }
+
+  /*
+    نستخدم constructor المحلي بدل:
+    new Date("2026-09-27")
+
+    عشان نتجنب مشاكل تغيير اليوم
+    بسبب الـ timezone.
+  */
+
+  const date = new Date(
+    year,
+    month - 1,
+    day,
+  );
+
+  return new Intl.DateTimeFormat(
+    "ar-SA-u-ca-islamic-umalqura",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    },
+  ).format(date);
+};
+
 const ReportForm = () => {
   /* =========================================
-     Mobile Preview Modal
+     Mobile Preview
   ========================================= */
 
-  const [preview, setPreview] = useState(false);
+  const [preview, setPreview] =
+    useState(false);
 
   const openPreview = () => {
     setPreview(true);
@@ -31,32 +86,45 @@ const ReportForm = () => {
   };
 
   /* منع Scroll خلف الـ Modal */
+
   useEffect(() => {
     if (preview) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow =
+        "hidden";
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow =
+        "";
     }
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow =
+        "";
     };
   }, [preview]);
 
-  /* إغلاق الـ Modal بزر Escape */
+  /* إغلاق Modal بـ Escape */
+
   useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleEscape = (
+      event: KeyboardEvent,
+    ) => {
       if (event.key === "Escape") {
         closePreview();
       }
     };
 
     if (preview) {
-      window.addEventListener("keydown", handleEscape);
+      window.addEventListener(
+        "keydown",
+        handleEscape,
+      );
     }
 
     return () => {
-      window.removeEventListener("keydown", handleEscape);
+      window.removeEventListener(
+        "keydown",
+        handleEscape,
+      );
     };
   }, [preview]);
 
@@ -64,118 +132,152 @@ const ReportForm = () => {
      Formik
   ========================================= */
 
-  const formik = useFormik<ReportFormValues>({
-    initialValues: {
-      gender: "male",
+  const formik =
+    useFormik<ReportFormValues>({
+      initialValues: {
+        gender: "male",
 
-      selectedCategory: "citizenship",
+        selectedCategory:
+          "citizenship",
 
-      categories: [
-        {
-          id: "citizenship",
-          name: "مجال المواطنة والحياة",
-        },
-        {
-          id: "sports",
-          name: "مجال الرياضة والصحة",
-        },
-        {
-          id: "scouting",
-          name: "مجال النشاط الكشفي",
-        },
-        {
-          id: "culture",
-          name: "مجال الثقافة والفنون",
-        },
-        {
-          id: "science",
-          name: "مجال العلوم والتقنية",
-        },
-        {
-          id: "events",
-          name: "مجال الأيام والمناسبات",
-        },
-      ],
+        categories: [
+          {
+            id: "citizenship",
+            name: "مجال المواطنة والحياة",
+          },
+          {
+            id: "sports",
+            name: "مجال الرياضة والصحة",
+          },
+          {
+            id: "scouting",
+            name: "مجال النشاط الكشفي",
+          },
+          {
+            id: "culture",
+            name: "مجال الثقافة والفنون",
+          },
+          {
+            id: "science",
+            name: "مجال العلوم والتقنية",
+          },
+          {
+            id: "events",
+            name: "مجال الأيام والمناسبات",
+          },
+        ],
 
-      regionName: "المدينة المنورة",
+        regionName:
+          DEFAULT_REGION,
 
-      schoolName: "مدرسة ابتدائية أبيار الماشي",
+        schoolName:
+          DEFAULT_SCHOOL,
 
-      teacherName: "",
+        teacherName: "",
 
-      specialization: "",
+        specialization: "",
 
-      grade: "",
+        grade: "",
 
-      className: "",
+        className: "",
 
-      date: "",
+        period: "",
 
-      programName: "",
+        day: "",
 
-      objectives: "",
+        gregorianDate: "",
 
-      impact: "",
+        hijriDate: "",
 
-      activityLeaderName: "أ.عمر سعيد الصاعدي",
+        programName: "",
 
-      supervisorName: "أ.عبدالعزيز عوض العلوي",
+        location: "",
 
-      customFields: [],
+        attendance: "",
 
-      evidenceImages: [],
-    },
+        absence: "",
 
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+        objectives: "",
+
+        impact: "",
+
+        activityLeaderName:
+          DEFAULT_ACTIVITY_LEADER,
+
+        supervisorName:
+          DEFAULT_SCHOOL_MANAGER,
+
+        customFields: [],
+
+        evidenceImages: [],
+      },
+
+      onSubmit: (values) => {
+        console.log(values);
+      },
+    });
 
   /* =========================================
-     Gender Labels
+     Labels
   ========================================= */
 
-  const isFemale = formik.values.gender === "female";
+  const isFemale =
+    formik.values.gender ===
+    "female";
 
   const labels = {
-    teacherName: isFemale ? "اسم المعلمة" : "اسم المعلم",
+    teacherName: isFemale
+      ? "اسم المعلمة"
+      : "اسم المعلم",
 
-    supervisor: isFemale ? "المديرة" : "المدير",
+    supervisor:
+      "مدير المدرسة",
 
-    activityLeader: isFemale ? "رائدة النشاط" : "رائد النشاط",
+    activityLeader:
+      "رائد النشاط",
   };
 
   /* =========================================
      Selected Category
   ========================================= */
 
-  const selectedCategory = formik.values.categories.find(
-    (category) =>
-      category.id === formik.values.selectedCategory,
-  );
+  const selectedCategory =
+    formik.values.categories.find(
+      (category) =>
+        category.id ===
+        formik.values
+          .selectedCategory,
+    );
 
   /* =========================================
      Custom Fields
   ========================================= */
 
   const addCustomField = () => {
-    formik.setFieldValue("customFields", [
-      ...formik.values.customFields,
+    formik.setFieldValue(
+      "customFields",
+      [
+        ...formik.values
+          .customFields,
 
-      {
-        id: crypto.randomUUID(),
-        label: "",
-        value: "",
-      },
-    ]);
+        {
+          id: crypto.randomUUID(),
+          label: "",
+          value: "",
+        },
+      ],
+    );
   };
 
-  const removeCustomField = (id: string) => {
+  const removeCustomField = (
+    id: string,
+  ) => {
     formik.setFieldValue(
       "customFields",
 
       formik.values.customFields.filter(
-        (field) => field.id !== id,
+        (field) =>
+          field.id !== id,
       ),
     );
   };
@@ -197,7 +299,8 @@ const ReportForm = () => {
       formik.values.evidenceImages;
 
     const remaining =
-      4 - currentImages.length;
+      4 -
+      currentImages.length;
 
     if (remaining <= 0) {
       toast.error(
@@ -209,25 +312,32 @@ const ReportForm = () => {
       return;
     }
 
-    const selectedFiles = files.slice(
-      0,
-      remaining,
-    );
+    const selectedFiles =
+      files.slice(
+        0,
+        remaining,
+      );
 
-    const newImages = selectedFiles.map(
-      (file) => URL.createObjectURL(file),
-    );
+    const newImages =
+      selectedFiles.map(
+        (file) =>
+          URL.createObjectURL(
+            file,
+          ),
+      );
 
     formik.setFieldValue(
       "evidenceImages",
-
       [
         ...currentImages,
         ...newImages,
       ],
     );
 
-    if (files.length > remaining) {
+    if (
+      files.length >
+      remaining
+    ) {
       toast.error(
         "تم إضافة الحد الأقصى المسموح وهو 4 صور",
       );
@@ -236,9 +346,12 @@ const ReportForm = () => {
     event.target.value = "";
   };
 
-  const removeImage = (index: number) => {
+  const removeImage = (
+    index: number,
+  ) => {
     const images = [
-      ...formik.values.evidenceImages,
+      ...formik.values
+        .evidenceImages,
     ];
 
     const removedImage =
@@ -250,7 +363,10 @@ const ReportForm = () => {
       );
     }
 
-    images.splice(index, 1);
+    images.splice(
+      index,
+      1,
+    );
 
     formik.setFieldValue(
       "evidenceImages",
@@ -264,7 +380,9 @@ const ReportForm = () => {
 
   const printReport = () => {
     if (
-      formik.values.evidenceImages.length < 2
+      formik.values
+        .evidenceImages.length <
+      2
     ) {
       toast.error(
         "يجب إضافة صورتين على الأقل من الشواهد",
@@ -273,21 +391,12 @@ const ReportForm = () => {
       return;
     }
 
-    /*
-      لو الـ Modal مفتوح اقفله الأول
-      ثم افتح الـ Print بعد تحديث الـ DOM
-    */
-
     setPreview(false);
 
     setTimeout(() => {
       window.print();
     }, 100);
   };
-
-  /* =========================================
-     Render
-  ========================================= */
 
   return (
     <section
@@ -302,17 +411,17 @@ const ReportForm = () => {
       "
     >
       <div className="mx-auto max-w-7xl">
-
-        {/* =========================
-            Category Selector
-        ========================= */}
+        {/* =========================================
+            Category
+        ========================================= */}
 
         <CategorySelector
           categories={
             formik.values.categories
           }
           selectedCategory={
-            formik.values.selectedCategory
+            formik.values
+              .selectedCategory
           }
           onSelect={(id) =>
             formik.setFieldValue(
@@ -323,18 +432,18 @@ const ReportForm = () => {
           onAdd={(category) => {
             formik.setFieldValue(
               "categories",
-
               [
-                ...formik.values.categories,
+                ...formik.values
+                  .categories,
                 category,
               ],
             );
           }}
         />
 
-        {/* =========================
-            Page Header
-        ========================= */}
+        {/* =========================================
+            Header
+        ========================================= */}
 
         <div
           className="
@@ -347,33 +456,18 @@ const ReportForm = () => {
           "
         >
           <div>
-            <h2
-              className="
-                text-2xl
-                font-bold
-                text-gray-950
-                sm:text-3xl
-              "
-            >
+            <h2 className="text-2xl font-bold text-gray-950 sm:text-3xl">
               إنشاء التقرير
             </h2>
 
-            <p
-              className="
-                mt-2
-                hidden
-                text-sm
-                text-gray-500
-                sm:block
-              "
-            >
+            <p className="mt-2 hidden text-sm text-gray-500 sm:block">
               أدخل البيانات وشاهد
               التقرير مباشرة قبل
               الطباعة.
             </p>
           </div>
 
-          {/* Mobile Preview Button */}
+          {/* Mobile Preview */}
 
           <button
             type="button"
@@ -382,7 +476,6 @@ const ReportForm = () => {
               flex
               shrink-0
               items-center
-              gap-2
               rounded-xl
               bg-black
               px-4
@@ -395,15 +488,13 @@ const ReportForm = () => {
               lg:hidden
             "
           >
-            <span>
-              معاينة التقرير
-            </span>
+            معاينة التقرير
           </button>
         </div>
 
-        {/* =========================
-            Main Layout
-        ========================= */}
+        {/* =========================================
+            Layout
+        ========================================= */}
 
         <div
           className="
@@ -413,9 +504,9 @@ const ReportForm = () => {
             lg:grid-cols-[420px_minmax(0,1fr)]
           "
         >
-          {/* =========================
-              FORM
-          ========================= */}
+          {/* =========================================
+              Form
+          ========================================= */}
 
           <form
             onSubmit={
@@ -434,19 +525,12 @@ const ReportForm = () => {
             "
           >
             <div className="space-y-6">
-
-              {/* Gender */}
+              {/* =========================================
+                  Gender
+              ========================================= */}
 
               <div>
-                <label
-                  className="
-                    mb-2
-                    block
-                    text-sm
-                    font-semibold
-                    text-gray-800
-                  "
-                >
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   النوع
                 </label>
 
@@ -467,11 +551,11 @@ const ReportForm = () => {
                       text-sm
                       font-medium
                       transition
-
-                      ${formik.values.gender ===
+                      ${
+                        formik.values.gender ===
                         "male"
-                        ? "border-black bg-black text-white"
-                        : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                          ? "border-black bg-black text-white"
+                          : "border-gray-200 bg-white text-gray-700"
                       }
                     `}
                   >
@@ -494,11 +578,11 @@ const ReportForm = () => {
                       text-sm
                       font-medium
                       transition
-
-                      ${formik.values.gender ===
+                      ${
+                        formik.values.gender ===
                         "female"
-                        ? "border-black bg-black text-white"
-                        : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                          ? "border-black bg-black text-white"
+                          : "border-gray-200 bg-white text-gray-700"
                       }
                     `}
                   >
@@ -507,31 +591,37 @@ const ReportForm = () => {
                 </div>
               </div>
 
-              {/* Region + School */}
+              {/* =========================================
+                  Region + School
+              ========================================= */}
 
-              <div
-                className="
-                  grid
-                  grid-cols-1
-                  gap-4
-                  sm:grid-cols-2
-                "
-              >
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <InputField
-                  label="اسم المنطقه"
+                  label="اسم المنطقة"
                   name="regionName"
-                  value={formik.values.regionName}
-                  onChange={formik.handleChange}
+                  value={
+                    formik.values
+                      .regionName
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
                   onFocus={() => {
                     if (
-                      formik.values.regionName ===
+                      formik.values
+                        .regionName ===
                       DEFAULT_REGION
                     ) {
-                      formik.setFieldValue("regionName", "");
+                      formik.setFieldValue(
+                        "regionName",
+                        "",
+                      );
                     }
                   }}
                   onBlur={() => {
-                    if (!formik.values.regionName.trim()) {
+                    if (
+                      !formik.values.regionName.trim()
+                    ) {
                       formik.setFieldValue(
                         "regionName",
                         DEFAULT_REGION,
@@ -543,18 +633,29 @@ const ReportForm = () => {
                 <InputField
                   label="اسم المدرسة"
                   name="schoolName"
-                  value={formik.values.schoolName}
-                  onChange={formik.handleChange}
+                  value={
+                    formik.values
+                      .schoolName
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
                   onFocus={() => {
                     if (
-                      formik.values.schoolName ===
+                      formik.values
+                        .schoolName ===
                       DEFAULT_SCHOOL
                     ) {
-                      formik.setFieldValue("schoolName", "");
+                      formik.setFieldValue(
+                        "schoolName",
+                        "",
+                      );
                     }
                   }}
                   onBlur={() => {
-                    if (!formik.values.schoolName.trim()) {
+                    if (
+                      !formik.values.schoolName.trim()
+                    ) {
                       formik.setFieldValue(
                         "schoolName",
                         DEFAULT_SCHOOL,
@@ -562,10 +663,11 @@ const ReportForm = () => {
                     }
                   }}
                 />
-
               </div>
 
-              {/* Teacher */}
+              {/* =========================================
+                  Teacher
+              ========================================= */}
 
               <InputField
                 label={
@@ -573,14 +675,13 @@ const ReportForm = () => {
                 }
                 name="teacherName"
                 value={
-                  formik.values.teacherName
+                  formik.values
+                    .teacherName
                 }
                 onChange={
                   formik.handleChange
                 }
               />
-
-              {/* Specialization */}
 
               <InputField
                 label="التخصص"
@@ -594,84 +695,202 @@ const ReportForm = () => {
                 }
               />
 
-              {/* Grade */}
+              {/* =========================================
+                  Grade + Class
+              ========================================= */}
 
-              <InputField
-                label="الصف"
-                name="grade"
-                value={
-                  formik.values.grade
-                }
-                onChange={
-                  formik.handleChange
-                }
-              />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <InputField
+                  label="الصف"
+                  name="grade"
+                  value={
+                    formik.values
+                      .grade
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
 
-              {/* Class */}
+                <InputField
+                  label="الفصل"
+                  name="className"
+                  value={
+                    formik.values
+                      .className
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
+              </div>
 
-              <InputField
-                label="الفصل"
-                name="className"
-                value={
-                  formik.values.className
-                }
-                onChange={
-                  formik.handleChange
-                }
-              />
+              {/* =========================================
+                  Period + Day
+              ========================================= */}
 
-              {/* Date */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <InputField
+                  label="الحصة"
+                  name="period"
+                  value={
+                    formik.values
+                      .period
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
 
-              <InputField
-                label="التاريخ"
-                name="date"
-                type="date"
-                value={
-                  formik.values.date
-                }
-                onChange={
-                  formik.handleChange
-                }
-              />
+                <InputField
+                  label="اليوم"
+                  name="day"
+                  value={
+                    formik.values.day
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
+              </div>
 
-              {/* Program */}
+              {/* =========================================
+                  Gregorian + Hijri
+              ========================================= */}
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <InputField
+                  label="التاريخ الميلادي"
+                  name="gregorianDate"
+                  type="date"
+                  value={
+                    formik.values
+                      .gregorianDate
+                  }
+                  onChange={(
+                    event,
+                  ) => {
+                    const value =
+                      event.target
+                        .value;
+
+                    formik.setFieldValue(
+                      "gregorianDate",
+                      value,
+                    );
+
+                    formik.setFieldValue(
+                      "hijriDate",
+                      convertToHijri(
+                        value,
+                      ),
+                    );
+                  }}
+                />
+
+                <InputField
+                  label="التاريخ الهجري"
+                  name="hijriDate"
+                  value={
+                    formik.values
+                      .hijriDate
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                  placeholder="مثال: ١٥/٠٤/١٤٤٨ هـ"
+                />
+              </div>
+
+              {/* =========================================
+                  Program
+              ========================================= */}
 
               <InputField
                 label="اسم البرنامج"
                 name="programName"
                 value={
-                  formik.values.programName
+                  formik.values
+                    .programName
                 }
                 onChange={
                   formik.handleChange
                 }
               />
 
-              {/* Activity Leader + Supervisor */}
+              <InputField
+                label="مكان التنفيذ"
+                name="location"
+                value={
+                  formik.values
+                    .location
+                }
+                onChange={
+                  formik.handleChange
+                }
+              />
 
-              <div
-                className="
-                  grid
-                  grid-cols-1
-                  gap-4
-                  sm:grid-cols-2
-                "
-              >
+              {/* =========================================
+                  Attendance
+              ========================================= */}
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <InputField
+                  label="الحضور"
+                  name="attendance"
+                  value={
+                    formik.values
+                      .attendance
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
+
+                <InputField
+                  label="الغياب"
+                  name="absence"
+                  value={
+                    formik.values
+                      .absence
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
+                />
+              </div>
+
+              {/* =========================================
+                  Leader + Manager
+              ========================================= */}
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <InputField
                   label="اسم رائد النشاط"
                   name="activityLeaderName"
-                  value={formik.values.activityLeaderName}
-                  onChange={formik.handleChange}
+                  value={
+                    formik.values
+                      .activityLeaderName
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
                   onFocus={() => {
                     if (
-                      formik.values.activityLeaderName ===
+                      formik.values
+                        .activityLeaderName ===
                       DEFAULT_ACTIVITY_LEADER
                     ) {
-                      formik.setFieldValue("activityLeaderName", "");
+                      formik.setFieldValue(
+                        "activityLeaderName",
+                        "",
+                      );
                     }
                   }}
                   onBlur={() => {
-                    if (!formik.values.activityLeaderName.trim()) {
+                    if (
+                      !formik.values.activityLeaderName.trim()
+                    ) {
                       formik.setFieldValue(
                         "activityLeaderName",
                         DEFAULT_ACTIVITY_LEADER,
@@ -683,18 +902,29 @@ const ReportForm = () => {
                 <InputField
                   label="اسم مدير المدرسة"
                   name="supervisorName"
-                  value={formik.values.supervisorName}
-                  onChange={formik.handleChange}
+                  value={
+                    formik.values
+                      .supervisorName
+                  }
+                  onChange={
+                    formik.handleChange
+                  }
                   onFocus={() => {
                     if (
-                      formik.values.supervisorName ===
+                      formik.values
+                        .supervisorName ===
                       DEFAULT_SCHOOL_MANAGER
                     ) {
-                      formik.setFieldValue("supervisorName", "");
+                      formik.setFieldValue(
+                        "supervisorName",
+                        "",
+                      );
                     }
                   }}
                   onBlur={() => {
-                    if (!formik.values.supervisorName.trim()) {
+                    if (
+                      !formik.values.supervisorName.trim()
+                    ) {
                       formik.setFieldValue(
                         "supervisorName",
                         DEFAULT_SCHOOL_MANAGER,
@@ -702,28 +932,22 @@ const ReportForm = () => {
                     }
                   }}
                 />
-
               </div>
 
-              {/* Objectives */}
+              {/* =========================================
+                  Objectives
+              ========================================= */}
 
               <div>
-                <label
-                  className="
-                    mb-2
-                    block
-                    text-sm
-                    font-semibold
-                    text-gray-800
-                  "
-                >
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   أهداف البرنامج
                 </label>
 
                 <textarea
                   name="objectives"
                   value={
-                    formik.values.objectives
+                    formik.values
+                      .objectives
                   }
                   onChange={
                     formik.handleChange
@@ -744,25 +968,20 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* Impact */}
+              {/* =========================================
+                  Impact
+              ========================================= */}
 
               <div>
-                <label
-                  className="
-                    mb-2
-                    block
-                    text-sm
-                    font-semibold
-                    text-gray-800
-                  "
-                >
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
                   أثر البرنامج
                 </label>
 
                 <textarea
                   name="impact"
                   value={
-                    formik.values.impact
+                    formik.values
+                      .impact
                   }
                   onChange={
                     formik.handleChange
@@ -783,14 +1002,19 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =========================
-                  Dynamic Fields
-              ========================= */}
+              {/* =========================================
+                  Custom Fields
+              ========================================= */}
 
               {formik.values.customFields.map(
-                (field, index) => (
+                (
+                  field,
+                  index,
+                ) => (
                   <div
-                    key={field.id}
+                    key={
+                      field.id
+                    }
                     className="
                       rounded-xl
                       border
@@ -799,21 +1023,8 @@ const ReportForm = () => {
                       p-4
                     "
                   >
-                    <div
-                      className="
-                        mb-3
-                        flex
-                        items-center
-                        justify-between
-                      "
-                    >
-                      <span
-                        className="
-                          text-sm
-                          font-semibold
-                          text-gray-700
-                        "
-                      >
+                    <div className="mb-3 flex items-center justify-between">
+                      <span className="text-sm font-semibold text-gray-700">
                         حقل إضافي
                       </span>
 
@@ -824,13 +1035,7 @@ const ReportForm = () => {
                             field.id,
                           )
                         }
-                        className="
-                          text-sm
-                          font-medium
-                          text-red-500
-                          transition
-                          hover:text-red-700
-                        "
+                        className="text-sm font-medium text-red-500 hover:text-red-700"
                       >
                         حذف
                       </button>
@@ -885,35 +1090,17 @@ const ReportForm = () => {
                 ),
               )}
 
-              {/* =========================
+              {/* =========================================
                   Evidence Images
-              ========================= */}
+              ========================================= */}
 
               <div>
-                <div
-                  className="
-                    mb-2
-                    flex
-                    items-center
-                    justify-between
-                  "
-                >
-                  <label
-                    className="
-                      text-sm
-                      font-semibold
-                      text-gray-800
-                    "
-                  >
+                <div className="mb-2 flex items-center justify-between">
+                  <label className="text-sm font-semibold text-gray-800">
                     صور الشواهد
                   </label>
 
-                  <span
-                    className="
-                      text-xs
-                      text-gray-500
-                    "
-                  >
+                  <span className="text-xs text-gray-500">
                     {
                       formik.values
                         .evidenceImages
@@ -923,24 +1110,18 @@ const ReportForm = () => {
                   </span>
                 </div>
 
-                <p
-                  className="
-                    mb-3
-                    text-xs
-                    text-gray-500
-                  "
-                >
-                  يجب إضافة صورتين على
-                  الأقل، والحد الأقصى 4
-                  صور.
+                <p className="mb-3 text-xs text-gray-500">
+                  يجب إضافة صورتين
+                  على الأقل، والحد
+                  الأقصى 4 صور.
                 </p>
 
                 {formik.values
                   .evidenceImages
                   .length < 4 && (
-                    <label
-                      htmlFor="evidence-images"
-                      className="
+                  <label
+                    htmlFor="evidence-images"
+                    className="
                       flex
                       cursor-pointer
                       items-center
@@ -958,79 +1139,74 @@ const ReportForm = () => {
                       hover:border-gray-700
                       hover:text-gray-900
                     "
-                    >
-                      + إضافة صور الشواهد
+                  >
+                    + إضافة صور الشواهد
 
-                      <input
-                        id="evidence-images"
-                        type="file"
-                        accept="
-                        image/png,
-                        image/jpeg,
-                        image/webp
-                      "
-                        multiple
-                        onChange={
-                          handleImagesChange
-                        }
-                        className="hidden"
-                      />
-                    </label>
-                  )}
-
-                {/* Selected Images */}
+                    <input
+                      id="evidence-images"
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      multiple
+                      onChange={
+                        handleImagesChange
+                      }
+                      className="hidden"
+                    />
+                  </label>
+                )}
 
                 {formik.values
                   .evidenceImages
                   .length > 0 && (
-                    <div
-                      className="
-                      mt-4
-                      grid
-                      grid-cols-2
-                      gap-3
-                    "
-                    >
-                      {formik.values.evidenceImages.map(
-                        (
-                          image,
-                          index,
-                        ) => (
-                          <div
-                            key={image}
-                            className="
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    {formik.values.evidenceImages.map(
+                      (
+                        image,
+                        index,
+                      ) => (
+                        <div
+                          key={
+                            image
+                          }
+                          className="
                             relative
                             overflow-hidden
                             rounded-lg
                             border
                             border-gray-200
                           "
-                          >
-                            <Image
-                              width={600}
-                              height={450}
-                              src={
-                                image
-                              }
-                              alt={`الشاهد ${index + 1
-                                }`}
-                              unoptimized
-                              className="
+                        >
+                          <Image
+                            width={
+                              600
+                            }
+                            height={
+                              450
+                            }
+                            src={
+                              image
+                            }
+                            alt={`الشاهد ${
+                              index +
+                              1
+                            }`}
+                            unoptimized
+                            className="
                               aspect-[4/3]
                               h-full
                               w-full
                               object-cover
                             "
-                            />
+                          />
 
-                            <button
-                              type="button"
-                              onClick={() =>
-                                removeImage(
-                                  index,
-                                )
-                              }
-                              className="
+                          <button
+                            type="button"
+                            onClick={() =>
+                              removeImage(
+                                index,
+                              )
+                            }
+                            className="
                               absolute
                               left-2
                               top-2
@@ -1043,38 +1219,35 @@ const ReportForm = () => {
                               text-red-600
                               shadow-sm
                             "
-                            >
-                              حذف
-                            </button>
-                          </div>
-                        ),
-                      )}
-                    </div>
-                  )}
+                          >
+                            حذف
+                          </button>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                )}
 
                 {formik.values
                   .evidenceImages
                   .length === 1 && (
-                    <p
-                      className="
-                      mt-2
-                      text-xs
-                      font-medium
-                      text-red-500
-                    "
-                    >
-                      أضف صورة أخرى على الأقل
-                      حتى تتمكن من طباعة
-                      التقرير.
-                    </p>
-                  )}
+                  <p className="mt-2 text-xs font-medium text-red-500">
+                    أضف صورة أخرى على
+                    الأقل حتى تتمكن
+                    من طباعة التقرير.
+                  </p>
+                )}
               </div>
 
-              {/* Add Field */}
+              {/* =========================================
+                  Add Custom
+              ========================================= */}
 
               <button
                 type="button"
-                onClick={addCustomField}
+                onClick={
+                  addCustomField
+                }
                 className="
                   w-full
                   rounded-xl
@@ -1093,11 +1266,15 @@ const ReportForm = () => {
                 + إضافة حقل
               </button>
 
-              {/* Print */}
+              {/* =========================================
+                  Print
+              ========================================= */}
 
               <button
                 type="button"
-                onClick={printReport}
+                onClick={
+                  printReport
+                }
                 className="
                   w-full
                   rounded-xl
@@ -1115,25 +1292,20 @@ const ReportForm = () => {
             </div>
           </form>
 
-          {/* =========================
+          {/* =========================================
               Desktop Preview
-          ========================= */}
+          ========================================= */}
 
-          <div
-            className="
-              hidden
-              min-w-0
-              lg:block
-              print:block
-            "
-          >
+          <div className="hidden min-w-0 lg:block print:block">
             <ReportPreview
               previewId="report-preview"
-              values={formik.values}
+              values={
+                formik.values
+              }
               labels={labels}
               categoryName={
-                selectedCategory?.name ??
-                ""
+                selectedCategory
+                  ?.name ?? ""
               }
             />
           </div>
@@ -1141,7 +1313,7 @@ const ReportForm = () => {
       </div>
 
       {/* =========================================
-          MOBILE PREVIEW MODAL
+          Mobile Preview Modal
       ========================================= */}
 
       {preview && (
@@ -1155,16 +1327,8 @@ const ReportForm = () => {
             lg:hidden
           "
         >
-          <div
-            className="
-              flex
-              h-[100dvh]
-              w-full
-              flex-col
-              bg-white
-            "
-          >
-            {/* Modal Header */}
+          <div className="flex h-[100dvh] w-full flex-col bg-white">
+            {/* Header */}
 
             <div
               className="
@@ -1180,22 +1344,11 @@ const ReportForm = () => {
               "
             >
               <div>
-                <h3
-                  className="
-                    font-bold
-                    text-gray-950
-                  "
-                >
+                <h3 className="font-bold text-gray-950">
                   معاينة التقرير
                 </h3>
 
-                <p
-                  className="
-                    mt-0.5
-                    text-xs
-                    text-gray-500
-                  "
-                >
+                <p className="mt-0.5 text-xs text-gray-500">
                   راجع التقرير قبل
                   الطباعة
                 </p>
@@ -1203,7 +1356,9 @@ const ReportForm = () => {
 
               <button
                 type="button"
-                onClick={closePreview}
+                onClick={
+                  closePreview
+                }
                 aria-label="إغلاق المعاينة"
                 className="
                   flex
@@ -1214,27 +1369,16 @@ const ReportForm = () => {
                   rounded-full
                   bg-gray-100
                   text-2xl
-                  leading-none
                   text-gray-700
-                  transition
-                  hover:bg-gray-200
                 "
               >
                 ×
               </button>
             </div>
 
-            {/* Modal Preview */}
+            {/* Preview */}
 
-            <div
-              className="
-                flex-1
-                overflow-auto
-                bg-gray-100
-                p-3
-                sm:p-5
-              "
-            >
+            <div className="flex-1 overflow-auto bg-gray-100 p-3 sm:p-5">
               <ReportPreview
                 previewId="report-preview-mobile"
                 values={
@@ -1242,23 +1386,15 @@ const ReportForm = () => {
                 }
                 labels={labels}
                 categoryName={
-                  selectedCategory?.name ??
-                  ""
+                  selectedCategory
+                    ?.name ?? ""
                 }
               />
             </div>
 
-            {/* Modal Footer */}
+            {/* Buttons */}
 
-            <div
-              className="
-                shrink-0
-                border-t
-                border-gray-200
-                bg-white
-                p-3
-              "
-            >
+            <div className="shrink-0 border-t border-gray-200 bg-white p-3">
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
@@ -1275,8 +1411,6 @@ const ReportForm = () => {
                     text-sm
                     font-semibold
                     text-gray-700
-                    transition
-                    hover:bg-gray-50
                   "
                 >
                   رجوع للتعديل
@@ -1295,8 +1429,6 @@ const ReportForm = () => {
                     text-sm
                     font-semibold
                     text-white
-                    transition
-                    hover:bg-gray-800
                   "
                 >
                   طباعة التقرير
@@ -1313,20 +1445,28 @@ const ReportForm = () => {
 export default ReportForm;
 
 /* =========================================
-   InputField
+   Input Field
 ========================================= */
 
 type InputFieldProps = {
   label: string;
+
   name: string;
+
   value: string;
+
   type?: string;
 
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  placeholder?: string;
 
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onChange:
+    React.ChangeEventHandler<HTMLInputElement>;
 
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onFocus?:
+    React.FocusEventHandler<HTMLInputElement>;
+
+  onBlur?:
+    React.FocusEventHandler<HTMLInputElement>;
 };
 
 const InputField = ({
@@ -1334,6 +1474,7 @@ const InputField = ({
   name,
   value,
   type = "text",
+  placeholder,
   onChange,
   onFocus,
   onBlur,
@@ -1352,6 +1493,9 @@ const InputField = ({
         name={name}
         type={type}
         value={value}
+        placeholder={
+          placeholder
+        }
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}

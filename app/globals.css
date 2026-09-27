@@ -95,6 +95,30 @@
 }
 
 /* body */
+.report-textarea-box {
+  width: 100%;
+
+  min-height: 90px;
+
+  padding: 12px 14px;
+
+  border: 1.5px solid #bdbdbd;
+
+  border-radius: 5px;
+
+  background: #fff;
+
+  font-size: 13px;
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+
+  text-align: right;
+
+  box-sizing: border-box;
+}
+
 .report-body {
   padding: 28px 22px 30px;
 }
@@ -260,6 +284,23 @@
     -webkit-print-color-adjust: economy;
     print-color-adjust: economy;
   }
+
+  @media print {
+  .report-textarea-box {
+    min-height: 22mm !important;
+
+    border: 1px solid #999 !important;
+
+    background: #fff !important;
+
+    padding: 3mm !important;
+
+    white-space: pre-wrap !important;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
 
   body * {
     visibility: hidden;

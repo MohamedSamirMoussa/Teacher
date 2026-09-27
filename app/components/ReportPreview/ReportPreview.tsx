@@ -16,6 +16,31 @@ type Props = {
   };
 };
 
+/* =========================================
+   Gregorian Formatter
+========================================= */
+
+const formatGregorianDate = (
+  value: string,
+) => {
+  if (!value) {
+    return "";
+  }
+
+  const [year, month, day] =
+    value.split("-");
+
+  if (
+    !year ||
+    !month ||
+    !day
+  ) {
+    return value;
+  }
+
+  return `${day}/${month}/${year}`;
+};
+
 const ReportPreview = ({
   values,
   labels,
@@ -29,28 +54,31 @@ const ReportPreview = ({
         className="report-preview-shell"
       >
         <div className="report-sheet">
-
-          {/* =========================
+          {/* =========================================
               Header
-          ========================= */}
+          ========================================= */}
 
           <div className="report-header-top">
             <div className="report-header-grid">
-
               {/* School */}
 
               <div className="report-header-block">
+                <p className="report-school-name">
+                  {
+                    values.schoolName
+                  }
+                </p>
+
                 <p className="report-header-main">
-                  الإدارة العامة للتعليم
+                  الإدارة العامة
+                  للتعليم
                 </p>
 
                 <p>
                   بمنطقة{" "}
-                  {values.regionName}
-                </p>
-
-                <p className="report-school-name">
-                  {values.schoolName}
+                  {
+                    values.regionName
+                  }
                 </p>
               </div>
 
@@ -67,26 +95,26 @@ const ReportPreview = ({
                 </div>
 
                 <p>
-                  Ministry of Education
+                  Ministry of
+                  Education
                 </p>
               </div>
             </div>
           </div>
 
-          {/* =========================
-              Main Title
-          ========================= */}
+          {/* =========================================
+              Title
+          ========================================= */}
 
           <div className="report-title-ribbon">
             برامج الأنشطة الطلابية
           </div>
 
-          {/* =========================
+          {/* =========================================
               Body
-          ========================= */}
+          ========================================= */}
 
           <div className="report-body">
-
             {/* Category */}
 
             <h2 className="report-category-title">
@@ -94,16 +122,12 @@ const ReportPreview = ({
                 "مجال البرنامج"}
             </h2>
 
-            {/* =========================
-                Row 1
-            ========================= */}
+            {/* =========================================
+                ROW 1
+                3 Columns
+            ========================================= */}
 
-            <div
-              className="
-                report-fields-grid
-                report-fields-grid-3
-              "
-            >
+            <div className="report-fields-grid report-fields-grid-3">
               <FieldBox
                 label={
                   labels.teacherName
@@ -128,47 +152,50 @@ const ReportPreview = ({
               />
             </div>
 
-            {/* =========================
-                Row 2
-            ========================= */}
+            {/* =========================================
+                ROW 2
+                4 Columns
+                Keep grid untouched
+            ========================================= */}
 
-            <div
-              className="
-                report-fields-grid
-                report-fields-grid-4
-              "
-            >
+            <div className="report-fields-grid report-fields-grid-4">
               <FieldBox
                 label="الصف"
-                value={values.grade}
+                value={
+                  values.grade
+                }
               />
 
               <FieldBox
                 label="الحصة"
-                value=""
+                value={
+                  values.period
+                }
               />
 
               <FieldBox
                 label="اليوم"
-                value=""
+                value={
+                  values.day
+                }
               />
 
-              <FieldBox
-                label="التاريخ"
-                value={values.date}
+              <DateFieldBox
+                gregorianDate={
+                  values.gregorianDate
+                }
+                hijriDate={
+                  values.hijriDate
+                }
               />
             </div>
 
-            {/* =========================
-                Row 3
-            ========================= */}
+            {/* =========================================
+                ROW 3
+                4 Columns
+            ========================================= */}
 
-            <div
-              className="
-                report-fields-grid
-                report-fields-grid-4
-              "
-            >
+            <div className="report-fields-grid report-fields-grid-4">
               <FieldBox
                 label="اسم البرنامج"
                 value={
@@ -178,80 +205,79 @@ const ReportPreview = ({
 
               <FieldBox
                 label="مكان التنفيذ"
-                value=""
+                value={
+                  values.location
+                }
               />
 
               <FieldBox
                 label="الحضور"
-                value=""
+                value={
+                  values.attendance
+                }
               />
 
               <FieldBox
                 label="الغياب"
-                value=""
+                value={
+                  values.absence
+                }
               />
-
-              {/* =========================
-                Custom Fields
-            ========================= */}
-
-              {values.customFields.length >
-                0 && (
-
-
-                  <>
-                    {values.customFields.map(
-                      (field) => (
-                        <FieldBox
-                          key={
-                            field.id
-                          }
-                          label={
-                            field.label ||
-                            "حقل إضافي"
-                          }
-                          value={
-                            field.value
-                          }
-                        />
-                      ),
-                    )}
-
-                  </>
-                )}
             </div>
 
+            {/* =========================================
+                Custom Fields
+                فوق الأهداف
+                بدون عنوان
+            ========================================= */}
 
+            {values.customFields
+              .length > 0 && (
+              <div className="report-fields-grid report-fields-grid-4">
+                {values.customFields.map(
+                  (field) => (
+                    <FieldBox
+                      key={
+                        field.id
+                      }
+                      label={
+                        field.label ||
+                        "حقل إضافي"
+                      }
+                      value={
+                        field.value
+                      }
+                    />
+                  ),
+                )}
+              </div>
+            )}
 
-            {/* =========================
+            {/* =========================================
                 Objectives
-            ========================= */}
+            ========================================= */}
 
-            <SectionBoxes
+            <ReportTextSection
               title="أهداف البرنامج"
-              values={splitTextToBoxes(
-                values.objectives,
-                4,
-              )}
+              value={
+                values.objectives
+              }
             />
 
-            {/* =========================
+            {/* =========================================
                 Impact
-            ========================= */}
+            ========================================= */}
 
-            <SectionBoxes
+            <ReportTextSection
               title="الأثر الإيجابي للبرنامج"
-              values={splitTextToBoxes(
-                values.impact,
-                4,
-              )}
+              value={
+                values.impact
+              }
             />
 
-
-
-            {/* =========================
+            {/* =========================================
                 Evidence
-            ========================= */}
+            ========================================= */}
 
             <div className="report-evidence-section">
               <h3 className="report-section-title">
@@ -261,12 +287,13 @@ const ReportPreview = ({
               {values.evidenceImages
                 .length > 0 ? (
                 <div
-                  className={`report-images-grid ${values
-                    .evidenceImages
-                    .length === 2
-                    ? "report-images-2"
-                    : ""
-                    }`}
+                  className={`report-images-grid ${
+                    values
+                      .evidenceImages
+                      .length === 2
+                      ? "report-images-2"
+                      : ""
+                  }`}
                 >
                   {values.evidenceImages.map(
                     (
@@ -289,9 +316,10 @@ const ReportPreview = ({
                           src={
                             image
                           }
-                          alt={`شاهد ${index +
+                          alt={`شاهد ${
+                            index +
                             1
-                            }`}
+                          }`}
                           unoptimized
                           className="report-image"
                         />
@@ -304,9 +332,9 @@ const ReportPreview = ({
               )}
             </div>
 
-            {/* =========================
+            {/* =========================================
                 Signatures
-            ========================= */}
+            ========================================= */}
 
             <div className="report-signatures">
               <SignatureBox
@@ -314,7 +342,8 @@ const ReportPreview = ({
                   labels.activityLeader
                 }
                 name={
-                  values.activityLeaderName
+                  values
+                    .activityLeaderName
                 }
               />
 
@@ -323,7 +352,8 @@ const ReportPreview = ({
                   labels.supervisor
                 }
                 name={
-                  values.supervisorName
+                  values
+                    .supervisorName
                 }
               />
             </div>
@@ -345,7 +375,6 @@ const FieldBox = ({
   value,
 }: {
   label: string;
-
   value: string;
 }) => {
   return (
@@ -362,16 +391,62 @@ const FieldBox = ({
 };
 
 /* =========================================
-   Sections
+   Date Box
+
+   ميلادي + هجري
+   داخل نفس العمود
 ========================================= */
 
-const SectionBoxes = ({
+const DateFieldBox = ({
+  gregorianDate,
+  hijriDate,
+}: {
+  gregorianDate: string;
+  hijriDate: string;
+}) => {
+  return (
+    <div className="report-field">
+      <div className="report-field-label">
+        التاريخ
+      </div>
+
+      <div className="report-field-box report-date-box">
+        <div className="report-date-row">
+          <span className="report-date-label">
+            م:
+          </span>
+
+          <span>
+            {formatGregorianDate(
+              gregorianDate,
+            )}
+          </span>
+        </div>
+
+        <div className="report-date-row">
+          <span className="report-date-label">
+            هـ:
+          </span>
+
+          <span>
+            {hijriDate || ""}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* =========================================
+   Objectives / Impact
+========================================= */
+
+const ReportTextSection = ({
   title,
-  values,
+  value,
 }: {
   title: string;
-
-  values: string[];
+  value: string;
 }) => {
   return (
     <div className="report-section">
@@ -379,22 +454,8 @@ const SectionBoxes = ({
         {title}
       </h3>
 
-      <div
-        className="
-          report-fields-grid
-          report-fields-grid-2
-        "
-      >
-        {values.map(
-          (item, index) => (
-            <div
-              key={index}
-              className="report-section-box"
-            >
-              {item}
-            </div>
-          ),
-        )}
+      <div className="report-textarea-box">
+        {value || ""}
       </div>
     </div>
   );
@@ -409,7 +470,6 @@ const SignatureBox = ({
   name,
 }: {
   title: string;
-
   name?: string;
 }) => {
   return (
@@ -423,38 +483,4 @@ const SignatureBox = ({
       </div>
     </div>
   );
-};
-
-/* =========================================
-   Split Text
-========================================= */
-
-const splitTextToBoxes = (
-  text: string,
-  count: number,
-) => {
-  if (!text.trim()) {
-    return Array(count).fill("");
-  }
-
-  const lines = text
-    .split("\n")
-    .map((line) =>
-      line.trim(),
-    )
-    .filter(Boolean);
-
-  const result =
-    Array(count).fill("");
-
-  for (
-    let i = 0;
-    i < count;
-    i++
-  ) {
-    result[i] =
-      lines[i] || "";
-  }
-
-  return result;
 };
