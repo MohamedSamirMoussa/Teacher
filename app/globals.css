@@ -301,10 +301,33 @@
    CUSTOM
 ========================================= */
 
-.report-custom-fields {
-  margin-top: 0;
+/* =========================================
+   CUSTOM FIELDS
+========================================= */
+
+.report-custom-fields-row {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 3mm;
+
+  width: 100%;
+
+  margin-bottom: 3mm;
 }
 
+.report-custom-field-item {
+  /*
+    4 fields = صف كامل
+    3 gaps × 3mm = 9mm
+  */
+  flex: 0 0 calc((100% - 9mm) / 4);
+
+  min-width: 0;
+}
 /* =========================================
    SECTIONS
 ========================================= */
