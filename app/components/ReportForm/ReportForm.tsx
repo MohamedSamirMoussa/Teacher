@@ -551,11 +551,10 @@ const ReportForm = () => {
                       text-sm
                       font-medium
                       transition
-                      ${
-                        formik.values.gender ===
+                      ${formik.values.gender ===
                         "male"
-                          ? "border-black bg-black text-white"
-                          : "border-gray-200 bg-white text-gray-700"
+                        ? "border-black bg-black text-white"
+                        : "border-gray-200 bg-white text-gray-700"
                       }
                     `}
                   >
@@ -578,11 +577,10 @@ const ReportForm = () => {
                       text-sm
                       font-medium
                       transition
-                      ${
-                        formik.values.gender ===
+                      ${formik.values.gender ===
                         "female"
-                          ? "border-black bg-black text-white"
-                          : "border-gray-200 bg-white text-gray-700"
+                        ? "border-black bg-black text-white"
+                        : "border-gray-200 bg-white text-gray-700"
                       }
                     `}
                   >
@@ -791,6 +789,7 @@ const ReportForm = () => {
                 <InputField
                   label="التاريخ الهجري"
                   name="hijriDate"
+                  disable={true}
                   value={
                     formik.values
                       .hijriDate
@@ -1119,9 +1118,9 @@ const ReportForm = () => {
                 {formik.values
                   .evidenceImages
                   .length < 4 && (
-                  <label
-                    htmlFor="evidence-images"
-                    className="
+                    <label
+                      htmlFor="evidence-images"
+                      className="
                       flex
                       cursor-pointer
                       items-center
@@ -1139,74 +1138,73 @@ const ReportForm = () => {
                       hover:border-gray-700
                       hover:text-gray-900
                     "
-                  >
-                    + إضافة صور الشواهد
+                    >
+                      + إضافة صور الشواهد
 
-                    <input
-                      id="evidence-images"
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp"
-                      multiple
-                      onChange={
-                        handleImagesChange
-                      }
-                      className="hidden"
-                    />
-                  </label>
-                )}
+                      <input
+                        id="evidence-images"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        multiple
+                        onChange={
+                          handleImagesChange
+                        }
+                        className="hidden"
+                      />
+                    </label>
+                  )}
 
                 {formik.values
                   .evidenceImages
                   .length > 0 && (
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    {formik.values.evidenceImages.map(
-                      (
-                        image,
-                        index,
-                      ) => (
-                        <div
-                          key={
-                            image
-                          }
-                          className="
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                      {formik.values.evidenceImages.map(
+                        (
+                          image,
+                          index,
+                        ) => (
+                          <div
+                            key={
+                              image
+                            }
+                            className="
                             relative
                             overflow-hidden
                             rounded-lg
                             border
                             border-gray-200
                           "
-                        >
-                          <Image
-                            width={
-                              600
-                            }
-                            height={
-                              450
-                            }
-                            src={
-                              image
-                            }
-                            alt={`الشاهد ${
-                              index +
-                              1
-                            }`}
-                            unoptimized
-                            className="
+                          >
+                            <Image
+                              width={
+                                600
+                              }
+                              height={
+                                450
+                              }
+                              src={
+                                image
+                              }
+                              alt={`الشاهد ${index +
+                                1
+                                }`}
+                              unoptimized
+                              className="
                               aspect-[4/3]
                               h-full
                               w-full
                               object-cover
                             "
-                          />
+                            />
 
-                          <button
-                            type="button"
-                            onClick={() =>
-                              removeImage(
-                                index,
-                              )
-                            }
-                            className="
+                            <button
+                              type="button"
+                              onClick={() =>
+                                removeImage(
+                                  index,
+                                )
+                              }
+                              className="
                               absolute
                               left-2
                               top-2
@@ -1219,24 +1217,24 @@ const ReportForm = () => {
                               text-red-600
                               shadow-sm
                             "
-                          >
-                            حذف
-                          </button>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                )}
+                            >
+                              حذف
+                            </button>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  )}
 
                 {formik.values
                   .evidenceImages
                   .length === 1 && (
-                  <p className="mt-2 text-xs font-medium text-red-500">
-                    أضف صورة أخرى على
-                    الأقل حتى تتمكن
-                    من طباعة التقرير.
-                  </p>
-                )}
+                    <p className="mt-2 text-xs font-medium text-red-500">
+                      أضف صورة أخرى على
+                      الأقل حتى تتمكن
+                      من طباعة التقرير.
+                    </p>
+                  )}
               </div>
 
               {/* =========================================
@@ -1459,14 +1457,16 @@ type InputFieldProps = {
 
   placeholder?: string;
 
+  disable?: boolean;
+
   onChange:
-    React.ChangeEventHandler<HTMLInputElement>;
+  React.ChangeEventHandler<HTMLInputElement>;
 
   onFocus?:
-    React.FocusEventHandler<HTMLInputElement>;
+  React.FocusEventHandler<HTMLInputElement>;
 
   onBlur?:
-    React.FocusEventHandler<HTMLInputElement>;
+  React.FocusEventHandler<HTMLInputElement>;
 };
 
 const InputField = ({
@@ -1478,6 +1478,7 @@ const InputField = ({
   onChange,
   onFocus,
   onBlur,
+  disable = false
 }: InputFieldProps) => {
   return (
     <div>
@@ -1493,6 +1494,7 @@ const InputField = ({
         name={name}
         type={type}
         value={value}
+        disabled={disable}
         placeholder={
           placeholder
         }
