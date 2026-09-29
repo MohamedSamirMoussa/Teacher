@@ -463,10 +463,6 @@ const SignatureBox = ({
       <div className="report-signature-name">
         {name || ""}
       </div>
-
-      <div className="report-signature-line">
-        التوقيع
-      </div>
     </div>
   );
 };
