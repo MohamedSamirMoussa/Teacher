@@ -91,9 +91,6 @@ const ReportPreview = ({
           ========================================= */}
 
           <div className="report-school-header">
-            <p className="report-school-name">
-              {values.schoolName}
-            </p>
 
             <p className="report-header-main">
               الإدارة العامة للتعليم
@@ -102,6 +99,10 @@ const ReportPreview = ({
             <p className="report-region-name">
               بمنطقة {values.regionName}
             </p>
+            <p className="report-school-name">
+              {values.schoolName}
+            </p>
+
           </div>
 
           {/* =========================================
@@ -227,27 +228,27 @@ const ReportPreview = ({
 
             {values.customFields.length >
               0 && (
-              <div className="report-custom-fields-row">
-                {values.customFields.map(
-                  (field) => (
-                    <div
-                      key={field.id}
-                      className="report-custom-field-item"
-                    >
-                      <FieldBox
-                        label={
-                          field.label ||
-                          "حقل إضافي"
-                        }
-                        value={
-                          field.value
-                        }
-                      />
-                    </div>
-                  ),
-                )}
-              </div>
-            )}
+                <div className="report-custom-fields-row">
+                  {values.customFields.map(
+                    (field) => (
+                      <div
+                        key={field.id}
+                        className="report-custom-field-item"
+                      >
+                        <FieldBox
+                          label={
+                            field.label ||
+                            "حقل إضافي"
+                          }
+                          value={
+                            field.value
+                          }
+                        />
+                      </div>
+                    ),
+                  )}
+                </div>
+              )}
 
             {/* =====================================
                 Objectives
@@ -302,9 +303,8 @@ const ReportPreview = ({
                           width={600}
                           height={450}
                           src={image}
-                          alt={`شاهد ${
-                            index + 1
-                          }`}
+                          alt={`شاهد ${index + 1
+                            }`}
                           unoptimized
                           className="report-image"
                         />
