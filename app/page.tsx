@@ -16,7 +16,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ReportForm />
+      <ReportForm />    
     </main>
   );
 }
