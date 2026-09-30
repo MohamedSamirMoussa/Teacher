@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 
 import { ReportFormValues } from "@/app/types/reports";
@@ -17,7 +18,7 @@ type Props = {
 };
 
 /* =========================================
-   Gregorian Formatter
+   Gregorian Date Formatter
 ========================================= */
 
 const formatGregorianDate = (
@@ -51,298 +52,280 @@ const ReportPreview = ({
   categoryName,
   previewId = "report-preview",
 }: Props) => {
+  const customFieldsCount =
+    values.customFields.length;
+
+  /*
+    0 - 4 Fields
+    = صفحة واحدة
+
+    5 - 12 Fields
+    = نقسمهم على صفحتين
+  */
+
+  const hasSecondPage =
+    customFieldsCount > 4;
+
+  const splitIndex =
+    hasSecondPage
+      ? Math.ceil(
+          customFieldsCount / 2,
+        )
+      : customFieldsCount;
+
+  const firstPageFields =
+    values.customFields.slice(
+      0,
+      splitIndex,
+    );
+
+  const secondPageFields =
+    hasSecondPage
+      ? values.customFields.slice(
+          splitIndex,
+        )
+      : [];
+
   return (
     <div className="w-full min-w-0">
       <div
         id={previewId}
         className="report-preview-shell"
       >
-        <div className="report-sheet">
-          {/* =========================================
-              Decorative Header
-          ========================================= */}
+        <div className="report-pages">
+          {/* =====================================
+              PAGE 1
+          ====================================== */}
 
-          <Image
-            src="/report-header.png"
-            alt=""
-            width={1448}
-            height={205}
-            priority
-            aria-hidden="true"
-            className="report-frame-header"
-          />
+          <ReportPage
+            values={values}
+          >
+            <div className="report-content">
+              {/* =========================
+                  Heading
+              ========================= */}
 
-          {/* =========================================
-              Decorative Footer
-          ========================================= */}
-
-          <Image
-            src="/report-footer.png"
-            alt=""
-            width={1448}
-            height={150}
-            priority
-            aria-hidden="true"
-            className="report-frame-footer"
-          />
-
-          {/* =========================================
-              School Information
-          ========================================= */}
-
-          <div className="report-school-header">
-
-            <p className="report-header-main">
-              الإدارة العامة للتعليم
-            </p>
-
-            <p className="report-region-name">
-              بمنطقة {values.regionName}
-            </p>
-            <p className="report-school-name">
-              {values.schoolName}
-            </p>
-
-          </div>
-
-          {/* =========================================
-              Content
-          ========================================= */}
-
-          <div className="report-content">
-            {/* Main title */}
-
-            <div className="report-title-ribbon">
-              برامج الأنشطة الطلابية
-            </div>
-
-            {/* Category */}
-
-            <h2 className="report-category-title">
-              {categoryName ||
-                "مجال البرنامج"}
-            </h2>
-
-            {/* =====================================
-                Row 1
-            ====================================== */}
-
-            <div className="report-fields-grid report-fields-grid-3">
-              <FieldBox
-                label={
-                  labels.teacherName
+              <ReportHeading
+                categoryName={
+                  categoryName
                 }
+              />
+
+              {/* =========================
+                  Row 1
+              ========================= */}
+
+              <div className="report-fields-grid report-fields-grid-3">
+                <FieldBox
+                  label={
+                    labels.teacherName
+                  }
+                  value={
+                    values.teacherName
+                  }
+                />
+
+                <FieldBox
+                  label="التخصص"
+                  value={
+                    values.specialization
+                  }
+                />
+
+                <FieldBox
+                  label="الفصل الدراسي"
+                  value={
+                    values.className
+                  }
+                />
+              </div>
+
+              {/* =========================
+                  Row 2
+              ========================= */}
+
+              <div className="report-fields-grid report-fields-grid-4">
+                <FieldBox
+                  label="الصف"
+                  value={
+                    values.grade
+                  }
+                />
+
+                <FieldBox
+                  label="الحصة"
+                  value={
+                    values.period
+                  }
+                />
+
+                <FieldBox
+                  label="اليوم"
+                  value={
+                    values.day
+                  }
+                />
+
+                <DateFieldBox
+                  gregorianDate={
+                    values.gregorianDate
+                  }
+                  hijriDate={
+                    values.hijriDate
+                  }
+                />
+              </div>
+
+              {/* =========================
+                  Row 3
+              ========================= */}
+
+              <div className="report-fields-grid report-fields-grid-4">
+                <FieldBox
+                  label="اسم البرنامج"
+                  value={
+                    values.programName
+                  }
+                />
+
+                <FieldBox
+                  label="مكان التنفيذ"
+                  value={
+                    values.location
+                  }
+                />
+
+                <FieldBox
+                  label="الحضور"
+                  value={
+                    values.attendance
+                  }
+                />
+
+                <FieldBox
+                  label="الغياب"
+                  value={
+                    values.absence
+                  }
+                />
+              </div>
+
+              {/* =========================
+                  Custom Fields
+                  Page 1
+              ========================= */}
+
+              <CustomFields
+                fields={
+                  firstPageFields
+                }
+              />
+
+              {/* =========================
+                  Objectives
+              ========================= */}
+
+              <ReportTextSection
+                title="أهداف البرنامج"
                 value={
-                  values.teacherName
+                  values.objectives
                 }
               />
 
-              <FieldBox
-                label="التخصص"
+              {/* =========================
+                  Impact
+              ========================= */}
+
+              <ReportTextSection
+                title="الأثر الإيجابي للبرنامج"
                 value={
-                  values.specialization
+                  values.impact
                 }
               />
 
-              <FieldBox
-                label="الفصل الدراسي"
-                value={
-                  values.className
-                }
-              />
-            </div>
+              {/* =========================
+                  Single Page
+              ========================= */}
 
-            {/* =====================================
-                Row 2
-            ====================================== */}
+              {!hasSecondPage && (
+                <>
+                  <EvidenceSection
+                    images={
+                      values.evidenceImages
+                    }
+                  />
 
-            <div className="report-fields-grid report-fields-grid-4">
-              <FieldBox
-                label="الصف"
-                value={
-                  values.grade
-                }
-              />
-
-              <FieldBox
-                label="الحصة"
-                value={
-                  values.period
-                }
-              />
-
-              <FieldBox
-                label="اليوم"
-                value={
-                  values.day
-                }
-              />
-
-              <DateFieldBox
-                gregorianDate={
-                  values.gregorianDate
-                }
-                hijriDate={
-                  values.hijriDate
-                }
-              />
-            </div>
-
-            {/* =====================================
-                Row 3
-            ====================================== */}
-
-            <div className="report-fields-grid report-fields-grid-4">
-              <FieldBox
-                label="اسم البرنامج"
-                value={
-                  values.programName
-                }
-              />
-
-              <FieldBox
-                label="مكان التنفيذ"
-                value={
-                  values.location
-                }
-              />
-
-              <FieldBox
-                label="الحضور"
-                value={
-                  values.attendance
-                }
-              />
-
-              <FieldBox
-                label="الغياب"
-                value={
-                  values.absence
-                }
-              />
-            </div>
-
-            {/* =====================================
-                Custom Fields
-            ====================================== */}
-
-            {values.customFields.length >
-              0 && (
-                <div className="report-custom-fields-row">
-                  {values.customFields.map(
-                    (field) => (
-                      <div
-                        key={field.id}
-                        className="report-custom-field-item"
-                      >
-                        <FieldBox
-                          label={
-                            field.label ||
-                            "حقل إضافي"
-                          }
-                          value={
-                            field.value
-                          }
-                        />
-                      </div>
-                    ),
-                  )}
-                </div>
-              )}
-
-            {/* =====================================
-                Objectives
-            ====================================== */}
-
-            <ReportTextSection
-              title="أهداف البرنامج"
-              value={
-                values.objectives
-              }
-            />
-
-            {/* =====================================
-                Impact
-            ====================================== */}
-
-            <ReportTextSection
-              title="الأثر الإيجابي للبرنامج"
-              value={
-                values.impact
-              }
-            />
-
-            {/* =====================================
-                Evidence
-            ====================================== */}
-
-            <div className="report-evidence-section">
-              <h3 className="report-section-title">
-                الشواهد
-              </h3>
-
-              {values.evidenceImages
-                .length > 0 ? (
-                <div
-                  className="report-images-grid"
-                  style={{
-                    gridTemplateColumns:
-                      `repeat(${values.evidenceImages.length}, minmax(0, 1fr))`,
-                  }}
-                >
-                  {values.evidenceImages.map(
-                    (
-                      image,
-                      index,
-                    ) => (
-                      <div
-                        key={image}
-                        className="report-image-box"
-                      >
-                        <Image
-                          width={600}
-                          height={450}
-                          src={image}
-                          alt={`شاهد ${index + 1
-                            }`}
-                          unoptimized
-                          className="report-image"
-                        />
-                      </div>
-                    ),
-                  )}
-                </div>
-              ) : (
-                <div className="report-evidence-box" />
+                  <Signatures
+                    labels={labels}
+                    values={values}
+                  />
+                </>
               )}
             </div>
+          </ReportPage>
 
-            {/* =====================================
-                Signatures
-            ====================================== */}
+          {/* =====================================
+              PAGE 2
+          ====================================== */}
 
-            <div className="report-signatures">
-              <SignatureBox
-                title={
-                  labels.activityLeader
-                }
-                name={
-                  values
-                    .activityLeaderName
-                }
-              />
+          {hasSecondPage && (
+            <ReportPage
+              values={values}
+            >
+              <div className="report-content report-second-page-content">
+                {/* =========================
+                    Heading
+                ========================= */}
 
-              <SignatureBox
-                title={
-                  labels.supervisor
-                }
-                name={
-                  values
-                    .supervisorName
-                }
-              />
-            </div>
-          </div>
+                <div className="report-title-ribbon">
+                  برامج الأنشطة الطلابية
+                </div>
+
+                <h2 className="report-category-title">
+                  {categoryName ||
+                    "مجال البرنامج"}
+
+                  <span className="report-continuation-text">
+                    {" "}
+                    - استكمال
+                  </span>
+                </h2>
+
+                {/* =========================
+                    Custom Fields
+                    Page 2
+                ========================= */}
+
+                <CustomFields
+                  fields={
+                    secondPageFields
+                  }
+                />
+
+                {/* =========================
+                    Flexible Area
+                ========================= */}
+
+                <div className="report-second-page-flex-area">
+                  <EvidenceSection
+                    images={
+                      values.evidenceImages
+                    }
+                  />
+                </div>
+
+                {/* =========================
+                    Signatures
+                ========================= */}
+
+                <Signatures
+                  labels={labels}
+                  values={values}
+                  secondPage
+                />
+              </div>
+            </ReportPage>
+          )}
         </div>
       </div>
     </div>
@@ -352,7 +335,88 @@ const ReportPreview = ({
 export default ReportPreview;
 
 /* =========================================
-   Field Box
+   A4 Page
+========================================= */
+
+const ReportPage = ({
+  values,
+  children,
+}: {
+  values: ReportFormValues;
+  children: ReactNode;
+}) => {
+  return (
+    <div className="report-sheet">
+      {/* Header */}
+
+      <Image
+        src="/report-header.png"
+        alt=""
+        width={1448}
+        height={205}
+        priority
+        aria-hidden="true"
+        className="report-frame-header"
+      />
+
+      {/* Footer */}
+
+      <Image
+        src="/report-footer.png"
+        alt=""
+        width={1448}
+        height={150}
+        priority
+        aria-hidden="true"
+        className="report-frame-footer"
+      />
+
+      {/* School */}
+
+      <div className="report-school-header">
+        <p className="report-school-name">
+          {values.schoolName}
+        </p>
+
+        <p className="report-header-main">
+          الإدارة العامة للتعليم
+        </p>
+
+        <p className="report-region-name">
+          بمنطقة {values.regionName}
+        </p>
+      </div>
+
+      {children}
+    </div>
+  );
+};
+
+/* =========================================
+   Heading
+========================================= */
+
+const ReportHeading = ({
+  categoryName,
+}: {
+  categoryName: string;
+}) => {
+  return (
+    <>
+      <div className="report-title-ribbon">
+        برامج الأنشطة الطلابية
+      </div>
+
+      <h2 className="report-category-title">
+        {categoryName ||
+          "مجال البرنامج"}
+      </h2>
+    </>
+  );
+};
+
+/* =========================================
+   Field
 ========================================= */
 
 const FieldBox = ({
@@ -376,7 +440,7 @@ const FieldBox = ({
 };
 
 /* =========================================
-   Date Field
+   Date
 ========================================= */
 
 const DateFieldBox = ({
@@ -420,6 +484,41 @@ const DateFieldBox = ({
 };
 
 /* =========================================
+   Custom Fields
+========================================= */
+
+const CustomFields = ({
+  fields,
+}: {
+  fields: ReportFormValues["customFields"];
+}) => {
+  if (!fields.length) {
+    return null;
+  }
+
+  return (
+    <div className="report-custom-fields-row">
+      {fields.map((field) => (
+        <div
+          key={field.id}
+          className="report-custom-field-item"
+        >
+          <FieldBox
+            label={
+              field.label ||
+              "حقل إضافي"
+            }
+            value={
+              field.value
+            }
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/* =========================================
    Text Section
 ========================================= */
 
@@ -439,6 +538,101 @@ const ReportTextSection = ({
       <div className="report-textarea-box">
         {value || ""}
       </div>
+    </div>
+  );
+};
+
+/* =========================================
+   Evidence
+========================================= */
+
+const EvidenceSection = ({
+  images,
+}: {
+  images: string[];
+}) => {
+  return (
+    <div className="report-evidence-section">
+      <h3 className="report-section-title">
+        الشواهد
+      </h3>
+
+      {images.length > 0 ? (
+        <div
+          className="report-images-grid"
+          style={{
+            gridTemplateColumns:
+              `repeat(${images.length}, minmax(0, 1fr))`,
+          }}
+        >
+          {images.map(
+            (
+              image,
+              index,
+            ) => (
+              <div
+                key={`${image}-${index}`}
+                className="report-image-box"
+              >
+                <Image
+                  width={600}
+                  height={450}
+                  src={image}
+                  alt={`شاهد ${
+                    index + 1
+                  }`}
+                  unoptimized
+                  className="report-image"
+                />
+              </div>
+            ),
+          )}
+        </div>
+      ) : (
+        <div className="report-evidence-box" />
+      )}
+    </div>
+  );
+};
+
+/* =========================================
+   Signatures
+========================================= */
+
+const Signatures = ({
+  labels,
+  values,
+  secondPage = false,
+}: {
+  labels: Props["labels"];
+  values: ReportFormValues;
+  secondPage?: boolean;
+}) => {
+  return (
+    <div
+      className={`report-signatures ${
+        secondPage
+          ? "report-second-page-signatures"
+          : ""
+      }`}
+    >
+      <SignatureBox
+        title={
+          labels.activityLeader
+        }
+        name={
+          values.activityLeaderName
+        }
+      />
+
+      <SignatureBox
+        title={
+          labels.supervisor
+        }
+        name={
+          values.supervisorName
+        }
+      />
     </div>
   );
 };

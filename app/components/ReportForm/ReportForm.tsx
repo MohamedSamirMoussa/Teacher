@@ -248,11 +248,23 @@ const ReportForm = () => {
   ========================================= */
 
   const addCustomField = () => {
+    const currentFields =
+      formik.values.customFields;
+
+    if (
+      currentFields.length >= 12
+    ) {
+      toast.error(
+        "الحد الأقصى 12 حقل إضافي للحفاظ على تنسيق التقرير",
+      );
+
+      return;
+    }
+
     formik.setFieldValue(
       "customFields",
       [
-        ...formik.values
-          .customFields,
+        ...currentFields,
 
         {
           id: crypto.randomUUID(),
@@ -554,11 +566,10 @@ const ReportForm = () => {
                       sm:px-4
                       sm:py-3
                       sm:text-sm
-                      ${
-                        formik.values.gender ===
+                      ${formik.values.gender ===
                         "male"
-                          ? "border-black bg-black text-white"
-                          : "border-gray-200 bg-white text-gray-700"
+                        ? "border-black bg-black text-white"
+                        : "border-gray-200 bg-white text-gray-700"
                       }
                     `}
                   >
@@ -585,11 +596,10 @@ const ReportForm = () => {
                       sm:px-4
                       sm:py-3
                       sm:text-sm
-                      ${
-                        formik.values.gender ===
+                      ${formik.values.gender ===
                         "female"
-                          ? "border-black bg-black text-white"
-                          : "border-gray-200 bg-white text-gray-700"
+                        ? "border-black bg-black text-white"
+                        : "border-gray-200 bg-white text-gray-700"
                       }
                     `}
                   >
@@ -1149,9 +1159,9 @@ const ReportForm = () => {
                 {formik.values
                   .evidenceImages
                   .length < 4 && (
-                  <label
-                    htmlFor="evidence-images"
-                    className="
+                    <label
+                      htmlFor="evidence-images"
+                      className="
                       flex
                       cursor-pointer
                       items-center
@@ -1173,66 +1183,65 @@ const ReportForm = () => {
                       sm:py-5
                       sm:text-sm
                     "
-                  >
-                    + إضافة صور الشواهد
+                    >
+                      + إضافة صور الشواهد
 
-                    <input
-                      id="evidence-images"
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp"
-                      multiple
-                      onChange={
-                        handleImagesChange
-                      }
-                      className="hidden"
-                    />
-                  </label>
-                )}
+                      <input
+                        id="evidence-images"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        multiple
+                        onChange={
+                          handleImagesChange
+                        }
+                        className="hidden"
+                      />
+                    </label>
+                  )}
 
                 {formik.values
                   .evidenceImages
                   .length > 0 && (
-                  <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-3">
-                    {formik.values.evidenceImages.map(
-                      (
-                        image,
-                        index,
-                      ) => (
-                        <div
-                          key={image}
-                          className="
+                    <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-3">
+                      {formik.values.evidenceImages.map(
+                        (
+                          image,
+                          index,
+                        ) => (
+                          <div
+                            key={image}
+                            className="
                             relative
                             overflow-hidden
                             rounded-lg
                             border
                             border-gray-200
                           "
-                        >
-                          <Image
-                            width={600}
-                            height={450}
-                            src={image}
-                            alt={`الشاهد ${
-                              index +
-                              1
-                            }`}
-                            unoptimized
-                            className="
+                          >
+                            <Image
+                              width={600}
+                              height={450}
+                              src={image}
+                              alt={`الشاهد ${index +
+                                1
+                                }`}
+                              unoptimized
+                              className="
                               aspect-[4/3]
                               h-full
                               w-full
                               object-cover
                             "
-                          />
+                            />
 
-                          <button
-                            type="button"
-                            onClick={() =>
-                              removeImage(
-                                index,
-                              )
-                            }
-                            className="
+                            <button
+                              type="button"
+                              onClick={() =>
+                                removeImage(
+                                  index,
+                                )
+                              }
+                              className="
                               absolute
                               left-1.5
                               top-1.5
@@ -1248,22 +1257,22 @@ const ReportForm = () => {
                               sm:top-2
                               sm:text-xs
                             "
-                          >
-                            حذف
-                          </button>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                )}
+                            >
+                              حذف
+                            </button>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  )}
 
                 {formik.values
                   .evidenceImages
                   .length === 1 && (
-                  <p className="mt-2 text-[11px] font-medium text-red-500 sm:text-xs">
-                    أضف صورة أخرى على الأقل حتى تتمكن من طباعة التقرير.
-                  </p>
-                )}
+                    <p className="mt-2 text-[11px] font-medium text-red-500 sm:text-xs">
+                      أضف صورة أخرى على الأقل حتى تتمكن من طباعة التقرير.
+                    </p>
+                  )}
               </div>
 
               {/* =====================================
@@ -1495,13 +1504,13 @@ type InputFieldProps = {
   disabled?: boolean;
 
   onChange:
-    React.ChangeEventHandler<HTMLInputElement>;
+  React.ChangeEventHandler<HTMLInputElement>;
 
   onFocus?:
-    React.FocusEventHandler<HTMLInputElement>;
+  React.FocusEventHandler<HTMLInputElement>;
 
   onBlur?:
-    React.FocusEventHandler<HTMLInputElement>;
+  React.FocusEventHandler<HTMLInputElement>;
 };
 
 const InputField = ({
