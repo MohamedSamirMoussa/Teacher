@@ -41,6 +41,22 @@ const formatGregorianDate = (value: string) => {
 };
 
 /* =========================================
+   Multiline Text -> Items
+========================================= */
+
+const parseListItems = (value: string) => {
+  if (!value.trim()) {
+    return [];
+  }
+
+  return value
+    .split("\n")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 4);
+};
+
+/* =========================================
    Report Preview
 ========================================= */
 
@@ -59,12 +75,7 @@ const ReportPreview = ({
   const [scaledHeight, setScaledHeight] = useState<number>();
 
   /* =====================================
-     Auto Fit Preview
-
-     الـ A4 تفضل بحجمها الحقيقي داخلياً،
-     وإحنا بنعمل Scale للعرض فقط.
-
-     الطباعة لا تتأثر.
+     Responsive Preview Scale
   ====================================== */
 
   useEffect(() => {
@@ -77,26 +88,21 @@ const ReportPreview = ({
     }
 
     const updateScale = () => {
-      /*
-        مساحة بسيطة يمين وشمال
-        داخل Preview panel.
-      */
-
       const availableWidth = Math.max(container.clientWidth - 24, 1);
 
-      const actualWidth = page.offsetWidth;
+      const pageWidth = page.offsetWidth;
 
-      const actualHeight = page.offsetHeight;
+      const pageHeight = page.offsetHeight;
 
-      if (!actualWidth) {
+      if (!pageWidth) {
         return;
       }
 
-      const nextScale = Math.min(1, availableWidth / actualWidth);
+      const nextScale = Math.min(1, availableWidth / pageWidth);
 
       setScale(nextScale);
 
-      setScaledHeight(actualHeight * nextScale);
+      setScaledHeight(pageHeight * nextScale);
     };
 
     updateScale();
@@ -109,6 +115,30 @@ const ReportPreview = ({
       observer.disconnect();
     };
   }, []);
+
+  /* =====================================
+     Objectives / Impact
+  ====================================== */
+
+  const objectiveItems = parseListItems(values.objectives);
+
+  const impactItems = parseListItems(values.impact);
+
+  /*
+    لو التقرير مليان جدًا
+    نقلل المساحات سنة بسيطة
+    من غير ما نصغر الخط بشكل مزعج.
+  */
+
+  const contentWeight =
+    values.customFields.length + objectiveItems.length + impactItems.length;
+
+  const densityClass =
+    contentWeight >= 10
+      ? "report-density-tight"
+      : contentWeight >= 6
+        ? "report-density-medium"
+        : "report-density-normal";
 
   return (
     <div ref={containerRef} className="report-preview-shell">
@@ -125,7 +155,11 @@ const ReportPreview = ({
               transform: `scale(${scale})`,
             }}
           >
-            <div ref={pageRef} id={previewId} className="report-sheet">
+            <div
+              ref={pageRef}
+              id={previewId}
+              className={`report-sheet ${densityClass}`}
+            >
               {/* =================================
                   Header
               ================================== */}
@@ -133,7 +167,7 @@ const ReportPreview = ({
               <Image
                 src="/report-header.png"
                 alt=""
-                width={1448}
+                width={1491}
                 height={205}
                 priority
                 aria-hidden="true"
@@ -147,7 +181,7 @@ const ReportPreview = ({
               <Image
                 src="/report-footer.png"
                 alt=""
-                width={1448}
+                width={1491}
                 height={150}
                 priority
                 aria-hidden="true"
@@ -248,63 +282,52 @@ const ReportPreview = ({
                     Objectives
                 ================================== */}
 
-                <FourBoxesSection
-                  title="أهداف البرنامج"
-                  type="objective"
-                  itemTitle="الهدف"
-                  values={values.objectives}
-                />
+                <ListSection title="أهداف البرنامج" items={objectiveItems} />
 
                 {/* =================================
                     Impact
                 ================================== */}
 
-                <FourBoxesSection
+                <ListSection
                   title="الأثر الإيجابي للبرنامج"
-                  type="impact"
-                  itemTitle="الأثر"
-                  values={values.impact}
+                  items={impactItems}
                 />
 
                 {/* =================================
-                    Evidence
+                    Flexible Evidence Area
                 ================================== */}
 
-                <div className="report-evidence-section">
-                  <div className="report-section-heading">
-                    <span className="report-section-heading-line" />
+                <div className="report-evidence-flex">
+                  <div className="report-evidence-section">
+                    <SectionHeading title="الشواهد" />
 
-                    <h3 className="report-section-title">الشواهد</h3>
-
-                    <span className="report-section-heading-line" />
+                    {values.evidenceImages.length > 0 ? (
+                      <div
+                        className="report-images-grid"
+                        style={{
+                          gridTemplateColumns: `repeat(${values.evidenceImages.length}, minmax(0, 1fr))`,
+                        }}
+                      >
+                        {values.evidenceImages.map((image, index) => (
+                          <div
+                            key={`${image}-${index}`}
+                            className="report-image-box"
+                          >
+                            <Image
+                              width={600}
+                              height={450}
+                              src={image}
+                              alt={`شاهد ${index + 1}`}
+                              unoptimized
+                              className="report-image"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="report-evidence-box" />
+                    )}
                   </div>
-
-                  {values.evidenceImages.length > 0 ? (
-                    <div
-                      className="report-images-grid"
-                      style={{
-                        gridTemplateColumns: `repeat(${values.evidenceImages.length}, minmax(0, 1fr))`,
-                      }}
-                    >
-                      {values.evidenceImages.map((image, index) => (
-                        <div
-                          key={`${image}-${index}`}
-                          className="report-image-box"
-                        >
-                          <Image
-                            width={600}
-                            height={450}
-                            src={image}
-                            alt={`شاهد ${index + 1}`}
-                            unoptimized
-                            className="report-image"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="report-evidence-box" />
-                  )}
                 </div>
 
                 {/* =================================
@@ -334,7 +357,7 @@ const ReportPreview = ({
 export default ReportPreview;
 
 /* =========================================
-   Field
+   Field Box
 ========================================= */
 
 const FieldBox = ({ label, value }: { label: string; value: string }) => {
@@ -348,7 +371,7 @@ const FieldBox = ({ label, value }: { label: string; value: string }) => {
 };
 
 /* =========================================
-   Date
+   Date Field
 ========================================= */
 
 const DateFieldBox = ({
@@ -380,57 +403,48 @@ const DateFieldBox = ({
 };
 
 /* =========================================
-   4 Boxes
+   Section Heading
 ========================================= */
 
-const FourBoxesSection = ({
-  title,
-  itemTitle,
-  values,
-  type,
-}: {
-  title: string;
-
-  itemTitle: string;
-
-  values: string[];
-
-  type: "objective" | "impact";
-}) => {
-  const normalizedValues = [
-    values[0] || "",
-    values[1] || "",
-    values[2] || "",
-    values[3] || "",
-  ];
-
+const SectionHeading = ({ title }: { title: string }) => {
   return (
-    <div
-      className={`report-section report-four-section report-four-section-${type}`}
-    >
-      <div className="report-section-heading">
-        <span className="report-section-heading-line" />
+    <div className="report-section-heading">
+      <span className="report-section-heading-line" />
 
-        <h3 className="report-section-title">{title}</h3>
+      <h3 className="report-section-title">{title}</h3>
 
-        <span className="report-section-heading-line" />
-      </div>
+      <span className="report-section-heading-line" />
+    </div>
+  );
+};
 
-      <div className="report-four-boxes">
-        {normalizedValues.map((value, index) => (
-          <div key={index} className="report-section-box">
-            <div className="report-section-box-badge">{index + 1}</div>
+/* =========================================
+   Objectives / Impact
+========================================= */
 
-            <div className="report-section-box-content">
-              <div className="report-section-box-title">
-                {itemTitle} {index + 1}
-              </div>
+const ListSection = ({ title, items }: { title: string; items: string[] }) => {
+  return (
+    <div className="report-section">
+      <SectionHeading title={title} />
 
-              <div className="report-section-box-value">{value || "—"}</div>
+      {items.length > 0 ? (
+        <div
+          className={`report-list-boxes report-list-boxes-${Math.min(
+            items.length,
+            4,
+          )}`}
+        >
+          {items.map((item, index) => (
+            <div key={`${index}-${item}`} className="report-list-box">
+              <span className="report-list-number">{index + 1}</span>
+
+              <span className="report-list-text">{item}</span>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="report-list-empty" />
+      )}
     </div>
   );
 };

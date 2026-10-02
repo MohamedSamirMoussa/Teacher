@@ -23,7 +23,7 @@
 }
 
 /* =========================================================
-   PREVIEW CONTAINER
+   PREVIEW
 ========================================================= */
 
 .report-preview-shell {
@@ -41,16 +41,12 @@
     1px solid
     #dfe5e4;
 
-  border-radius: 18px;
+  border-radius:
+    18px;
 
   background:
     #eef2f1;
 }
-
-/*
-  Stage بياخد ارتفاع النسخة
-  المصغرة من الـ A4.
-*/
 
 .report-preview-stage {
   position: relative;
@@ -66,10 +62,6 @@
     0.15s ease;
 }
 
-/*
-  Center page before scale.
-*/
-
 .report-preview-positioner {
   position: absolute;
 
@@ -77,19 +69,16 @@
 
   left: 50%;
 
-  width: 210mm;
+  width:
+    210mm;
 
   transform:
     translateX(-50%);
 }
 
-/*
-  الـ A4 نفسها تفضل 210mm.
-  بنعمل Scale للعرض فقط.
-*/
-
 .report-preview-scale {
-  width: 210mm;
+  width:
+    210mm;
 
   transform-origin:
     top center;
@@ -100,29 +89,41 @@
 ========================================================= */
 
 .report-sheet {
-  position: relative;
+  position:
+    relative;
 
-  width: 210mm;
+  width:
+    210mm;
 
-  height: 297mm;
+  height:
+    297mm;
 
-  min-width: 210mm;
+  min-width:
+    210mm;
 
-  min-height: 297mm;
+  min-height:
+    297mm;
 
-  max-width: 210mm;
+  max-width:
+    210mm;
 
-  max-height: 297mm;
+  max-height:
+    297mm;
 
-  margin: 0;
+  margin:
+    0;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
-  box-sizing: border-box;
+  box-sizing:
+    border-box;
 
-  background: #ffffff;
+  background:
+    #ffffff;
 
-  color: #111111;
+  color:
+    #111111;
 
   border:
     1px solid
@@ -138,115 +139,156 @@
 }
 
 /* =========================================================
-   HEADER
+   HEADER / FOOTER
 ========================================================= */
 
 .report-frame-header {
-  position: absolute;
+  position:
+    absolute;
 
-  top: 0;
+  top:
+    0;
 
-  right: 0;
+  right:
+    0;
 
-  left: 0;
+  left:
+    0;
 
-  z-index: 0;
+  z-index:
+    0;
 
-  display: block;
+  display:
+    block;
 
-  width: 100%;
+  width:
+    100%;
 
-  height: auto;
+  height:
+    auto;
 
-  pointer-events: none;
+  background:
+    transparent !important;
+
+  pointer-events:
+    none;
 
   -webkit-user-select: none;
-  user-select: none;
+  user-select:
+    none;
 }
-
-/* =========================================================
-   FOOTER
-========================================================= */
 
 .report-frame-footer {
-  position: absolute;
+  position:
+    absolute;
 
-  right: 0;
+  right:
+    0;
 
-  bottom: 0;
+  bottom:
+    0;
 
-  left: 0;
+  left:
+    0;
 
-  z-index: 0;
+  z-index:
+    0;
 
-  display: block;
+  display:
+    block;
 
-  width: 100%;
+  width:
+    100%;
 
-  height: auto;
+  height:
+    auto;
 
-  pointer-events: none;
+  background:
+    transparent !important;
+
+  pointer-events:
+    none;
 
   -webkit-user-select: none;
-  user-select: none;
+  user-select:
+    none;
 }
 
 /* =========================================================
-   SCHOOL
+   SCHOOL HEADER
 ========================================================= */
 
 .report-school-header {
-  position: absolute;
+  position:
+    absolute;
 
-  top: 8mm;
+  top:
+    8mm;
 
-  right: 37mm;
+  right:
+    37mm;
 
-  z-index: 3;
+  z-index:
+    3;
 
-  width: 60mm;
+  width:
+    60mm;
 
-  box-sizing: border-box;
+  box-sizing:
+    border-box;
 
-  text-align: center;
+  text-align:
+    center;
 
-  color: #075b55;
+  color:
+    #075b55;
 
-  line-height: 1.35;
+  line-height:
+    1.4;
 }
 
 .report-school-header p {
-  margin: 0;
-}
-
-.report-school-name {
-  color: #064f4a;
-
-  font-size: 11px;
-
-  font-weight: 800;
+  margin:
+    0;
 }
 
 .report-header-main {
+  color:
+    #064f4a;
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+}
+
+.report-school-name {
   margin-top:
     1px !important;
 
-  color: #064f4a;
+  color:
+    #064f4a;
 
-  font-size: 10px;
+  font-size:
+    12px;
 
-  font-weight: 700;
+  font-weight:
+    700;
 }
 
 .report-region-name {
   margin-top:
     1px !important;
 
-  color: #55706c;
+  color:
+    #55706c;
 
-  font-size: 9px;
+  font-size:
+    10.5px;
 
-  font-weight: 500;
+  font-weight:
+    500;
 }
 
 /* =========================================================
@@ -254,46 +296,57 @@
 ========================================================= */
 
 .report-content {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 2;
+  z-index:
+    2;
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100%;
+  height:
+    100%;
 
-  box-sizing: border-box;
+  box-sizing:
+    border-box;
 
   padding:
     31mm
     7mm
-    20mm;
+    17mm;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 }
 
 /* =========================================================
-   MAIN TITLE
+   TITLE
 ========================================================= */
 
 .report-title-ribbon {
-  width: 88mm;
+  width:
+    98mm;
 
-  box-sizing: border-box;
+  box-sizing:
+    border-box;
 
   margin:
     0
     auto;
 
   padding:
-    5px
-    12px;
+    8px
+    16px;
 
-  text-align: center;
+  text-align:
+    center;
 
   background:
     #e3eeec;
@@ -302,55 +355,67 @@
     1px solid
     #b9cdca;
 
-  border-radius: 7px;
+  border-radius:
+    8px;
 
-  color: #101918;
+  color:
+    #101918;
 
-  font-size: 18px;
+  font-size:
+    23px;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
-  line-height: 1.35;
+  line-height:
+    1.4;
 }
-
-/* =========================================================
-   CATEGORY
-========================================================= */
 
 .report-category-title {
   margin:
-    6px
+    10px
     0
-    7px;
+    12px;
 
-  text-align: center;
+  text-align:
+    center;
 
-  color: #111111;
+  color:
+    #111111;
 
-  font-size: 15px;
+  font-size:
+    20px;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
-  line-height: 1.3;
+  line-height:
+    1.35;
 }
 
 /* =========================================================
-   FIELD GRIDS
+   NORMAL GRIDS
 ========================================================= */
 
 .report-fields-grid {
-  display: grid;
+  display:
+    grid;
 
-  gap: 2.5mm;
+  gap:
+    3.5mm;
 
-  margin-bottom: 2.3mm;
+  margin-bottom:
+    4mm;
 }
 
 .report-fields-grid-2 {
   grid-template-columns:
     repeat(
       2,
-      minmax(0, 1fr)
+      minmax(
+        0,
+        1fr
+      )
     );
 }
 
@@ -358,7 +423,10 @@
   grid-template-columns:
     repeat(
       3,
-      minmax(0, 1fr)
+      minmax(
+        0,
+        1fr
+      )
     );
 }
 
@@ -366,7 +434,10 @@
   grid-template-columns:
     repeat(
       4,
-      minmax(0, 1fr)
+      minmax(
+        0,
+        1fr
+      )
     );
 }
 
@@ -375,65 +446,89 @@
 ========================================================= */
 
 .report-field {
-  min-width: 0;
+  min-width:
+    0;
 }
 
 .report-field-label {
-  display: flex;
+  display:
+    flex;
 
-  align-items: flex-end;
+  align-items:
+    flex-end;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  min-height: 3.5mm;
+  min-height:
+    4.5mm;
 
-  margin-bottom: 0.7mm;
+  margin-bottom:
+    1.2mm;
 
-  text-align: center;
+  text-align:
+    center;
 
-  color: #1d2826;
+  color:
+    #1d2826;
 
-  font-size: 10px;
+  font-size:
+    13px;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
-  line-height: 1.2;
+  line-height:
+    1.3;
 }
 
 .report-field-box {
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  min-height: 7.5mm;
+  min-height:
+    10.5mm;
 
-  box-sizing: border-box;
+  box-sizing:
+    border-box;
 
   padding:
-    1mm
-    2mm;
+    1.6mm
+    2.5mm;
 
   border:
     1px solid
     #aeb9b7;
 
-  border-radius: 2px;
+  border-radius:
+    3px;
 
-  background: #ffffff;
+  background:
+    #ffffff;
 
-  color: #111111;
+  color:
+    #111111;
 
-  text-align: center;
+  text-align:
+    center;
 
-  font-size: 10.5px;
+  font-size:
+    13px;
 
-  font-weight: 500;
+  font-weight:
+    600;
 
-  line-height: 1.25;
+  line-height:
+    1.35;
 
-  overflow-wrap: anywhere;
+  overflow-wrap:
+    anywhere;
 }
 
 /* =========================================================
@@ -441,35 +536,46 @@
 ========================================================= */
 
 .report-date-box {
-  min-height: 7.5mm;
+  min-height:
+    10.5mm;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  gap: 0;
+  gap:
+    1px;
 
   padding:
-    0.3mm
-    1mm;
+    0.7mm
+    1.5mm;
 }
 
 .report-date-row {
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 3px;
+  gap:
+    5px;
 
-  width: 100%;
+  width:
+    100%;
 }
 
 .report-date-label {
-  color: #176c65;
+  color:
+    #176c65;
 
-  font-size: 9px;
+  font-size:
+    11.5px;
 
-  font-weight: 800;
+  font-weight:
+    800;
 }
 
 /* =========================================================
@@ -477,21 +583,768 @@
 ========================================================= */
 
 .report-custom-fields-row {
-  display: flex;
+  display:
+    flex;
 
-  flex-wrap: wrap;
+  flex-wrap:
+    wrap;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  align-items: flex-start;
+  align-items:
+    flex-start;
 
-  gap: 2.5mm;
+  gap:
+    3.5mm;
 
-  width: 100%;
+  width:
+    100%;
 
-  margin-bottom: 2.3mm;
+  margin-bottom:
+    4mm;
 }
 
+.report-custom-field-item {
+  flex:
+    0
+    0
+    calc(
+      (100% - 10.5mm) /
+        4
+    );
+
+  min-width:
+    0;
+}
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.report-section {
+  margin-top:
+    3mm;
+
+  flex-shrink:
+    0;
+}
+
+.report-section-heading {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    4mm;
+
+  width:
+    100%;
+
+  margin-bottom:
+    2.5mm;
+}
+
+.report-section-heading-line {
+  width:
+    30mm;
+
+  height:
+    1px;
+
+  background:
+    #bfd0cd;
+}
+
+.report-section-title {
+  flex:
+    0
+    0
+    auto;
+
+  margin:
+    0;
+
+  text-align:
+    center;
+
+  color:
+    #173c38;
+
+  font-size:
+    14.5px;
+
+  font-weight:
+    800;
+
+  line-height:
+    1.3;
+}
+
+/* =========================================================
+   OBJECTIVES / IMPACT
+========================================================= */
+
+.report-list-boxes {
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  justify-content:
+    center;
+
+  align-items:
+    stretch;
+
+  gap:
+    3mm;
+}
+
+/*
+  عنصر واحد:
+  ياخد العرض بالكامل.
+*/
+
+.report-list-boxes-1
+.report-list-box {
+  flex:
+    0
+    0
+    100%;
+}
+
+/*
+  2 - 4 عناصر:
+  عنصرين في الصف.
+
+  في حالة 3 عناصر:
+  الثالث يتمركز تلقائياً.
+*/
+
+.report-list-boxes-2
+.report-list-box,
+.report-list-boxes-3
+.report-list-box,
+.report-list-boxes-4
+.report-list-box {
+  flex:
+    0
+    0
+    calc(
+      (100% - 3mm) /
+        2
+    );
+}
+
+.report-list-box {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    3mm;
+
+  min-width:
+    0;
+
+  min-height:
+    15mm;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    2.5mm
+    3.5mm;
+
+  border:
+    1px solid
+    #b7c1bf;
+
+  border-radius:
+    5px;
+
+  background:
+    #ffffff;
+
+  color:
+    #111111;
+}
+
+.report-list-number {
+  display:
+    flex;
+
+  flex:
+    0
+    0
+    8mm;
+
+  width:
+    8mm;
+
+  height:
+    8mm;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border-radius:
+    50%;
+
+  background:
+    #e3eeec;
+
+  color:
+    #176c65;
+
+  font-size:
+    12.5px;
+
+  font-weight:
+    800;
+}
+
+.report-list-text {
+  min-width:
+    0;
+
+  flex:
+    1;
+
+  color:
+    #111111;
+
+  text-align:
+    right;
+
+  font-size:
+    13px;
+
+  font-weight:
+    600;
+
+  line-height:
+    1.55;
+
+  overflow-wrap:
+    anywhere;
+}
+
+.report-list-empty {
+  height:
+    17mm;
+
+  box-sizing:
+    border-box;
+
+  border:
+    1px solid
+    #b7c1bf;
+
+  border-radius:
+    5px;
+
+  background:
+    #ffffff;
+}
+
+/* =========================================================
+   EVIDENCE FLEX WRAPPER
+
+   ده اللي بيستخدم المساحة الفاضية
+   بدل ما نسيب فراغ أبيض.
+========================================================= */
+
+.report-evidence-flex {
+  display:
+    flex;
+
+  flex:
+    1
+    1
+    auto;
+
+  flex-direction:
+    column;
+
+  min-height:
+    38mm;
+
+  margin-top:
+    4mm;
+}
+
+/* =========================================================
+   EVIDENCE
+========================================================= */
+
+.report-evidence-section {
+  display:
+    flex;
+
+  flex:
+    1
+    1
+    auto;
+
+  flex-direction:
+    column;
+
+  min-height:
+    38mm;
+}
+
+.report-evidence-section
+.report-section-heading {
+  flex:
+    0
+    0
+    auto;
+}
+
+.report-evidence-box {
+  flex:
+    1
+    1
+    auto;
+
+  width:
+    100%;
+
+  min-height:
+    38mm;
+
+  box-sizing:
+    border-box;
+
+  border:
+    1px solid
+    #aeb9b7;
+
+  border-radius:
+    4px;
+
+  background:
+    #ffffff;
+}
+
+.report-images-grid {
+  display:
+    grid;
+
+  flex:
+    1
+    1
+    auto;
+
+  width:
+    100%;
+
+  min-height:
+    38mm;
+
+  gap:
+    2.8mm;
+}
+
+.report-image-box {
+  position:
+    relative;
+
+  width:
+    100%;
+
+  min-height:
+    38mm;
+
+  height:
+    100%;
+
+  overflow:
+    hidden;
+
+  box-sizing:
+    border-box;
+
+  border:
+    1px solid
+    #aeb9b7;
+
+  border-radius:
+    4px;
+
+  background:
+    #ffffff;
+}
+
+.report-image {
+  display:
+    block;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  object-fit:
+    cover;
+}
+
+/* =========================================================
+   SIGNATURES
+========================================================= */
+
+.report-signatures {
+  display:
+    grid;
+
+  flex:
+    0
+    0
+    auto;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap:
+    14mm;
+
+  width:
+    76%;
+
+  margin:
+    7mm
+    auto
+    1.5mm;
+
+  padding-top:
+    0;
+}
+
+.report-signature-box {
+  min-width:
+    0;
+
+  text-align:
+    center;
+}
+
+.report-signature-title {
+  margin:
+    0
+    0
+    2mm;
+
+  color:
+    #173c38;
+
+  font-size:
+    14px;
+
+  font-weight:
+    800;
+}
+
+.report-signature-name {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    100%;
+
+  height:
+    10mm;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    1.5mm
+    2.5mm;
+
+  border:
+    1px solid
+    #aeb9b7;
+
+  border-radius:
+    4px;
+
+  background:
+    #ffffff;
+
+  color:
+    #111111;
+
+  font-size:
+    12.5px;
+
+  font-weight:
+    600;
+}
+
+.report-signature-line {
+  width:
+    65%;
+
+  margin:
+    2.2mm
+    auto
+    0;
+
+  padding-top:
+    1mm;
+
+  border-top:
+    1px solid
+    #777777;
+
+  color:
+    #777777;
+
+  font-size:
+    10px;
+}
+
+/* =========================================================
+   MEDIUM DENSITY
+
+   لما التقرير يبدأ يتملي،
+   نقلل المسافات بشكل بسيط فقط.
+========================================================= */
+
+.report-density-medium
+.report-fields-grid {
+  gap:
+    3mm;
+
+  margin-bottom:
+    3mm;
+}
+
+.report-density-medium
+.report-field-label {
+  min-height:
+    4mm;
+
+  margin-bottom:
+    1mm;
+
+  font-size:
+    12px;
+}
+
+.report-density-medium
+.report-field-box {
+  min-height:
+    9.5mm;
+
+  font-size:
+    12px;
+}
+
+.report-density-medium
+.report-custom-fields-row {
+  gap:
+    3mm;
+
+  margin-bottom:
+    3mm;
+}
+
+.report-density-medium
+.report-custom-field-item {
+  flex:
+    0
+    0
+    calc(
+      (100% - 9mm) /
+        4
+    );
+}
+
+.report-density-medium
+.report-section {
+  margin-top:
+    2mm;
+}
+
+.report-density-medium
+.report-section-heading {
+  margin-bottom:
+    2mm;
+}
+
+.report-density-medium
+.report-list-boxes {
+  gap:
+    2.5mm;
+}
+
+.report-density-medium
+.report-list-boxes-2
+.report-list-box,
+.report-density-medium
+.report-list-boxes-3
+.report-list-box,
+.report-density-medium
+.report-list-boxes-4
+.report-list-box {
+  flex:
+    0
+    0
+    calc(
+      (100% - 2.5mm) /
+        2
+    );
+}
+
+.report-density-medium
+.report-list-box {
+  min-height:
+    13.5mm;
+
+  padding:
+    2mm
+    3mm;
+}
+
+.report-density-medium
+.report-evidence-flex {
+  min-height:
+    34mm;
+
+  margin-top:
+    3mm;
+}
+
+.report-density-medium
+.report-evidence-section {
+  min-height:
+    34mm;
+}
+
+.report-density-medium
+.report-images-grid,
+.report-density-medium
+.report-evidence-box,
+.report-density-medium
+.report-image-box {
+  min-height:
+    34mm;
+}
+
+.report-density-medium
+.report-signatures {
+  margin-top:
+    5mm;
+}
+
+/* =========================================================
+   TIGHT DENSITY
+
+   Maximum content:
+   4 custom fields
+   + 4 objectives
+   + 4 impacts
+========================================================= */
+
+.report-density-tight
+.report-title-ribbon {
+  padding:
+    6px
+    14px;
+
+  font-size:
+    21px;
+}
+
+.report-density-tight
+.report-category-title {
+  margin:
+    7px
+    0
+    8px;
+
+  font-size:
+    18px;
+}
+
+.report-density-tight
+.report-fields-grid {
+  gap:
+    2.5mm;
+
+  margin-bottom:
+    2.4mm;
+}
+
+.report-density-tight
+.report-field-label {
+  min-height:
+    3.5mm;
+
+  margin-bottom:
+    0.7mm;
+
+  font-size:
+    11.5px;
+}
+
+.report-density-tight
+.report-field-box {
+  min-height:
+    8.5mm;
+
+  padding:
+    1mm
+    2mm;
+
+  font-size:
+    11.5px;
+}
+
+.report-density-tight
+.report-date-box {
+  min-height:
+    8.5mm;
+}
+
+.report-density-tight
+.report-custom-fields-row {
+  gap:
+    2.5mm;
+
+  margin-bottom:
+    2.5mm;
+}
+
+.report-density-tight
 .report-custom-field-item {
   flex:
     0
@@ -500,338 +1353,131 @@
       (100% - 7.5mm) /
         4
     );
-
-  min-width: 0;
 }
 
-/* =========================================================
-   REPORT SECTIONS
-========================================================= */
-
+.report-density-tight
 .report-section {
-  margin-top: 1.5mm;
+  margin-top:
+    1.5mm;
 }
 
-/* =========================================================
-   SECTION HEADING
-
-   الخطين حوالين العنوان بيفصلوا
-   الأهداف/الأثر/الشواهد بصرياً.
-========================================================= */
-
+.report-density-tight
 .report-section-heading {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 3mm;
-
-  width: 100%;
-
-  margin-bottom: 1.5mm;
-}
-
-.report-section-heading-line {
-  width: 22mm;
-
-  height: 1px;
-
-  background:
-    #bfd0cd;
-}
-
-.report-section-title {
-  flex: 0 0 auto;
-
-  margin: 0;
-
-  text-align: center;
-
-  color: #173c38;
-
-  font-size: 11.5px;
-
-  font-weight: 800;
-
-  line-height: 1.25;
-}
-
-/* =========================================================
-   OBJECTIVES + IMPACT
-========================================================= */
-
-.report-four-boxes {
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
-
   gap:
-    1.8mm
+    3mm;
+
+  margin-bottom:
+    1.5mm;
+}
+
+.report-density-tight
+.report-section-title {
+  font-size:
+    13px;
+}
+
+.report-density-tight
+.report-list-boxes {
+  gap:
+    2mm;
+}
+
+.report-density-tight
+.report-list-boxes-2
+.report-list-box,
+.report-density-tight
+.report-list-boxes-3
+.report-list-box,
+.report-density-tight
+.report-list-boxes-4
+.report-list-box {
+  flex:
+    0
+    0
+    calc(
+      (100% - 2mm) /
+        2
+    );
+}
+
+.report-density-tight
+.report-list-box {
+  min-height:
+    11.5mm;
+
+  padding:
+    1.5mm
     2.5mm;
 }
 
-.report-section-box {
-  display: flex;
+.report-density-tight
+.report-list-number {
+  flex-basis:
+    7mm;
 
-  align-items: center;
+  width:
+    7mm;
 
-  min-width: 0;
-
-  min-height: 10.5mm;
-
-  box-sizing: border-box;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    #b7c1bf;
-
-  border-radius: 4px;
-
-  background: #ffffff;
-}
-
-/* Number */
-
-.report-section-box-badge {
-  display: flex;
-
-  flex: 0 0 8mm;
-
-  align-items: center;
-
-  justify-content: center;
-
-  align-self: stretch;
-
-  background:
-    #e6efed;
-
-  color: #176c65;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  border-left:
-    1px solid
-    #c9d7d4;
-}
-
-/* Content */
-
-.report-section-box-content {
-  min-width: 0;
-
-  flex: 1;
-
-  padding:
-    1.1mm
-    2mm;
-}
-
-.report-section-box-title {
-  margin-bottom:
-    0.4mm;
-
-  color:
-    #52716c;
+  height:
+    7mm;
 
   font-size:
-    8px;
-
-  font-weight:
-    700;
+    11px;
 }
 
-.report-section-box-value {
-  color:
-    #111111;
-
+.report-density-tight
+.report-list-text {
   font-size:
-    10px;
-
-  font-weight:
-    600;
+    12px;
 
   line-height:
-    1.3;
-
-  overflow-wrap:
-    anywhere;
+    1.4;
 }
 
-/* Impact subtle differentiation */
+.report-density-tight
+.report-evidence-flex {
+  min-height:
+    30mm;
 
-.report-four-section-impact
-.report-section-box-badge {
-  background:
-    #f0f3f2;
+  margin-top:
+    2.5mm;
 }
 
-/* =========================================================
-   EVIDENCE
-========================================================= */
-
+.report-density-tight
 .report-evidence-section {
-  margin-top: 2.7mm;
+  min-height:
+    30mm;
 }
 
-.report-evidence-box {
-  height: 28mm;
-
-  box-sizing: border-box;
-
-  border:
-    1px solid
-    #aeb9b7;
-
-  border-radius: 3px;
-
-  background:
-    #ffffff;
-}
-
-.report-images-grid {
-  display: grid;
-
-  width: 100%;
-
-  gap: 2mm;
-}
-
+.report-density-tight
+.report-images-grid,
+.report-density-tight
+.report-evidence-box,
+.report-density-tight
 .report-image-box {
-  position: relative;
-
-  width: 100%;
-
-  height: 28mm;
-
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  border:
-    1px solid
-    #aeb9b7;
-
-  border-radius: 3px;
-
-  background:
-    #ffffff;
+  min-height:
+    30mm;
 }
 
-.report-image {
-  display: block;
-
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-}
-
-/* =========================================================
-   SIGNATURES
-========================================================= */
-
+.report-density-tight
 .report-signatures {
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
-
-  gap: 12mm;
-
-  width: 72%;
-
-  margin:
-    auto
-    auto
-    1.5mm;
-
-  padding-top: 2mm;
+  margin-top:
+    4mm;
 }
 
-.report-signature-box {
-  min-width: 0;
-
-  text-align: center;
-}
-
+.report-density-tight
 .report-signature-title {
-  margin:
-    0
-    0
-    1.2mm;
-
-  color: #173c38;
-
-  font-size: 11px;
-
-  font-weight: 800;
+  font-size:
+    13px;
 }
 
+.report-density-tight
 .report-signature-name {
-  display: flex;
+  height:
+    9mm;
 
-  align-items: center;
-
-  justify-content: center;
-
-  width: 100%;
-
-  height: 7.5mm;
-
-  box-sizing: border-box;
-
-  padding:
-    1mm
-    2mm;
-
-  border:
-    1px solid
-    #aeb9b7;
-
-  border-radius: 3px;
-
-  background: #ffffff;
-
-  color: #111111;
-
-  font-size: 10px;
-
-  font-weight: 600;
-}
-
-.report-signature-line {
-  width: 62%;
-
-  margin:
-    1.6mm
-    auto
-    0;
-
-  padding-top:
-    0.6mm;
-
-  border-top:
-    1px solid
-    #777777;
-
-  color: #777777;
-
-  font-size: 8px;
+  font-size:
+    12px;
 }
 
 /* =========================================================
@@ -839,12 +1485,18 @@
 ========================================================= */
 
 @page {
-  size: A4 portrait;
+  size:
+    A4 portrait;
 
-  margin: 0;
+  margin:
+    0;
 }
 
 @media print {
+  /* =====================================================
+     DOCUMENT
+  ===================================================== */
+
   html,
   body {
     width:
@@ -897,7 +1549,7 @@
   }
 
   /* =====================================================
-     PRINT WRAPPERS
+     PAGE WRAPPERS
   ===================================================== */
 
   main,
@@ -1112,6 +1764,9 @@
 
     max-width:
       none !important;
+
+    background:
+      transparent !important;
   }
 
   /* =====================================================
@@ -1139,10 +1794,13 @@
 
     max-width:
       none !important;
+
+    background:
+      transparent !important;
   }
 
   /* =====================================================
-     SCHOOL
+     SCHOOL HEADER
   ===================================================== */
 
   .report-school-header {
@@ -1170,6 +1828,9 @@
     position:
       relative !important;
 
+    z-index:
+      2 !important;
+
     display:
       flex !important;
 
@@ -1188,25 +1849,19 @@
     padding:
       31mm
       7mm
-      20mm !important;
+      17mm !important;
 
     overflow:
       hidden !important;
   }
 
   /* =====================================================
-     FIELD GRIDS
+     GRIDS
   ===================================================== */
 
   .report-fields-grid {
     display:
       grid !important;
-
-    gap:
-      2.5mm !important;
-
-    margin-bottom:
-      2.3mm !important;
   }
 
   .report-fields-grid-2 {
@@ -1255,68 +1910,72 @@
 
     justify-content:
       center !important;
-
-    gap:
-      2.5mm !important;
-
-    margin-bottom:
-      2.3mm !important;
   }
 
-  .report-custom-field-item {
+  /* =====================================================
+     OBJECTIVES / IMPACT
+  ===================================================== */
+
+  .report-list-boxes {
+    display:
+      flex !important;
+
+    flex-wrap:
+      wrap !important;
+
+    justify-content:
+      center !important;
+
+    break-inside:
+      avoid !important;
+
+    page-break-inside:
+      avoid !important;
+  }
+
+  .report-list-boxes-1
+  .report-list-box {
     flex:
       0
       0
-      calc(
-        (100% - 7.5mm) /
-          4
-      ) !important;
+      100% !important;
   }
 
   /* =====================================================
-     FOUR BOXES
+     EVIDENCE FLEX
   ===================================================== */
 
-  .report-four-boxes {
+  .report-evidence-flex {
     display:
-      grid !important;
+      flex !important;
 
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(
-          0,
-          1fr
-        )
-      ) !important;
+    flex:
+      1
+      1
+      auto !important;
 
-    gap:
-      1.8mm
-      2.5mm !important;
+    flex-direction:
+      column !important;
 
-    break-inside:
-      avoid !important;
-
-    page-break-inside:
-      avoid !important;
-  }
-
-  .report-section-box {
     min-height:
-      10.5mm !important;
-
-    break-inside:
-      avoid !important;
-
-    page-break-inside:
-      avoid !important;
+      30mm !important;
   }
-
-  /* =====================================================
-     EVIDENCE
-  ===================================================== */
 
   .report-evidence-section {
+    display:
+      flex !important;
+
+    flex:
+      1
+      1
+      auto !important;
+
+    flex-direction:
+      column !important;
+
+    min-height:
+      30mm !important;
+
     break-inside:
       avoid !important;
 
@@ -1324,18 +1983,32 @@
       avoid !important;
   }
 
-  .report-evidence-box,
-  .report-image-box {
+  .report-evidence-box {
+    flex:
+      1
+      1
+      auto !important;
+
     height:
-      28mm !important;
+      auto !important;
   }
 
   .report-images-grid {
     display:
       grid !important;
 
-    gap:
-      2mm !important;
+    flex:
+      1
+      1
+      auto !important;
+
+    height:
+      auto !important;
+  }
+
+  .report-image-box {
+    height:
+      100% !important;
   }
 
   .report-image {
@@ -1368,20 +2041,6 @@
           1fr
         )
       ) !important;
-
-    gap:
-      12mm !important;
-
-    width:
-      72% !important;
-
-    margin:
-      auto
-      auto
-      1.5mm !important;
-
-    padding-top:
-      2mm !important;
 
     break-inside:
       avoid !important;

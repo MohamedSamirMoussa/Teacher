@@ -144,7 +144,8 @@ const ReportForm = () => {
   const formik =
     useFormik<ReportFormValues>({
       initialValues: {
-        gender: "male",
+        gender:
+          "male",
 
         selectedCategory:
           "citizenship",
@@ -152,31 +153,37 @@ const ReportForm = () => {
         categories: [
           {
             id: "citizenship",
+
             name: "مجال المواطنة والحياة",
           },
 
           {
             id: "sports",
+
             name: "مجال الرياضة والصحة",
           },
 
           {
             id: "scouting",
+
             name: "مجال النشاط الكشفي",
           },
 
           {
             id: "culture",
+
             name: "مجال الثقافة والفنون",
           },
 
           {
             id: "science",
+
             name: "مجال العلوم والتقنية",
           },
 
           {
             id: "events",
+
             name: "مجال الأيام والمناسبات",
           },
         ],
@@ -223,19 +230,11 @@ const ReportForm = () => {
         absence:
           "",
 
-        objectives: [
+        objectives:
           "",
-          "",
-          "",
-          "",
-        ],
 
-        impact: [
+        impact:
           "",
-          "",
-          "",
-          "",
-        ],
 
         activityLeaderName:
           DEFAULT_ACTIVITY_LEADER,
@@ -254,7 +253,7 @@ const ReportForm = () => {
     });
 
   /* =====================================
-     Gender labels
+     Gender Labels
   ====================================== */
 
   const isFemale =
@@ -295,7 +294,6 @@ const ReportForm = () => {
 
   /* =====================================
      Custom Fields
-     Maximum 4
   ====================================== */
 
   const addCustomField = () => {
@@ -318,11 +316,14 @@ const ReportForm = () => {
         ...currentFields,
 
         {
-          id: crypto.randomUUID(),
+          id:
+            crypto.randomUUID(),
 
-          label: "",
+          label:
+            "",
 
-          value: "",
+          value:
+            "",
         },
       ],
     );
@@ -342,62 +343,73 @@ const ReportForm = () => {
   };
 
   /* =====================================
-     Objectives
+     Objectives / Impact
   ====================================== */
 
-  const updateObjective = (
-    index: number,
-    value: string,
-  ) => {
-    const updated = [
-      ...formik.values
-        .objectives,
-    ];
+  const updateMultilineField = (
+    fieldName:
+      | "objectives"
+      | "impact",
 
-    updated[index] =
-      value;
+    value: string,
+
+    title: string,
+  ) => {
+    const filledLines =
+      value
+        .split("\n")
+        .filter(
+          (line) =>
+            line.trim()
+              .length >
+            0,
+        );
+
+    /*
+      Enter مسموح طبيعي.
+
+      المنع يحصل فقط عند كتابة
+      أكثر من 4 عناصر فعلية.
+    */
+
+    if (
+      filledLines.length >
+      4
+    ) {
+      toast.error(
+        `الحد الأقصى في ${title} هو 4 عناصر`,
+      );
+
+      return;
+    }
+
+    /*
+      نخزن القيمة RAW.
+      مفيش trim أو filter.
+    */
 
     formik.setFieldValue(
-      "objectives",
-      updated,
+      fieldName,
+      value,
     );
   };
 
   /* =====================================
-     Impact
-  ====================================== */
-
-  const updateImpact = (
-    index: number,
-    value: string,
-  ) => {
-    const updated = [
-      ...formik.values
-        .impact,
-    ];
-
-    updated[index] =
-      value;
-
-    formik.setFieldValue(
-      "impact",
-      updated,
-    );
-  };
-
-  /* =====================================
-     Evidence
+     Evidence Images
   ====================================== */
 
   const handleImagesChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const files = Array.from(
-      event.target.files ||
-        [],
-    );
+    const files =
+      Array.from(
+        event.target.files ||
+          [],
+      );
 
-    if (!files.length) {
+    if (
+      !files.length
+    ) {
       return;
     }
 
@@ -469,7 +481,9 @@ const ReportForm = () => {
     const removedImage =
       images[index];
 
-    if (removedImage) {
+    if (
+      removedImage
+    ) {
       URL.revokeObjectURL(
         removedImage,
       );
@@ -494,7 +508,8 @@ const ReportForm = () => {
     if (
       formik.values
         .evidenceImages
-        .length < 2
+        .length <
+      2
     ) {
       toast.error(
         "يجب إضافة صورتين على الأقل من الشواهد",
@@ -503,11 +518,16 @@ const ReportForm = () => {
       return;
     }
 
-    setPreview(false);
+    setPreview(
+      false,
+    );
 
-    setTimeout(() => {
-      window.print();
-    }, 150);
+    setTimeout(
+      () => {
+        window.print();
+      },
+      150,
+    );
   };
 
   return (
@@ -567,7 +587,7 @@ const ReportForm = () => {
         </div>
 
         {/* =================================
-            Website Heading
+            Heading
         ================================== */}
 
         <div className="no-print mb-6 mt-8">
@@ -576,15 +596,14 @@ const ReportForm = () => {
           </h2>
 
           <p className="mt-2 text-sm text-gray-500">
-            أدخل بيانات
-            التقرير ثم راجع
-            المعاينة واحفظ
-            التقرير بصيغة PDF.
+            أدخل بيانات التقرير ثم راجع
+            المعاينة واحفظ التقرير بصيغة
+            PDF.
           </p>
         </div>
 
         {/* =================================
-            Layout
+            Main Layout
         ================================== */}
 
         <div
@@ -598,7 +617,7 @@ const ReportForm = () => {
           "
         >
           {/* =================================
-              FORM
+              Form
           ================================== */}
 
           <form
@@ -617,9 +636,7 @@ const ReportForm = () => {
             "
           >
             <div className="space-y-5">
-              {/* =============================
-                  Gender
-              ============================== */}
+              {/* Gender */}
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-800">
@@ -687,9 +704,7 @@ const ReportForm = () => {
                 </div>
               </div>
 
-              {/* =============================
-                  Region / School
-              ============================== */}
+              {/* Region + School */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -765,9 +780,7 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Teacher
-              ============================== */}
+              {/* Teacher */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -799,9 +812,7 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Grade
-              ============================== */}
+              {/* Grade */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -809,7 +820,8 @@ const ReportForm = () => {
                   name="grade"
                   value={
                     formik
-                      .values.grade
+                      .values
+                      .grade
                   }
                   onChange={
                     formik.handleChange
@@ -830,9 +842,7 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Period
-              ============================== */}
+              {/* Period */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -840,7 +850,8 @@ const ReportForm = () => {
                   name="period"
                   value={
                     formik
-                      .values.period
+                      .values
+                      .period
                   }
                   onChange={
                     formik.handleChange
@@ -852,7 +863,8 @@ const ReportForm = () => {
                   name="day"
                   value={
                     formik
-                      .values.day
+                      .values
+                      .day
                   }
                   onChange={
                     formik.handleChange
@@ -860,9 +872,7 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Dates
-              ============================== */}
+              {/* Dates */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -910,9 +920,7 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Program
-              ============================== */}
+              {/* Program */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -942,9 +950,7 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Attendance
-              ============================== */}
+              {/* Attendance */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -965,7 +971,8 @@ const ReportForm = () => {
                   name="absence"
                   value={
                     formik
-                      .values.absence
+                      .values
+                      .absence
                   }
                   onChange={
                     formik.handleChange
@@ -973,58 +980,67 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Objectives
-              ============================== */}
+              {/* Objectives */}
 
-              <FourInputs
+              <SingleListField
                 title="أهداف البرنامج"
-                description="أدخل أربعة أهداف واضحة للبرنامج"
-                itemLabel="الهدف"
-                values={
+                description="اكتب الهدف ثم اضغط Enter للهدف التالي. الحد الأقصى 4 أهداف."
+                value={
                   formik
                     .values
                     .objectives
                 }
-                onChange={
-                  updateObjective
+                placeholder={`تنمية روح التعاون
+تعزيز الانتماء الوطني
+تنمية مهارات التواصل
+غرس القيم الإيجابية`}
+                onChange={(
+                  value,
+                ) =>
+                  updateMultilineField(
+                    "objectives",
+                    value,
+                    "الأهداف",
+                  )
                 }
               />
 
-              {/* =============================
-                  Impact
-              ============================== */}
+              {/* Impact */}
 
-              <FourInputs
+              <SingleListField
                 title="الأثر الإيجابي للبرنامج"
-                description="أدخل أربعة آثار أو نتائج إيجابية للبرنامج"
-                itemLabel="الأثر"
-                values={
+                description="اكتب الأثر ثم اضغط Enter للأثر التالي. الحد الأقصى 4 آثار."
+                value={
                   formik
                     .values
                     .impact
                 }
-                onChange={
-                  updateImpact
+                placeholder={`زيادة التفاعل
+رفع مستوى الثقة بالنفس
+تحسين التعاون
+تنمية روح المبادرة`}
+                onChange={(
+                  value,
+                ) =>
+                  updateMultilineField(
+                    "impact",
+                    value,
+                    "الأثر الإيجابي",
+                  )
                 }
               />
 
-              {/* =============================
-                  Custom Fields
-              ============================== */}
+              {/* Custom Fields */}
 
               <div className="rounded-2xl border border-gray-200 bg-gray-50 p-3 sm:p-4">
                 <div className="mb-3 flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-gray-900">
-                      الحقول
-                      الإضافية
+                      الحقول الإضافية
                     </h3>
 
                     <p className="mt-1 text-xs text-gray-500">
-                      يمكنك إضافة
-                      حتى 4 حقول
-                      فقط.
+                      يمكنك إضافة حتى 4 حقول فقط.
                     </p>
                   </div>
 
@@ -1187,7 +1203,8 @@ const ReportForm = () => {
                     formik
                       .values
                       .customFields
-                      .length >= 4
+                      .length >=
+                    4
                   }
                   className="
                     mt-3
@@ -1212,15 +1229,14 @@ const ReportForm = () => {
                   {formik
                     .values
                     .customFields
-                    .length >= 4
+                    .length >=
+                  4
                     ? "تم الوصول للحد الأقصى"
                     : "+ إضافة حقل"}
                 </button>
               </div>
 
-              {/* =============================
-                  Leader + Manager
-              ============================== */}
+              {/* Leader / Manager */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1298,9 +1314,7 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Images
-              ============================== */}
+              {/* Evidence */}
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
@@ -1310,9 +1324,7 @@ const ReportForm = () => {
                     </label>
 
                     <p className="mt-1 text-xs text-gray-500">
-                      أضف من
-                      صورتين إلى
-                      أربع صور.
+                      أضف من صورتين إلى أربع صور.
                     </p>
                   </div>
 
@@ -1353,8 +1365,7 @@ const ReportForm = () => {
                       hover:text-gray-900
                     "
                   >
-                    + إضافة
-                    صور الشواهد
+                    + إضافة صور الشواهد
 
                     <input
                       id="evidence-images"
@@ -1434,9 +1445,7 @@ const ReportForm = () => {
                 )}
               </div>
 
-              {/* =============================
-                  Actions
-              ============================== */}
+              {/* Actions */}
 
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -1505,9 +1514,7 @@ const ReportForm = () => {
               </p>
 
               <p className="mt-1 text-xs text-gray-500">
-                المعاينة تتناسب
-                تلقائياً مع حجم
-                المساحة المتاحة.
+                المعاينة تتناسب تلقائياً مع المساحة المتاحة.
               </p>
             </div>
 
@@ -1516,10 +1523,13 @@ const ReportForm = () => {
               values={
                 formik.values
               }
-              labels={labels}
+              labels={
+                labels
+              }
               categoryName={
                 selectedCategory
-                  ?.name ?? ""
+                  ?.name ??
+                ""
               }
             />
           </div>
@@ -1534,8 +1544,7 @@ const ReportForm = () => {
             <div className="flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3">
               <div>
                 <strong className="block text-sm">
-                  معاينة
-                  التقرير
+                  معاينة التقرير
                 </strong>
 
                 <span className="text-xs text-gray-500">
@@ -1560,10 +1569,13 @@ const ReportForm = () => {
                 values={
                   formik.values
                 }
-                labels={labels}
+                labels={
+                  labels
+                }
                 categoryName={
                   selectedCategory
-                    ?.name ?? ""
+                    ?.name ??
+                  ""
                 }
               />
             </div>
@@ -1576,8 +1588,7 @@ const ReportForm = () => {
                 }
                 className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700"
               >
-                رجوع
-                للتعديل
+                رجوع للتعديل
               </button>
 
               <button
@@ -1587,8 +1598,7 @@ const ReportForm = () => {
                 }
                 className="rounded-xl bg-black px-4 py-3 text-sm font-semibold text-white"
               >
-                طباعة
-                التقرير
+                طباعة التقرير
               </button>
             </div>
           </div>
@@ -1601,128 +1611,91 @@ const ReportForm = () => {
 export default ReportForm;
 
 /* =========================================
-   4 Inputs Component
+   Multiline List Field
 ========================================= */
 
-type FourInputsProps = {
+type SingleListFieldProps = {
   title: string;
 
   description: string;
 
-  itemLabel: string;
+  value: string;
 
-  values: string[];
+  placeholder: string;
 
   onChange: (
-    index: number,
     value: string,
   ) => void;
 };
 
-const FourInputs = ({
+const SingleListField = ({
   title,
   description,
-  itemLabel,
-  values,
+  value,
+  placeholder,
   onChange,
-}: FourInputsProps) => {
+}: SingleListFieldProps) => {
+  const count =
+    value
+      .split("\n")
+      .filter(
+        (line) =>
+          line.trim()
+            .length >
+          0,
+      ).length;
+
   return (
-    <div className="rounded-2xl border border-gray-200 bg-gray-50 p-3 sm:p-4">
-      <div className="mb-3">
-        <h3 className="text-sm font-bold text-gray-900">
-          {title}
-        </h3>
+    <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div>
+          <h3 className="text-sm font-bold text-gray-900">
+            {title}
+          </h3>
 
-        <p className="mt-1 text-xs text-gray-500">
-          {description}
-        </p>
+          <p className="mt-1 text-xs leading-5 text-gray-500">
+            {description}
+          </p>
+        </div>
+
+        <span className="shrink-0 rounded-full bg-white px-3 py-1 text-xs font-bold text-gray-600 shadow-sm">
+          {count}/4
+        </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 sm:gap-3">
-        {[0, 1, 2, 3].map(
-          (index) => (
-            <div
-              key={index}
-              className="
-                rounded-xl
-                border
-                border-gray-200
-                bg-white
-                p-2.5
-              "
-            >
-              <div className="mb-2 flex items-center gap-2">
-                <span
-                  className="
-                    flex
-                    h-6
-                    w-6
-                    shrink-0
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-gray-900
-                    text-[11px]
-                    font-bold
-                    text-white
-                  "
-                >
-                  {index +
-                    1}
-                </span>
-
-                <label
-                  htmlFor={`${itemLabel}-${index}`}
-                  className="text-xs font-bold text-gray-700"
-                >
-                  {
-                    itemLabel
-                  }{" "}
-                  {index +
-                    1}
-                </label>
-              </div>
-
-              <input
-                id={`${itemLabel}-${index}`}
-                type="text"
-                value={
-                  values[
-                    index
-                  ] || ""
-                }
-                onChange={(
-                  event,
-                ) =>
-                  onChange(
-                    index,
-                    event
-                      .target
-                      .value,
-                  )
-                }
-                placeholder={`اكتب ${itemLabel} ${
-                  index + 1
-                }`}
-                className="
-                  w-full
-                  min-w-0
-                  rounded-lg
-                  border
-                  border-gray-200
-                  px-2.5
-                  py-2.5
-                  text-xs
-                  outline-none
-                  transition
-                  focus:border-gray-900
-                  sm:text-sm
-                "
-              />
-            </div>
-          ),
-        )}
-      </div>
+      <textarea
+        value={
+          value
+        }
+        onChange={(
+          event,
+        ) =>
+          onChange(
+            event.target
+              .value,
+          )
+        }
+        placeholder={
+          placeholder
+        }
+        rows={6}
+        className="
+          w-full
+          resize-none
+          rounded-xl
+          border
+          border-gray-200
+          bg-white
+          px-4
+          py-3
+          text-sm
+          leading-7
+          outline-none
+          transition
+          placeholder:text-gray-300
+          focus:border-gray-900
+        "
+      />
     </div>
   );
 };
@@ -1762,7 +1735,9 @@ const InputField = ({
   return (
     <div className="min-w-0">
       <label
-        htmlFor={name}
+        htmlFor={
+          name
+        }
         className="
           mb-1.5
           block
@@ -1781,14 +1756,30 @@ const InputField = ({
       </label>
 
       <input
-        id={name}
-        name={name}
-        type={type}
-        value={value}
-        disabled={disabled}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        id={
+          name
+        }
+        name={
+          name
+        }
+        type={
+          type
+        }
+        value={
+          value
+        }
+        disabled={
+          disabled
+        }
+        onChange={
+          onChange
+        }
+        onFocus={
+          onFocus
+        }
+        onBlur={
+          onBlur
+        }
         className="
           w-full
           min-w-0

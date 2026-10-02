@@ -49,21 +49,23 @@ export type ReportFormValues = {
   absence: string;
 
   /*
-    4 أهداف ثابتة
+    كل سطر غير فارغ = هدف
+    Maximum 4
   */
-  objectives: string[];
+  objectives: string;
 
   /*
-    4 آثار ثابتة
+    كل سطر غير فارغ = أثر
+    Maximum 4
   */
-  impact: string[];
+  impact: string;
 
   activityLeaderName: string;
 
   supervisorName: string;
 
   /*
-    Maximum = 4
+    Maximum 4
   */
   customFields: CustomField[];
 
