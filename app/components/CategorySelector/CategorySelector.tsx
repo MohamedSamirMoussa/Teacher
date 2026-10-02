@@ -27,7 +27,7 @@ const CategorySelector = ({
 
     const newCategory: Category = {
       id: crypto.randomUUID(),
-      name: name.startsWith("مجال") ? name : `مجال ${name}`,
+      name: name,
     };
 
     onAdd(newCategory);
