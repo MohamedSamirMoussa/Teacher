@@ -1,4 +1,6 @@
-export type Gender = "male" | "female";
+export type Gender =
+  | "male"
+  | "female";
 
 export type Category = {
   id: string;
@@ -34,15 +36,17 @@ export type ReportFormValues = {
   hijriDate: string;
 
   programName: string;
-
   location: string;
+
   attendance: string;
   absence: string;
 
   objectives: string;
+
   impact: string;
 
   activityLeaderName: string;
+
   supervisorName: string;
 
   customFields: CustomField[];
