@@ -7,16 +7,20 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 import Navbar from "./components/Navbar/Navbar";
+
 import Footer from "./components/Footer/Footer";
 
 const cairo = Cairo({
   subsets: ["arabic"],
+
   weight: ["400", "500", "600", "700"],
+
   variable: "--font-cairo",
 });
 
 export const metadata: Metadata = {
   title: "إنشاء التقارير",
+
   description: "إنشاء وطباعة التقارير بسهولة",
 };
 
@@ -27,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={cairo.className}>
+      <body suppressHydrationWarning className={cairo.className}>
         <div className="no-print">
           <Navbar />
         </div>
