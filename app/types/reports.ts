@@ -48,18 +48,27 @@ export type ReportFormValues = {
 
   absence: string;
 
-
+  /*
+    4 أهداف ثابتة
+  */
   objectives: string[];
 
-
+  /*
+    4 آثار ثابتة
+  */
   impact: string[];
 
   activityLeaderName: string;
 
   supervisorName: string;
 
+  /*
+    Maximum = 4
+  */
   customFields: CustomField[];
 
-
+  /*
+    2 - 4 Images
+  */
   evidenceImages: string[];
 };
