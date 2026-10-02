@@ -6,13 +6,7 @@
 
 .mobile-form-grid {
   display: grid;
-
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
-
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.75rem;
 }
 
@@ -28,79 +22,18 @@
 
 .report-preview-shell {
   width: 100%;
-
-  min-width: 0;
-
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  padding: 18px;
-
-  border:
-    1px solid
-    #dfe5e4;
-
-  border-radius: 18px;
-
-  background:
-    #eef2f1;
-}
-
-/*
-  Stage بياخد ارتفاع النسخة
-  المصغرة من الـ A4.
-*/
-
-.report-preview-stage {
-  position: relative;
-
-  width: 100%;
-
-  min-height: 1px;
-
-  overflow: hidden;
-
-  transition:
-    height
-    0.15s ease;
-}
-
-/*
-  Center page before scale.
-*/
-
-.report-preview-positioner {
-  position: absolute;
-
-  top: 0;
-
-  left: 50%;
-
-  width: 210mm;
-
-  transform:
-    translateX(-50%);
-}
-
-/*
-  الـ A4 نفسها تفضل 210mm.
-  بنعمل Scale للعرض فقط.
-*/
-
-.report-preview-scale {
-  width: 210mm;
-
-  transform-origin:
-    top center;
+  overflow-x: auto;
+  padding: 12px 0;
 }
 
 /* =========================================================
-   A4
+   A4 REPORT SHEET
 ========================================================= */
 
 .report-sheet {
   position: relative;
+
+  flex: 0 0 auto;
 
   width: 210mm;
 
@@ -124,17 +57,7 @@
 
   color: #111111;
 
-  border:
-    1px solid
-    #cfd6d4;
-
-  box-shadow:
-    0
-    12px
-    35px
-    rgb(
-      0 0 0 / 8%
-    );
+  border: 1px solid #d4d4d4;
 }
 
 /* =========================================================
@@ -192,15 +115,14 @@
 }
 
 /* =========================================================
-   SCHOOL
+   SCHOOL INFORMATION
 ========================================================= */
 
 .report-school-header {
   position: absolute;
 
-  top: 8mm;
-
-  right: 37mm;
+  top: 8.5mm;
+  right: 38mm;
 
   z-index: 3;
 
@@ -222,7 +144,8 @@
 .report-school-name {
   color: #064f4a;
 
-  font-size: 11px;
+  font-size: 14px;
+  font-weight: 700;
 
   font-weight: 800;
 }
@@ -233,9 +156,8 @@
 
   color: #064f4a;
 
-  font-size: 10px;
-
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .report-region-name {
@@ -244,8 +166,7 @@
 
   color: #55706c;
 
-  font-size: 9px;
-
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -277,7 +198,7 @@
 }
 
 /* =========================================================
-   MAIN TITLE
+   TITLE
 ========================================================= */
 
 .report-title-ribbon {
@@ -289,25 +210,19 @@
     0
     auto;
 
-  padding:
-    5px
-    12px;
+  padding: 7px 14px;
 
   text-align: center;
 
   background:
     #e3eeec;
 
-  border:
-    1px solid
-    #b9cdca;
+  border: 1px solid #bdcdca;
+  border-radius: 8px;
 
   border-radius: 7px;
 
-  color: #101918;
-
-  font-size: 18px;
-
+  font-size: 36px;
   font-weight: 800;
 
   line-height: 1.35;
@@ -318,20 +233,24 @@
 ========================================================= */
 
 .report-category-title {
-  margin:
-    6px
-    0
-    7px;
+  margin: 9px 0;
 
   text-align: center;
 
   color: #111111;
 
-  font-size: 15px;
-
+  font-size: 24px;
   font-weight: 800;
 
   line-height: 1.3;
+}
+
+.report-continuation-text {
+  color: #58615f;
+
+  font-size: 14px;
+
+  font-weight: 600;
 }
 
 /* =========================================================
@@ -347,27 +266,24 @@
 }
 
 .report-fields-grid-2 {
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  );
 }
 
 .report-fields-grid-3 {
-  grid-template-columns:
-    repeat(
-      3,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(
+    3,
+    minmax(0, 1fr)
+  );
 }
 
 .report-fields-grid-4 {
-  grid-template-columns:
-    repeat(
-      4,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(
+    4,
+    minmax(0, 1fr)
+  );
 }
 
 /* =========================================================
@@ -379,22 +295,13 @@
 }
 
 .report-field-label {
-  display: flex;
-
-  align-items: flex-end;
-
-  justify-content: center;
-
-  min-height: 3.5mm;
-
-  margin-bottom: 0.7mm;
+  margin-bottom: 1.4mm;
 
   text-align: center;
 
   color: #1d2826;
 
-  font-size: 10px;
-
+  font-size: 16px;
   font-weight: 700;
 
   line-height: 1.2;
@@ -407,17 +314,11 @@
 
   justify-content: center;
 
-  min-height: 7.5mm;
-
-  box-sizing: border-box;
-
   padding:
     1mm
     2mm;
 
-  border:
-    1px solid
-    #aeb9b7;
+  border: 1px solid #aeb6b5;
 
   border-radius: 2px;
 
@@ -427,8 +328,7 @@
 
   text-align: center;
 
-  font-size: 10.5px;
-
+  font-size: 12px;
   font-weight: 500;
 
   line-height: 1.25;
@@ -445,7 +345,10 @@
 
   flex-direction: column;
 
-  gap: 0;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1px;
 
   padding:
     0.3mm
@@ -467,8 +370,7 @@
 .report-date-label {
   color: #176c65;
 
-  font-size: 9px;
-
+  font-size: 14px;
   font-weight: 800;
 }
 
@@ -482,6 +384,10 @@
   flex-wrap: wrap;
 
   justify-content: center;
+
+  align-items: flex-start;
+
+  align-content: flex-start;
 
   align-items: flex-start;
 
@@ -505,7 +411,7 @@
 }
 
 /* =========================================================
-   REPORT SECTIONS
+   SECTIONS
 ========================================================= */
 
 .report-section {
@@ -551,8 +457,7 @@
 
   color: #173c38;
 
-  font-size: 11.5px;
-
+  font-size: 16px;
   font-weight: 800;
 
   line-height: 1.25;
@@ -583,7 +488,8 @@
 
   min-width: 0;
 
-  min-height: 10.5mm;
+  min-height: 21mm;
+  max-height: 21mm;
 
   box-sizing: border-box;
 
@@ -593,87 +499,51 @@
     1px solid
     #b7c1bf;
 
-  border-radius: 4px;
+  border: 1px solid #aeb6b5;
+
+  border-radius: 3px;
 
   background: #ffffff;
+
+  color: #111111;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  text-align: right;
+
+  white-space: pre-wrap;
+
+  overflow-wrap: anywhere;
 }
 
-/* Number */
+/* =========================================================
+   OPTIONAL SECTION BOX
+========================================================= */
 
-.report-section-box-badge {
+.report-section-box {
+  min-height: 9mm;
+
+  box-sizing: border-box;
+
   display: flex;
 
-  flex: 0 0 8mm;
-
   align-items: center;
-
-  justify-content: center;
-
-  align-self: stretch;
-
-  background:
-    #e6efed;
-
-  color: #176c65;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  border-left:
-    1px solid
-    #c9d7d4;
-}
-
-/* Content */
-
-.report-section-box-content {
-  min-width: 0;
-
-  flex: 1;
 
   padding:
     1.1mm
     2mm;
-}
 
-.report-section-box-title {
-  margin-bottom:
-    0.4mm;
+  border: 1px solid #aeb6b5;
 
-  color:
-    #52716c;
+  border-radius: 3px;
 
-  font-size:
-    8px;
+  background: #ffffff;
 
-  font-weight:
-    700;
-}
+  color: #111111;
 
-.report-section-box-value {
-  color:
-    #111111;
-
-  font-size:
-    10px;
-
-  font-weight:
-    600;
-
-  line-height:
-    1.3;
-
-  overflow-wrap:
-    anywhere;
-}
-
-/* Impact subtle differentiation */
-
-.report-four-section-impact
-.report-section-box-badge {
-  background:
-    #f0f3f2;
+  font-size: 10px;
 }
 
 /* =========================================================
@@ -689,9 +559,7 @@
 
   box-sizing: border-box;
 
-  border:
-    1px solid
-    #aeb9b7;
+  border: 1px solid #aeb6b5;
 
   border-radius: 3px;
 
@@ -711,16 +579,13 @@
   position: relative;
 
   width: 100%;
-
-  height: 28mm;
+  height: 32mm;
 
   overflow: hidden;
 
   box-sizing: border-box;
 
-  border:
-    1px solid
-    #aeb9b7;
+  border: 1px solid #aeb6b5;
 
   border-radius: 3px;
 
@@ -740,16 +605,18 @@
 
 /* =========================================================
    SIGNATURES
+
+   margin-top:auto pushes this section
+   to the bottom before the footer.
 ========================================================= */
 
 .report-signatures {
   display: grid;
 
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  );
 
   gap: 12mm;
 
@@ -777,31 +644,29 @@
 
   color: #173c38;
 
-  font-size: 11px;
+  font-size: 16px;
+  font-weight: 800;
 
   font-weight: 800;
 }
 
 .report-signature-name {
+  width: 100%;
+
+  height: 9mm;
+
+  box-sizing: border-box;
+
   display: flex;
 
   align-items: center;
-
   justify-content: center;
-
-  width: 100%;
-
-  height: 7.5mm;
-
-  box-sizing: border-box;
 
   padding:
     1mm
     2mm;
 
-  border:
-    1px solid
-    #aeb9b7;
+  border: 1px solid #aeb6b5;
 
   border-radius: 3px;
 
@@ -809,7 +674,8 @@
 
   color: #111111;
 
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 600;
 
   font-weight: 600;
 }
@@ -825,13 +691,132 @@
   padding-top:
     0.6mm;
 
-  border-top:
-    1px solid
-    #777777;
+  border-top: 1px solid #666666;
 
   color: #777777;
 
   font-size: 8px;
+}
+
+/* =========================================================
+   SECOND PAGE
+
+   الفكرة:
+   بدل ما الفراغ يبقى أبيض،
+   مساحة الشواهد تتمدد وتستخدم المساحة المتاحة.
+========================================================= */
+
+.report-second-page-content {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-start;
+
+  padding:
+    31mm
+    7mm
+    20mm;
+}
+
+.report-second-page-content
+.report-category-title {
+  margin-bottom: 5mm;
+}
+
+.report-second-page-content
+.report-custom-fields-row {
+  flex-shrink: 0;
+
+  margin-bottom: 5mm;
+}
+
+/* المساحة الموجودة بين الحقول والتوقيع */
+
+.report-second-page-flex-area {
+  display: flex;
+
+  flex: 1 1 auto;
+
+  flex-direction: column;
+
+  min-height: 0;
+}
+
+/* الشواهد تستخدم المساحة الفاضية */
+
+.report-second-page-flex-area
+.report-evidence-section {
+  display: flex;
+
+  flex: 1 1 auto;
+
+  flex-direction: column;
+
+  min-height: 0;
+
+  margin-top: 2mm;
+
+  margin-bottom: 0;
+}
+
+/* عنوان الشواهد لا يتمدد */
+
+.report-second-page-flex-area
+.report-section-title {
+  flex: 0 0 auto;
+}
+
+/* لو مفيش صور */
+
+.report-second-page-flex-area
+.report-evidence-box {
+  flex: 1 1 auto;
+
+  width: 100%;
+
+  height: auto;
+
+  min-height: 55mm;
+
+  max-height: none;
+}
+
+/* لو فيه صور */
+
+.report-second-page-flex-area
+.report-images-grid {
+  flex: 1 1 auto;
+
+  min-height: 55mm;
+}
+
+.report-second-page-flex-area
+.report-image-box {
+  height: 100%;
+
+  min-height: 55mm;
+}
+
+/*
+  هنا بنلغي margin-top:auto
+  الموجود في التوقيعات العادية.
+
+  مساحة الشواهد نفسها هي اللي تتمدد،
+  والتوقيعات تيجي بعدها مباشرة.
+*/
+
+.report-second-page-signatures {
+  flex: 0 0 auto;
+
+  width: 72%;
+
+  margin:
+    7mm
+    auto
+    2mm;
+
+  padding-top: 0;
 }
 
 /* =========================================================
@@ -845,37 +830,24 @@
 }
 
 @media print {
+  /* =====================================================
+     DOCUMENT
+  ===================================================== */
+
   html,
   body {
-    width:
-      210mm !important;
+    width: 210mm !important;
+    height: 297mm !important;
 
-    height:
-      297mm !important;
+    min-width: 210mm !important;
+    min-height: 297mm !important;
 
-    min-width:
-      210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    min-height:
-      297mm !important;
+    overflow: hidden !important;
 
-    max-width:
-      210mm !important;
-
-    max-height:
-      297mm !important;
-
-    margin:
-      0 !important;
-
-    padding:
-      0 !important;
-
-    overflow:
-      hidden !important;
-
-    background:
-      #ffffff !important;
+    background: #ffffff !important;
 
     -webkit-print-color-adjust:
       exact !important;
@@ -897,129 +869,127 @@
   }
 
   /* =====================================================
-     PRINT WRAPPERS
+     MAIN
   ===================================================== */
 
-  main,
-  #report,
-  .report-page-container,
-  .report-layout,
-  .report-print-area {
-    width:
-      210mm !important;
+  main {
+    width: 210mm !important;
+    height: 297mm !important;
 
-    height:
-      297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    min-width:
-      210mm !important;
+    overflow: hidden !important;
 
-    min-height:
-      297mm !important;
-
-    max-width:
-      210mm !important;
-
-    max-height:
-      297mm !important;
-
-    margin:
-      0 !important;
-
-    padding:
-      0 !important;
-
-    overflow:
-      hidden !important;
-
-    background:
-      #ffffff !important;
+    background: #ffffff !important;
   }
+
+  /* =====================================================
+     REPORT SECTION
+  ===================================================== */
+
+  #report {
+    width: 210mm !important;
+    height: 297mm !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+  }
+
+  /* =====================================================
+     REPORT CONTAINER
+  ===================================================== */
+
+  .report-page-container {
+    width: 210mm !important;
+    height: 297mm !important;
+
+    max-width: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+  /* =====================================================
+     FORM + PREVIEW LAYOUT
+  ===================================================== */
 
   .report-layout {
-    display:
-      block !important;
+    display: block !important;
 
-    gap:
-      0 !important;
-  }
+    width: 210mm !important;
+    height: 297mm !important;
 
-  .report-print-area {
-    position:
-      static !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    display:
-      block !important;
+    gap: 0 !important;
+
+    overflow: hidden !important;
   }
 
   /* =====================================================
-     REMOVE SCREEN SCALE
+     PRINT AREA
   ===================================================== */
 
-  .report-preview-shell {
-    display:
-      block !important;
+  .report-print-area {
+    display: block !important;
 
-    width:
-      210mm !important;
+    width: 210mm !important;
+    height: 297mm !important;
 
-    height:
-      297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    margin:
-      0 !important;
-
-    padding:
-      0 !important;
-
-    overflow:
-      hidden !important;
-
-    border:
-      0 !important;
-
-    border-radius:
-      0 !important;
-
-    background:
-      #ffffff !important;
-  }
-
-  .report-preview-stage {
-    position:
-      static !important;
-
-    width:
-      210mm !important;
-
-    height:
-      297mm !important;
-
-    overflow:
-      hidden !important;
-  }
-
-  .report-preview-positioner {
-    position:
-      static !important;
-
-    width:
-      210mm !important;
-
-    transform:
-      none !important;
-  }
-
-  .report-preview-scale {
-    width:
-      210mm !important;
-
-    transform:
-      none !important;
+    overflow: hidden !important;
   }
 
   /* =====================================================
-     A4
+     REPORT PREVIEW
+  ===================================================== */
+
+  #report-preview {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 210mm !important;
+    height: 297mm !important;
+
+    min-width: 210mm !important;
+    min-height: 297mm !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    background: #ffffff !important;
+  }
+
+  .report-preview-shell {
+    display: block !important;
+
+    width: 210mm !important;
+    height: 297mm !important;
+
+    min-width: 210mm !important;
+    min-height: 297mm !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+  /* =====================================================
+     A4 SHEET
   ===================================================== */
 
   .report-sheet {
@@ -1047,20 +1017,18 @@
     max-height:
       297mm !important;
 
-    margin:
-      0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    padding:
-      0 !important;
+    box-sizing: border-box !important;
 
-    overflow:
-      hidden !important;
+    overflow: hidden !important;
 
-    box-sizing:
-      border-box !important;
+    border: none !important;
 
-    border:
-      none !important;
+    box-shadow: none !important;
+
+    background: #ffffff !important;
 
     box-shadow:
       none !important;
@@ -1068,23 +1036,27 @@
     background:
       #ffffff !important;
 
-    page-break-before:
-      avoid !important;
-
-    page-break-after:
-      avoid !important;
-
     page-break-inside:
       avoid !important;
 
-    break-before:
-      avoid-page !important;
-
-    break-after:
-      avoid-page !important;
-
     break-inside:
       avoid-page !important;
+  }
+
+  .report-sheet:not(:last-child) {
+    page-break-after:
+      always !important;
+
+    break-after:
+      page !important;
+  }
+
+  .report-sheet:last-child {
+    page-break-after:
+      auto !important;
+
+    break-after:
+      auto !important;
   }
 
   /* =====================================================
@@ -1095,23 +1067,22 @@
     position:
       absolute !important;
 
-    top:
-      0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
 
-    right:
-      0 !important;
+    z-index: 0 !important;
 
-    left:
-      0 !important;
+    display: block !important;
 
-    width:
-      210mm !important;
+    width: 210mm !important;
+    height: auto !important;
 
-    height:
-      auto !important;
+    max-width: none !important;
 
-    max-width:
-      none !important;
+    margin: 0 !important;
+
+    object-fit: contain !important;
   }
 
   /* =====================================================
@@ -1122,23 +1093,22 @@
     position:
       absolute !important;
 
-    right:
-      0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
 
-    bottom:
-      0 !important;
+    z-index: 0 !important;
 
-    left:
-      0 !important;
+    display: block !important;
 
-    width:
-      210mm !important;
+    width: 210mm !important;
+    height: auto !important;
 
-    height:
-      auto !important;
+    max-width: none !important;
 
-    max-width:
-      none !important;
+    margin: 0 !important;
+
+    object-fit: contain !important;
   }
 
   /* =====================================================
@@ -1149,17 +1119,33 @@
     position:
       absolute !important;
 
-    top:
-      8mm !important;
+    top: 8.5mm !important;
+    right: 38mm !important;
 
-    right:
-      37mm !important;
+    z-index: 3 !important;
 
-    width:
-      60mm !important;
+    width: 58mm !important;
 
-    z-index:
-      3 !important;
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+
+    line-height: 1.45 !important;
+  }
+
+  .report-school-name {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+
+  .report-header-main {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+  }
+
+  .report-region-name {
+    font-size: 12px !important;
+    font-weight: 500 !important;
   }
 
   /* =====================================================
@@ -1167,8 +1153,9 @@
   ===================================================== */
 
   .report-content {
-    position:
-      relative !important;
+    position: relative !important;
+
+    z-index: 2 !important;
 
     display:
       flex !important;
@@ -1176,37 +1163,55 @@
     flex-direction:
       column !important;
 
-    width:
-      210mm !important;
+    width: 210mm !important;
+    height: 297mm !important;
 
-    height:
-      297mm !important;
-
-    box-sizing:
-      border-box !important;
+    box-sizing: border-box !important;
 
     padding:
       31mm
       7mm
       20mm !important;
 
-    overflow:
-      hidden !important;
+    overflow: hidden !important;
   }
 
   /* =====================================================
-     FIELD GRIDS
+     TITLE
+  ===================================================== */
+
+  .report-title-ribbon {
+    width: 88mm !important;
+
+    padding:
+      7px
+      14px !important;
+
+    font-size:
+      22px !important;
+  }
+
+  .report-category-title {
+    margin:
+      9px
+      0 !important;
+
+    font-size:
+      20px !important;
+  }
+
+  /* =====================================================
+     STANDARD GRIDS
   ===================================================== */
 
   .report-fields-grid {
     display:
       grid !important;
 
-    gap:
-      2.5mm !important;
+    gap: 3mm !important;
 
     margin-bottom:
-      2.3mm !important;
+      3.5mm !important;
   }
 
   .report-fields-grid-2 {
@@ -1243,6 +1248,47 @@
   }
 
   /* =====================================================
+     FIELDS
+  ===================================================== */
+
+  .report-field-label {
+    margin-bottom:
+      1.4mm !important;
+
+    font-size:
+      14px !important;
+  }
+
+  .report-field-box {
+    min-height:
+      9mm !important;
+
+    padding:
+      1.5mm
+      2mm !important;
+
+    font-size:
+      12px !important;
+
+    border-color:
+      #aeb6b5 !important;
+  }
+
+  /* =====================================================
+     DATE
+  ===================================================== */
+
+  .report-date-box {
+    min-height:
+      9mm !important;
+  }
+
+  .report-date-label {
+    font-size:
+      12px !important;
+  }
+
+  /* =====================================================
      CUSTOM FIELDS
   ===================================================== */
 
@@ -1256,11 +1302,18 @@
     justify-content:
       center !important;
 
-    gap:
-      2.5mm !important;
+    gap: 3mm !important;
+
+    width: 100% !important;
 
     margin-bottom:
-      2.3mm !important;
+      3.5mm !important;
+
+    break-inside:
+      avoid !important;
+
+    page-break-inside:
+      avoid !important;
   }
 
   .report-custom-field-item {
@@ -1274,7 +1327,7 @@
   }
 
   /* =====================================================
-     FOUR BOXES
+     OBJECTIVES / IMPACT
   ===================================================== */
 
   .report-four-boxes {
@@ -1301,9 +1354,38 @@
       avoid !important;
   }
 
-  .report-section-box {
+  .report-section-title {
+    font-size:
+      12px !important;
+  }
+
+  .report-textarea-box {
+    height:
+      21mm !important;
+
     min-height:
-      10.5mm !important;
+      21mm !important;
+
+    max-height:
+      21mm !important;
+
+    padding:
+      2.5mm !important;
+
+    overflow:
+      hidden !important;
+
+    font-size:
+      12px !important;
+
+    line-height:
+      1.5 !important;
+
+    border-color:
+      #aeb6b5 !important;
+
+    background:
+      #ffffff !important;
 
     break-inside:
       avoid !important;
@@ -1313,10 +1395,13 @@
   }
 
   /* =====================================================
-     EVIDENCE
+     NORMAL EVIDENCE
   ===================================================== */
 
   .report-evidence-section {
+    margin-top:
+      3mm !important;
+
     break-inside:
       avoid !important;
 
@@ -1327,33 +1412,56 @@
   .report-evidence-box,
   .report-image-box {
     height:
-      28mm !important;
+      32mm !important;
+
+    border-color:
+      #aeb6b5 !important;
   }
 
   .report-images-grid {
     display:
       grid !important;
 
-    gap:
-      2mm !important;
+    width: 100% !important;
+
+    gap: 2mm !important;
+
+    break-inside:
+      avoid !important;
+
+    page-break-inside:
+      avoid !important;
+  }
+
+  .report-image-box {
+    height:
+      32mm !important;
+
+    overflow:
+      hidden !important;
+
+    border-color:
+      #aeb6b5 !important;
+
+    break-inside:
+      avoid !important;
+
+    page-break-inside:
+      avoid !important;
   }
 
   .report-image {
-    display:
-      block !important;
+    display: block !important;
 
-    width:
-      100% !important;
-
-    height:
-      100% !important;
+    width: 100% !important;
+    height: 100% !important;
 
     object-fit:
       cover !important;
   }
 
   /* =====================================================
-     SIGNATURES
+     NORMAL SIGNATURES
   ===================================================== */
 
   .report-signatures {
@@ -1381,13 +1489,47 @@
       1.5mm !important;
 
     padding-top:
-      2mm !important;
+      4mm !important;
 
     break-inside:
       avoid !important;
 
     page-break-inside:
       avoid !important;
+  }
+
+  .report-signature-title {
+    margin-bottom:
+      2mm !important;
+
+    font-size:
+      14px !important;
+  }
+
+  .report-signature-name {
+    height:
+      9mm !important;
+
+    padding:
+      1.5mm
+      2mm !important;
+
+    font-size:
+      12px !important;
+
+    border-color:
+      #aeb6b5 !important;
+
+    background:
+      #ffffff !important;
+  }
+
+  .report-signature-line {
+    margin-top:
+      2.5mm !important;
+
+    font-size:
+      12px !important;
   }
 
   /* =====================================================

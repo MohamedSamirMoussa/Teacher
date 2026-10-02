@@ -316,6 +316,7 @@ const ReportForm = () => {
       "customFields",
       [
         ...currentFields,
+        ...currentFields,
 
         {
           id: crypto.randomUUID(),
@@ -1356,18 +1357,18 @@ const ReportForm = () => {
                     + إضافة
                     صور الشواهد
 
-                    <input
-                      id="evidence-images"
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp"
-                      multiple
-                      onChange={
-                        handleImagesChange
-                      }
-                      className="hidden"
-                    />
-                  </label>
-                )}
+                      <input
+                        id="evidence-images"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        multiple
+                        onChange={
+                          handleImagesChange
+                        }
+                        className="hidden"
+                      />
+                    </label>
+                  )}
 
                 {formik
                   .values
@@ -1402,14 +1403,14 @@ const ReportForm = () => {
                             className="h-28 w-full object-cover"
                           />
 
-                          <button
-                            type="button"
-                            onClick={() =>
-                              removeImage(
-                                index,
-                              )
-                            }
-                            className="
+                            <button
+                              type="button"
+                              onClick={() =>
+                                removeImage(
+                                  index,
+                                )
+                              }
+                              className="
                               absolute
                               left-2
                               top-2
