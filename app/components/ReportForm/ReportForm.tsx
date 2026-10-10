@@ -6,6 +6,7 @@ import {
 } from "react";
 
 import type {
+  ChangeEvent,
   ChangeEventHandler,
   FocusEventHandler,
 } from "react";
@@ -22,9 +23,14 @@ import ReportPreview from "../ReportPreview/ReportPreview";
 
 import CategorySelector from "../CategorySelector/CategorySelector";
 
+import {
+  DEFAULT_REPORT_TEXT_COLORS,
+} from "@/app/types/reports";
+
 import type {
   Gender,
   ReportFormValues,
+  ReportTextColorKey,
   ReportTextColors,
   ReportTheme,
 } from "@/app/types/reports";
@@ -33,9 +39,9 @@ import {
   REPORT_THEMES,
 } from "@/app/constants/reportThemes";
 
-/* =========================================================
-   DEFAULT VALUES
-========================================================= */
+/* =========================================
+   Defaults
+========================================= */
 
 const DEFAULT_ACTIVITY_LEADER =
   "أ.عمر سعيد الصاعدي";
@@ -49,118 +55,9 @@ const DEFAULT_SCHOOL =
 const DEFAULT_REGION =
   "المدينة المنورة";
 
-/* =========================================================
-   DEFAULT COLORS
-========================================================= */
-
-const DEFAULT_TEXT_COLORS: ReportTextColors = {
-  reportTitle:
-    "#111111",
-
-  categoryTitle:
-    "#111111",
-
-  fieldLabels:
-    "#1D2826",
-
-  fieldValues:
-    "#111111",
-
-  sectionTitles:
-    "#173C38",
-
-  listText:
-    "#111111",
-
-  listNumbers:
-    "#176C65",
-
-  schoolHeader:
-    "#064F4A",
-
-  signatures:
-    "#173C38",
-};
-
-/* =========================================================
-   COLOR TARGET
-========================================================= */
-
-type ColorTarget =
-  keyof ReportTextColors;
-
-const COLOR_TARGETS: {
-  key: ColorTarget;
-  label: string;
-  description: string;
-}[] = [
-  {
-    key: "reportTitle",
-    label: "عنوان التقرير",
-    description:
-      "برامج الأنشطة الطلابية",
-  },
-
-  {
-    key: "categoryTitle",
-    label: "اسم المجال",
-    description:
-      "مجال المواطنة والحياة وغيره",
-  },
-
-  {
-    key: "fieldLabels",
-    label: "أسماء الحقول",
-    description:
-      "اسم المعلم، الصف، الحصة...",
-  },
-
-  {
-    key: "fieldValues",
-    label: "قيم الحقول",
-    description:
-      "البيانات المكتوبة داخل المربعات",
-  },
-
-  {
-    key: "sectionTitles",
-    label: "عناوين الأقسام",
-    description:
-      "الأهداف، الأثر الإيجابي، الشواهد",
-  },
-
-  {
-    key: "listText",
-    label: "الأهداف والأثر",
-    description:
-      "النص المكتوب داخل الأهداف والآثار",
-  },
-
-  {
-    key: "listNumbers",
-    label: "أرقام الأهداف",
-    description:
-      "الأرقام 1، 2، 3، 4",
-  },
-
-  {
-    key: "schoolHeader",
-    label: "بيانات المدرسة",
-    description:
-      "الإدارة والمدرسة والمنطقة",
-  },
-
-  {
-    key: "signatures",
-    label: "التوقيعات",
-    description:
-      "رائد النشاط ومدير المدرسة",
-  },
-];
-
-/* =========================================================
-   GREGORIAN -> HIJRI
-========================================================= */
+/* =========================================
+   Gregorian -> Hijri
+========================================= */
 
 const convertToHijri = (
   gregorianDate: string,
@@ -185,11 +82,12 @@ const convertToHijri = (
     return "";
   }
 
-  const date = new Date(
-    year,
-    month - 1,
-    day,
-  );
+  const date =
+    new Date(
+      year,
+      month - 1,
+      day,
+    );
 
   return new Intl.DateTimeFormat(
     "ar-SA-u-ca-islamic-umalqura",
@@ -201,9 +99,9 @@ const convertToHijri = (
   ).format(date);
 };
 
-/* =========================================================
-   COMPONENT
-========================================================= */
+/* =========================================
+   Main Component
+========================================= */
 
 const ReportForm = () => {
   const [
@@ -211,9 +109,9 @@ const ReportForm = () => {
     setPreview,
   ] = useState(false);
 
-  /* =====================================================
-     FORMIK
-  ===================================================== */
+  /* =====================================
+     Formik
+  ====================================== */
 
   const formik =
     useFormik<ReportFormValues>({
@@ -222,7 +120,7 @@ const ReportForm = () => {
           "theme1",
 
         textColors: {
-          ...DEFAULT_TEXT_COLORS,
+          ...DEFAULT_REPORT_TEXT_COLORS,
         },
 
         gender:
@@ -342,20 +240,27 @@ const ReportForm = () => {
           [],
       },
 
-      onSubmit: () => {},
+      onSubmit:
+        () => {},
     });
 
-  /* =====================================================
-     PREVIEW
-  ===================================================== */
+  /* =====================================
+     Preview
+  ====================================== */
 
-  const openPreview = () => {
-    setPreview(true);
-  };
+  const openPreview =
+    () => {
+      setPreview(
+        true,
+      );
+    };
 
-  const closePreview = () => {
-    setPreview(false);
-  };
+  const closePreview =
+    () => {
+      setPreview(
+        false,
+      );
+    };
 
   useEffect(() => {
     document.body.style.overflow =
@@ -396,9 +301,9 @@ const ReportForm = () => {
     };
   }, [preview]);
 
-  /* =====================================================
-     GENDER
-  ===================================================== */
+  /* =====================================
+     Gender
+  ====================================== */
 
   const isFemale =
     formik.values.gender ===
@@ -431,9 +336,9 @@ const ReportForm = () => {
         : "اسم مدير المدرسة",
   };
 
-  /* =====================================================
-     CHANGE GENDER
-  ===================================================== */
+  /* =====================================
+     Gender Change
+  ====================================== */
 
   const handleGenderChange = (
     gender: Gender,
@@ -446,11 +351,13 @@ const ReportForm = () => {
     }
 
     /*
-      معلمة:
-      كل بيانات التقرير تصبح فارغة.
+      عند اختيار معلمة:
+      جميع بيانات التقرير تصبح فارغة.
 
-      Theme / Colors / Categories
-      يظلوا كما هم.
+      نحتفظ فقط بـ:
+      - Theme
+      - Colors
+      - Categories
     */
 
     if (
@@ -544,8 +451,8 @@ const ReportForm = () => {
     }
 
     /*
-      العودة لمعلم:
-      القيم الثابتة فقط ترجع.
+      الرجوع لمعلم:
+      ترجع القيم الثابتة فقط.
     */
 
     formik.setValues({
@@ -568,9 +475,9 @@ const ReportForm = () => {
     });
   };
 
-  /* =====================================================
-     THEME
-  ===================================================== */
+  /* =====================================
+     Theme
+  ====================================== */
 
   const handleThemeChange = (
     theme: ReportTheme,
@@ -581,9 +488,9 @@ const ReportForm = () => {
     );
   };
 
-  /* =====================================================
-     CATEGORY
-  ===================================================== */
+  /* =====================================
+     Selected Category
+  ====================================== */
 
   const selectedCategory =
     formik.values
@@ -595,43 +502,68 @@ const ReportForm = () => {
             .selectedCategory,
       );
 
-  /* =====================================================
-     CUSTOM FIELDS
-  ===================================================== */
+  /* =====================================
+     Text Colors
+  ====================================== */
 
-  const addCustomField = () => {
-    if (
-      formik.values
-        .customFields
-        .length >=
-      4
-    ) {
-      toast.error(
-        "الحد الأقصى للحقول الإضافية هو 4 حقول",
-      );
-
-      return;
-    }
-
+  const handleTextColorChange = (
+    key: ReportTextColorKey,
+    color: string,
+  ) => {
     formik.setFieldValue(
-      "customFields",
-      [
-        ...formik.values
-          .customFields,
-
-        {
-          id:
-            crypto.randomUUID(),
-
-          label:
-            "",
-
-          value:
-            "",
-        },
-      ],
+      `textColors.${key}`,
+      color,
     );
   };
+
+  const resetTextColors =
+    () => {
+      formik.setFieldValue(
+        "textColors",
+        {
+          ...DEFAULT_REPORT_TEXT_COLORS,
+        },
+      );
+    };
+
+  /* =====================================
+     Custom Fields
+  ====================================== */
+
+  const addCustomField =
+    () => {
+      if (
+        formik.values
+          .customFields
+          .length >=
+        4
+      ) {
+        toast.error(
+          "الحد الأقصى للحقول الإضافية هو 4 حقول",
+        );
+
+        return;
+      }
+
+      formik.setFieldValue(
+        "customFields",
+        [
+          ...formik.values
+            .customFields,
+
+          {
+            id:
+              crypto.randomUUID(),
+
+            label:
+              "",
+
+            value:
+              "",
+          },
+        ],
+      );
+    };
 
   const removeCustomField = (
     id: string,
@@ -648,9 +580,9 @@ const ReportForm = () => {
     );
   };
 
-  /* =====================================================
-     OBJECTIVES / IMPACT
-  ===================================================== */
+  /* =====================================
+     Objectives / Impact
+  ====================================== */
 
   const updateMultilineField = (
     fieldName:
@@ -683,19 +615,24 @@ const ReportForm = () => {
       return;
     }
 
+    /*
+      نخزن النص كما هو
+      حتى Enter يعمل طبيعي.
+    */
+
     formik.setFieldValue(
       fieldName,
       value,
     );
   };
 
-  /* =====================================================
-     IMAGES
-  ===================================================== */
+  /* =====================================
+     Evidence Images
+  ====================================== */
 
   const handleImagesChange = (
     event:
-      React.ChangeEvent<HTMLInputElement>,
+      ChangeEvent<HTMLInputElement>,
   ) => {
     const files =
       Array.from(
@@ -709,13 +646,13 @@ const ReportForm = () => {
       return;
     }
 
-    const currentImages =
+    const current =
       formik.values
         .evidenceImages;
 
     const remaining =
       4 -
-      currentImages.length;
+      current.length;
 
     if (
       remaining <= 0
@@ -736,7 +673,7 @@ const ReportForm = () => {
         remaining,
       );
 
-    const newImages =
+    const urls =
       selectedFiles.map(
         (file) =>
           URL.createObjectURL(
@@ -747,8 +684,8 @@ const ReportForm = () => {
     formik.setFieldValue(
       "evidenceImages",
       [
-        ...currentImages,
-        ...newImages,
+        ...current,
+        ...urls,
       ],
     );
 
@@ -797,44 +734,48 @@ const ReportForm = () => {
     );
   };
 
-  /* =====================================================
-     PRINT
-  ===================================================== */
+  /* =====================================
+     Print
+  ====================================== */
 
-  const printReport = () => {
-    if (
-      formik.values
-        .evidenceImages
-        .length <
-      2
-    ) {
-      toast.error(
-        "يجب إضافة صورتين على الأقل من الشواهد",
+  const printReport =
+    () => {
+      if (
+        formik.values
+          .evidenceImages
+          .length <
+        2
+      ) {
+        toast.error(
+          "يجب إضافة صورتين على الأقل من الشواهد",
+        );
+
+        return;
+      }
+
+      setPreview(
+        false,
       );
 
-      return;
-    }
+      /*
+        Safari iOS يحتاج مهلة
+        قبل window.print
+      */
 
-    setPreview(false);
-
-    /*
-      Safari iOS
-      يحتاج وقت صغير بعد غلق الـModal.
-    */
-
-    setTimeout(
-      () => {
-        window.print();
-      },
-      250,
-    );
-  };
+      setTimeout(
+        () => {
+          window.print();
+        },
+        250,
+      );
+    };
 
   return (
     <section
       id="report"
       className="
         bg-gray-50
+
         px-3
         py-6
 
@@ -845,9 +786,9 @@ const ReportForm = () => {
       "
     >
       <div className="report-page-container mx-auto max-w-7xl">
-        {/* =================================================
-            CATEGORY
-        ================================================= */}
+        {/* =================================
+            Category
+        ================================== */}
 
         <div className="no-print">
           <CategorySelector
@@ -859,13 +800,17 @@ const ReportForm = () => {
               formik.values
                 .selectedCategory
             }
-            onSelect={(id) => {
+            onSelect={(
+              id,
+            ) => {
               formik.setFieldValue(
                 "selectedCategory",
                 id,
               );
             }}
-            onAdd={(category) => {
+            onAdd={(
+              category,
+            ) => {
               formik.setFieldValue(
                 "categories",
                 [
@@ -884,9 +829,9 @@ const ReportForm = () => {
           />
         </div>
 
-        {/* =================================================
-            HEADING
-        ================================================= */}
+        {/* =================================
+            Heading
+        ================================== */}
 
         <div className="no-print mb-6 mt-8">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -894,13 +839,13 @@ const ReportForm = () => {
           </h2>
 
           <p className="mt-2 text-sm text-gray-500">
-            أدخل البيانات واختر التصميم والألوان ثم قم بمعاينة التقرير وطباعته.
+            أدخل البيانات ثم اختر التصميم والألوان المناسبة للتقرير.
           </p>
         </div>
 
-        {/* =================================================
-            MAIN LAYOUT
-        ================================================= */}
+        {/* =================================
+            Layout
+        ================================== */}
 
         <div
           className="
@@ -914,9 +859,9 @@ const ReportForm = () => {
             lg:grid-cols-2
           "
         >
-          {/* =================================================
-              FORM
-          ================================================= */}
+          {/* =================================
+              Form
+          ================================== */}
 
           <form
             onSubmit={
@@ -924,6 +869,7 @@ const ReportForm = () => {
             }
             className="
               no-print
+
               min-w-0
 
               rounded-2xl
@@ -941,9 +887,9 @@ const ReportForm = () => {
             "
           >
             <div className="space-y-5">
-              {/* =============================================
-                  GENDER
-              ============================================= */}
+              {/* =============================
+                  Gender
+              ============================== */}
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-800">
@@ -960,6 +906,7 @@ const ReportForm = () => {
                     }
                     className={`
                       rounded-xl
+
                       border
 
                       px-3
@@ -991,6 +938,7 @@ const ReportForm = () => {
                     }
                     className={`
                       rounded-xl
+
                       border
 
                       px-3
@@ -1015,9 +963,9 @@ const ReportForm = () => {
                 </div>
               </div>
 
-              {/* =============================================
-                  THEMES
-              ============================================= */}
+              {/* =============================
+                  Themes
+              ============================== */}
 
               <ThemeSelector
                 value={
@@ -1029,40 +977,26 @@ const ReportForm = () => {
                 }
               />
 
-              {/* =============================================
-                  TEXT COLOR EDITOR
-              ============================================= */}
+              {/* =============================
+                  Colors Accordion
+              ============================== */}
 
               <ReportColorEditor
                 colors={
                   formik.values
                     .textColors
                 }
-                defaults={
-                  DEFAULT_TEXT_COLORS
+                onChange={
+                  handleTextColorChange
                 }
-                onChange={(
-                  key,
-                  color,
-                ) => {
-                  formik.setFieldValue(
-                    `textColors.${key}`,
-                    color,
-                  );
-                }}
-                onResetAll={() => {
-                  formik.setFieldValue(
-                    "textColors",
-                    {
-                      ...DEFAULT_TEXT_COLORS,
-                    },
-                  );
-                }}
+                onResetAll={
+                  resetTextColors
+                }
               />
 
-              {/* =============================================
-                  REGION + SCHOOL
-              ============================================= */}
+              {/* =============================
+                  Region + School
+              ============================== */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1142,9 +1076,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  TEACHER
-              ============================================= */}
+              {/* =============================
+                  Teacher
+              ============================== */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1174,9 +1108,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  GRADE
-              ============================================= */}
+              {/* =============================
+                  Grade
+              ============================== */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1204,9 +1138,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  PERIOD + DAY
-              ============================================= */}
+              {/* =============================
+                  Period + Day
+              ============================== */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1225,7 +1159,8 @@ const ReportForm = () => {
                   label="اليوم"
                   name="day"
                   value={
-                    formik.values.day
+                    formik.values
+                      .day
                   }
                   onChange={
                     formik.handleChange
@@ -1233,12 +1168,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  DATES
-
-                  iPhone X:
-                  يتحولوا لسطرين.
-              ============================================= */}
+              {/* =============================
+                  Dates
+              ============================== */}
 
               <div className="mobile-form-grid mobile-date-grid">
                 <InputField
@@ -1283,9 +1215,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  PROGRAM
-              ============================================= */}
+              {/* =============================
+                  Program
+              ============================== */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1313,9 +1245,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  ATTENDANCE
-              ============================================= */}
+              {/* =============================
+                  Attendance
+              ============================== */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1343,9 +1275,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  OBJECTIVES
-              ============================================= */}
+              {/* =============================
+                  Objectives
+              ============================== */}
 
               <SingleListField
                 title="أهداف البرنامج"
@@ -1358,7 +1290,9 @@ const ReportForm = () => {
 تعزيز الانتماء الوطني
 تنمية مهارات التواصل
 غرس القيم الإيجابية`}
-                onChange={(value) =>
+                onChange={(
+                  value,
+                ) =>
                   updateMultilineField(
                     "objectives",
                     value,
@@ -1367,9 +1301,9 @@ const ReportForm = () => {
                 }
               />
 
-              {/* =============================================
-                  IMPACT
-              ============================================= */}
+              {/* =============================
+                  Impact
+              ============================== */}
 
               <SingleListField
                 title="الأثر الإيجابي للبرنامج"
@@ -1382,7 +1316,9 @@ const ReportForm = () => {
 رفع مستوى الثقة بالنفس
 تحسين التعاون
 تنمية روح المبادرة`}
-                onChange={(value) =>
+                onChange={(
+                  value,
+                ) =>
                   updateMultilineField(
                     "impact",
                     value,
@@ -1391,13 +1327,13 @@ const ReportForm = () => {
                 }
               />
 
-              {/* =============================================
-                  CUSTOM FIELDS
-              ============================================= */}
+              {/* =============================
+                  Custom Fields
+              ============================== */}
 
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
                 <div className="mb-3 flex items-center justify-between gap-3">
-                  <div className="min-w-0">
+                  <div>
                     <h3 className="text-sm font-bold text-gray-900">
                       الحقول الإضافية
                     </h3>
@@ -1465,8 +1401,7 @@ const ReportForm = () => {
                               ) => {
                                 const updated =
                                   [
-                                    ...formik
-                                      .values
+                                    ...formik.values
                                       .customFields,
                                   ];
 
@@ -1523,8 +1458,7 @@ const ReportForm = () => {
                               ) => {
                                 const updated =
                                   [
-                                    ...formik
-                                      .values
+                                    ...formik.values
                                       .customFields,
                                   ];
 
@@ -1589,6 +1523,7 @@ const ReportForm = () => {
                   }
                   className="
                     mt-3
+
                     w-full
 
                     rounded-xl
@@ -1604,6 +1539,7 @@ const ReportForm = () => {
 
                     text-sm
                     font-semibold
+
                     text-gray-700
 
                     transition
@@ -1624,9 +1560,9 @@ const ReportForm = () => {
                 </button>
               </div>
 
-              {/* =============================================
-                  LEADER + MANAGER
-              ============================================= */}
+              {/* =============================
+                  Leader + Manager
+              ============================== */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1710,9 +1646,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================================
-                  EVIDENCE
-              ============================================= */}
+              {/* =============================
+                  Evidence
+              ============================== */}
 
               <div>
                 <div className="mb-2 flex items-center justify-between gap-3">
@@ -1745,7 +1681,6 @@ const ReportForm = () => {
                     className="
                       flex
                       cursor-pointer
-
                       items-center
                       justify-center
 
@@ -1849,9 +1784,9 @@ const ReportForm = () => {
                 )}
               </div>
 
-              {/* =============================================
-                  ACTIONS
-              ============================================= */}
+              {/* =============================
+                  Actions
+              ============================== */}
 
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -1872,6 +1807,7 @@ const ReportForm = () => {
 
                     text-sm
                     font-semibold
+
                     text-gray-700
                   "
                 >
@@ -1893,6 +1829,7 @@ const ReportForm = () => {
 
                     text-sm
                     font-semibold
+
                     text-white
                   "
                 >
@@ -1902,9 +1839,9 @@ const ReportForm = () => {
             </div>
           </form>
 
-          {/* =================================================
-              DESKTOP PREVIEW
-          ================================================= */}
+          {/* =================================
+              Desktop Preview
+          ================================== */}
 
           <div
             className="
@@ -1924,7 +1861,7 @@ const ReportForm = () => {
               </p>
 
               <p className="mt-1 text-xs text-gray-500">
-                أي تغيير في التصميم أو الألوان يظهر هنا مباشرة.
+                التعديلات تظهر مباشرة في المعاينة.
               </p>
             </div>
 
@@ -1945,9 +1882,9 @@ const ReportForm = () => {
           </div>
         </div>
 
-        {/* =================================================
-            MOBILE PREVIEW
-        ================================================= */}
+        {/* =================================
+            Mobile Preview
+        ================================== */}
 
         {preview && (
           <div className="no-print fixed inset-0 z-50 flex flex-col bg-black/70">
@@ -2014,9 +1951,9 @@ const ReportForm = () => {
           </div>
         )}
 
-        {/* =================================================
-            PRINT ONLY REPORT
-        ================================================= */}
+        {/* =================================
+            PRINT ONLY
+        ================================== */}
 
         <div className="print-only-report">
           <ReportPreview
@@ -2041,12 +1978,13 @@ const ReportForm = () => {
 
 export default ReportForm;
 
-/* =========================================================
-   THEME SELECTOR
-========================================================= */
+/* =========================================
+   Theme Selector
+========================================= */
 
 type ThemeSelectorProps = {
-  value: ReportTheme;
+  value:
+    ReportTheme;
 
   onChange: (
     theme: ReportTheme,
@@ -2089,6 +2027,7 @@ const ThemeSelector = ({
                 }
                 className={`
                   min-w-0
+
                   overflow-hidden
 
                   rounded-xl
@@ -2169,19 +2108,16 @@ const ThemeSelector = ({
   );
 };
 
-/* =========================================================
-   COLOR EDITOR
-========================================================= */
+/* =========================================
+   Color Editor Accordion
+========================================= */
 
 type ReportColorEditorProps = {
   colors:
     ReportTextColors;
 
-  defaults:
-    ReportTextColors;
-
   onChange: (
-    key: ColorTarget,
+    key: ReportTextColorKey,
     color: string,
   ) => void;
 
@@ -2189,290 +2125,804 @@ type ReportColorEditorProps = {
     () => void;
 };
 
+const COLOR_TARGETS: {
+  key:
+    ReportTextColorKey;
+
+  label:
+    string;
+
+  description:
+    string;
+}[] = [
+  {
+    key:
+      "reportTitle",
+
+    label:
+      "عنوان التقرير",
+
+    description:
+      "برامج الأنشطة الطلابية",
+  },
+
+  {
+    key:
+      "categoryTitle",
+
+    label:
+      "اسم المجال",
+
+    description:
+      "مثل مجال المواطنة والحياة",
+  },
+
+  {
+    key:
+      "fieldLabels",
+
+    label:
+      "أسماء الحقول",
+
+    description:
+      "اسم المعلم، الصف، اليوم...",
+  },
+
+  {
+    key:
+      "fieldValues",
+
+    label:
+      "بيانات الحقول",
+
+    description:
+      "القيم التي يتم إدخالها في التقرير",
+  },
+
+  {
+    key:
+      "sectionTitles",
+
+    label:
+      "عناوين الأقسام",
+
+    description:
+      "الأهداف، الأثر الإيجابي، الشواهد",
+  },
+
+  {
+    key:
+      "listText",
+
+    label:
+      "الأهداف والأثر",
+
+    description:
+      "نص الأهداف ونص الأثر الإيجابي",
+  },
+
+  {
+    key:
+      "listNumbers",
+
+    label:
+      "أرقام العناصر",
+
+    description:
+      "الأرقام 1، 2، 3، 4",
+  },
+
+  {
+    key:
+      "schoolHeader",
+
+    label:
+      "بيانات المدرسة",
+
+    description:
+      "الإدارة العامة والمدرسة والمنطقة",
+  },
+
+  {
+    key:
+      "signatures",
+
+    label:
+      "التوقيعات",
+
+    description:
+      "رائد النشاط ومدير المدرسة والأسماء",
+  },
+];
+
 const ReportColorEditor = ({
   colors,
-  defaults,
   onChange,
   onResetAll,
 }: ReportColorEditorProps) => {
+  /*
+    Accordion مقفول افتراضيًا
+    عشان الفورم ميبقاش مزدحم.
+  */
+
+  const [
+    isOpen,
+    setIsOpen,
+  ] = useState(false);
+
   const [
     selectedTarget,
     setSelectedTarget,
-  ] = useState<ColorTarget>(
-    "reportTitle",
-  );
+  ] =
+    useState<ReportTextColorKey>(
+      "reportTitle",
+    );
 
-  const selectedItem =
+  const currentTarget =
     COLOR_TARGETS.find(
-      (item) =>
-        item.key ===
+      (target) =>
+        target.key ===
         selectedTarget,
     );
 
+  const currentColor =
+    colors[
+      selectedTarget
+    ];
+
+  const defaultColor =
+    DEFAULT_REPORT_TEXT_COLORS[
+      selectedTarget
+    ];
+
+  /*
+    نحسب عدد الألوان المعدلة
+    ونظهره حتى لو الـAccordion مقفول.
+  */
+
+  const changedColorsCount =
+    COLOR_TARGETS.filter(
+      (target) =>
+        colors[
+          target.key
+        ] !==
+        DEFAULT_REPORT_TEXT_COLORS[
+          target.key
+        ],
+    ).length;
+
   return (
-    <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 sm:p-4">
-      {/* Header */}
+    <div
+      className="
+        overflow-hidden
 
-      <div className="mb-3 flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h3 className="text-sm font-bold text-gray-900">
-            تخصيص ألوان النصوص
-          </h3>
+        rounded-2xl
 
-          <p className="mt-1 text-xs leading-5 text-gray-500">
-            اختر نوع النص ثم غير لونه فقط بدون التأثير على باقي التقرير.
-          </p>
+        border
+        border-gray-200
+
+        bg-white
+      "
+    >
+      {/* =================================
+          Accordion Button
+      ================================== */}
+
+      <button
+        type="button"
+        aria-expanded={
+          isOpen
+        }
+        onClick={() =>
+          setIsOpen(
+            (current) =>
+              !current,
+          )
+        }
+        className="
+          flex
+          w-full
+
+          items-center
+          justify-between
+
+          gap-3
+
+          px-4
+          py-4
+
+          text-right
+
+          transition
+
+          hover:bg-gray-50
+
+          sm:px-5
+        "
+      >
+        <div className="flex min-w-0 items-center gap-3">
+          {/* Color Icon */}
+
+          <div
+            className="
+              flex
+              h-10
+              w-10
+
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-xl
+
+              bg-gray-100
+
+              text-gray-700
+            "
+          >
+            <svg
+              width="21"
+              height="21"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 3C7.03 3 3 6.58 3 11C3 14.53 5.54 17.51 9 18.57V20C9 20.55 9.45 21 10 21H12C12.55 21 13 20.55 13 20V18H15C18.31 18 21 15.31 21 12C21 7.03 16.97 3 12 3Z"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              <circle
+                cx="8"
+                cy="10"
+                r="1"
+                fill="currentColor"
+              />
+
+              <circle
+                cx="12"
+                cy="7"
+                r="1"
+                fill="currentColor"
+              />
+
+              <circle
+                cx="16"
+                cy="10"
+                r="1"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+
+          {/* Text */}
+
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="text-sm font-bold text-gray-900">
+                تخصيص ألوان النصوص
+              </h3>
+
+              {changedColorsCount >
+                0 && (
+                <span
+                  className="
+                    rounded-full
+
+                    bg-black
+
+                    px-2
+                    py-0.5
+
+                    text-[10px]
+                    font-bold
+
+                    text-white
+                  "
+                >
+                  {
+                    changedColorsCount
+                  }{" "}
+                  معدل
+                </span>
+              )}
+            </div>
+
+            <p className="mt-1 text-xs leading-5 text-gray-500">
+              اختر كل جزء من التقرير وعدّل لونه بشكل منفصل.
+            </p>
+          </div>
         </div>
 
-        <button
-          type="button"
-          onClick={
-            onResetAll
-          }
-          className="
+        {/* Arrow */}
+
+        <span
+          className={`
+            flex
+
+            h-8
+            w-8
+
             shrink-0
 
-            rounded-lg
+            items-center
+            justify-center
+
+            rounded-full
 
             border
             border-gray-200
 
             bg-white
 
-            px-2.5
-            py-2
+            text-gray-500
 
-            text-[11px]
-            font-semibold
-            text-gray-600
+            transition-transform
+            duration-300
 
-            transition
-
-            hover:border-gray-400
-            hover:text-gray-900
-          "
+            ${
+              isOpen
+                ? "rotate-180"
+                : ""
+            }
+          `}
         >
-          إعادة الكل
-        </button>
-      </div>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M6 9L12 15L18 9"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+      </button>
 
-      {/* Targets */}
+      {/* =================================
+          Collapsible Content
+      ================================== */}
 
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {COLOR_TARGETS.map(
-          (target) => {
-            const active =
-              selectedTarget ===
-              target.key;
+      <div
+        className={`
+          grid
 
-            return (
+          transition-all
+          duration-300
+          ease-in-out
+
+          ${
+            isOpen
+              ? "grid-rows-[1fr]"
+              : "grid-rows-[0fr]"
+          }
+        `}
+      >
+        <div className="overflow-hidden">
+          <div
+            className="
+              border-t
+              border-gray-100
+
+              bg-gray-50
+
+              p-3
+
+              sm:p-4
+            "
+          >
+            {/* Header */}
+
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <p className="text-xs font-semibold text-gray-700">
+                اختر النص الذي تريد تغيير لونه
+              </p>
+
               <button
-                key={
-                  target.key
-                }
                 type="button"
-                onClick={() =>
-                  setSelectedTarget(
-                    target.key,
-                  )
+                onClick={
+                  onResetAll
                 }
-                className={`
-                  flex
-                  min-w-0
-
-                  items-center
-                  gap-2
+                className="
+                  shrink-0
 
                   rounded-lg
 
                   border
+                  border-gray-200
+
+                  bg-white
 
                   px-2.5
-                  py-2.5
+                  py-2
 
-                  text-right
-                  text-xs
+                  text-[11px]
                   font-semibold
+
+                  text-gray-500
 
                   transition
 
-                  ${
-                    active
-                      ? "border-black bg-black text-white"
-                      : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
-                  }
-                `}
+                  hover:border-gray-400
+                  hover:text-gray-900
+                "
               >
-                <span
+                إعادة الكل
+              </button>
+            </div>
+
+            {/* =================================
+                Color Targets
+            ================================== */}
+
+            <div
+              className="
+                grid
+                grid-cols-2
+
+                gap-2
+
+                sm:grid-cols-3
+              "
+            >
+              {COLOR_TARGETS.map(
+                (target) => {
+                  const active =
+                    selectedTarget ===
+                    target.key;
+
+                  return (
+                    <button
+                      key={
+                        target.key
+                      }
+                      type="button"
+                      onClick={() =>
+                        setSelectedTarget(
+                          target.key,
+                        )
+                      }
+                      className={`
+                        flex
+
+                        min-w-0
+
+                        items-center
+
+                        gap-2
+
+                        rounded-xl
+
+                        border
+
+                        px-2.5
+                        py-2.5
+
+                        text-right
+
+                        transition
+
+                        ${
+                          active
+                            ? "border-black bg-black text-white"
+                            : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                        }
+                      `}
+                    >
+                      {/* Current Color */}
+
+                      <span
+                        className="
+                          h-5
+                          w-5
+
+                          shrink-0
+
+                          rounded-full
+
+                          border
+                          border-black/10
+
+                          shadow-sm
+                        "
+                        style={{
+                          backgroundColor:
+                            colors[
+                              target.key
+                            ],
+                        }}
+                      />
+
+                      <span
+                        className="
+                          min-w-0
+                          flex-1
+
+                          truncate
+
+                          text-[11px]
+                          font-semibold
+
+                          sm:text-xs
+                        "
+                      >
+                        {
+                          target.label
+                        }
+                      </span>
+                    </button>
+                  );
+                },
+              )}
+            </div>
+
+            {/* =================================
+                Current Selected Color
+            ================================== */}
+
+            <div
+              className="
+                mt-4
+
+                rounded-xl
+
+                border
+                border-gray-200
+
+                bg-white
+
+                p-3
+              "
+            >
+              {/* Description */}
+
+              <div className="mb-3">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="
+                      h-4
+                      w-4
+
+                      shrink-0
+
+                      rounded-full
+
+                      border
+                      border-black/10
+                    "
+                    style={{
+                      backgroundColor:
+                        currentColor,
+                    }}
+                  />
+
+                  <p className="text-sm font-bold text-gray-900">
+                    {
+                      currentTarget
+                        ?.label
+                    }
+                  </p>
+                </div>
+
+                <p className="mt-1.5 text-xs leading-5 text-gray-500">
+                  {
+                    currentTarget
+                      ?.description
+                  }
+                </p>
+              </div>
+
+              {/* Picker Row */}
+
+              <div className="flex min-w-0 items-stretch gap-2">
+                <label
+                  htmlFor="selected-text-color"
                   className="
-                    h-4
-                    w-4
+                    flex
 
-                    shrink-0
+                    min-w-0
+                    flex-1
 
-                    rounded-full
+                    cursor-pointer
+
+                    items-center
+
+                    gap-3
+
+                    rounded-xl
 
                     border
-                    border-black/10
+                    border-gray-200
+
+                    px-3
+                    py-2
+
+                    transition
+
+                    hover:border-gray-400
                   "
-                  style={{
-                    backgroundColor:
-                      colors[
-                        target.key
-                      ],
-                  }}
-                />
+                >
+                  {/* Color Preview */}
 
-                <span className="min-w-0 flex-1 truncate">
-                  {
-                    target.label
+                  <span
+                    className="
+                      h-8
+                      w-8
+
+                      shrink-0
+
+                      rounded-full
+
+                      border
+                      border-gray-200
+                    "
+                    style={{
+                      backgroundColor:
+                        currentColor,
+                    }}
+                  />
+
+                  {/* Hex */}
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-semibold text-gray-700">
+                      اللون الحالي
+                    </p>
+
+                    <p
+                      dir="ltr"
+                      className="mt-0.5 truncate text-xs text-gray-400"
+                    >
+                      {currentColor.toUpperCase()}
+                    </p>
+                  </div>
+
+                  {/* Native Color Picker */}
+
+                  <input
+                    id="selected-text-color"
+                    type="color"
+                    value={
+                      currentColor
+                    }
+                    onChange={(
+                      event,
+                    ) =>
+                      onChange(
+                        selectedTarget,
+                        event
+                          .target
+                          .value,
+                      )
+                    }
+                    className="
+                      h-9
+                      w-10
+
+                      shrink-0
+
+                      cursor-pointer
+
+                      border-0
+
+                      bg-transparent
+
+                      p-0
+                    "
+                  />
+                </label>
+
+                {/* Reset This Color */}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    onChange(
+                      selectedTarget,
+                      defaultColor,
+                    )
                   }
-                </span>
-              </button>
-            );
-          },
-        )}
-      </div>
+                  className="
+                    shrink-0
 
-      {/* Selected */}
+                    rounded-xl
 
-      <div className="mt-3 rounded-xl border border-gray-200 bg-white p-3">
-        <div className="flex items-center gap-3">
-          <span
-            className="
-              h-10
-              w-10
+                    border
+                    border-gray-200
 
-              shrink-0
+                    bg-white
 
-              rounded-full
+                    px-3
 
-              border
-              border-gray-200
-            "
-            style={{
-              backgroundColor:
-                colors[
-                  selectedTarget
-                ],
-            }}
-          />
+                    text-xs
+                    font-semibold
 
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-bold text-gray-900">
-              {
-                selectedItem
-                  ?.label
-              }
-            </p>
+                    text-gray-600
 
-            <p className="mt-0.5 text-[11px] text-gray-500">
-              {
-                selectedItem
-                  ?.description
-              }
-            </p>
+                    transition
 
-            <p
-              dir="ltr"
-              className="mt-1 w-fit text-xs font-semibold text-gray-400"
-            >
-              {colors[
-                selectedTarget
-              ].toUpperCase()}
-            </p>
+                    hover:border-gray-400
+                    hover:text-gray-900
+                  "
+                >
+                  افتراضي
+                </button>
+              </div>
+
+              {/* Modified Hint */}
+
+              {currentColor !==
+                defaultColor && (
+                <div
+                  className="
+                    mt-3
+
+                    flex
+                    items-center
+                    gap-2
+
+                    rounded-lg
+
+                    bg-gray-50
+
+                    px-3
+                    py-2
+                  "
+                >
+                  <span
+                    className="
+                      h-1.5
+                      w-1.5
+
+                      shrink-0
+
+                      rounded-full
+
+                      bg-black
+                    "
+                  />
+
+                  <p className="text-[11px] text-gray-500">
+                    تم تعديل لون هذا العنصر عن اللون الافتراضي.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-
-          <input
-            type="color"
-            aria-label={`لون ${selectedItem?.label ?? "النص"}`}
-            value={
-              colors[
-                selectedTarget
-              ]
-            }
-            onChange={(
-              event,
-            ) =>
-              onChange(
-                selectedTarget,
-                event.target
-                  .value,
-              )
-            }
-            className="
-              h-11
-              w-12
-
-              shrink-0
-
-              cursor-pointer
-
-              rounded-lg
-
-              border-0
-
-              bg-transparent
-
-              p-0
-            "
-          />
         </div>
-
-        <button
-          type="button"
-          onClick={() =>
-            onChange(
-              selectedTarget,
-              defaults[
-                selectedTarget
-              ],
-            )
-          }
-          className="
-            mt-3
-            w-full
-
-            rounded-lg
-
-            border
-            border-gray-200
-
-            bg-gray-50
-
-            px-3
-            py-2
-
-            text-xs
-            font-semibold
-            text-gray-600
-
-            transition
-
-            hover:border-gray-400
-            hover:bg-white
-            hover:text-gray-900
-          "
-        >
-          إعادة لون هذا العنصر فقط
-        </button>
       </div>
     </div>
   );
 };
 
-/* =========================================================
-   OBJECTIVES / IMPACT FIELD
-========================================================= */
+/* =========================================
+   Objectives / Impact Field
+========================================= */
 
 type SingleListFieldProps = {
-  title: string;
+  title:
+    string;
 
-  description: string;
+  description:
+    string;
 
-  value: string;
+  value:
+    string;
 
-  placeholder: string;
+  placeholder:
+    string;
 
   onChange: (
     value: string,
@@ -2542,6 +2992,7 @@ const SingleListField = ({
         }
         className="
           block
+
           w-full
           min-w-0
           max-w-full
@@ -2576,20 +3027,25 @@ const SingleListField = ({
   );
 };
 
-/* =========================================================
-   INPUT FIELD
-========================================================= */
+/* =========================================
+   Input
+========================================= */
 
 type InputFieldProps = {
-  label: string;
+  label:
+    string;
 
-  name: string;
+  name:
+    string;
 
-  value: string;
+  value:
+    string;
 
-  type?: string;
+  type?:
+    string;
 
-  disabled?: boolean;
+  disabled?:
+    boolean;
 
   onChange:
     ChangeEventHandler<HTMLInputElement>;
@@ -2619,13 +3075,16 @@ const InputField = ({
         }
         className="
           mb-1.5
+
           block
 
           min-h-8
 
           text-xs
           font-semibold
+
           leading-4
+
           text-gray-800
 
           sm:min-h-0
