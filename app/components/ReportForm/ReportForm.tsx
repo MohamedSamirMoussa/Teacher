@@ -22,9 +22,10 @@ import ReportPreview from "../ReportPreview/ReportPreview";
 
 import CategorySelector from "../CategorySelector/CategorySelector";
 
-import {
+import type {
   Gender,
   ReportFormValues,
+  ReportTextColors,
   ReportTheme,
 } from "@/app/types/reports";
 
@@ -32,9 +33,9 @@ import {
   REPORT_THEMES,
 } from "@/app/constants/reportThemes";
 
-/* =========================================
-   Defaults
-========================================= */
+/* =========================================================
+   DEFAULT VALUES
+========================================================= */
 
 const DEFAULT_ACTIVITY_LEADER =
   "أ.عمر سعيد الصاعدي";
@@ -48,9 +49,118 @@ const DEFAULT_SCHOOL =
 const DEFAULT_REGION =
   "المدينة المنورة";
 
-/* =========================================
-   Gregorian -> Hijri
-========================================= */
+/* =========================================================
+   DEFAULT COLORS
+========================================================= */
+
+const DEFAULT_TEXT_COLORS: ReportTextColors = {
+  reportTitle:
+    "#111111",
+
+  categoryTitle:
+    "#111111",
+
+  fieldLabels:
+    "#1D2826",
+
+  fieldValues:
+    "#111111",
+
+  sectionTitles:
+    "#173C38",
+
+  listText:
+    "#111111",
+
+  listNumbers:
+    "#176C65",
+
+  schoolHeader:
+    "#064F4A",
+
+  signatures:
+    "#173C38",
+};
+
+/* =========================================================
+   COLOR TARGET
+========================================================= */
+
+type ColorTarget =
+  keyof ReportTextColors;
+
+const COLOR_TARGETS: {
+  key: ColorTarget;
+  label: string;
+  description: string;
+}[] = [
+  {
+    key: "reportTitle",
+    label: "عنوان التقرير",
+    description:
+      "برامج الأنشطة الطلابية",
+  },
+
+  {
+    key: "categoryTitle",
+    label: "اسم المجال",
+    description:
+      "مجال المواطنة والحياة وغيره",
+  },
+
+  {
+    key: "fieldLabels",
+    label: "أسماء الحقول",
+    description:
+      "اسم المعلم، الصف، الحصة...",
+  },
+
+  {
+    key: "fieldValues",
+    label: "قيم الحقول",
+    description:
+      "البيانات المكتوبة داخل المربعات",
+  },
+
+  {
+    key: "sectionTitles",
+    label: "عناوين الأقسام",
+    description:
+      "الأهداف، الأثر الإيجابي، الشواهد",
+  },
+
+  {
+    key: "listText",
+    label: "الأهداف والأثر",
+    description:
+      "النص المكتوب داخل الأهداف والآثار",
+  },
+
+  {
+    key: "listNumbers",
+    label: "أرقام الأهداف",
+    description:
+      "الأرقام 1، 2، 3، 4",
+  },
+
+  {
+    key: "schoolHeader",
+    label: "بيانات المدرسة",
+    description:
+      "الإدارة والمدرسة والمنطقة",
+  },
+
+  {
+    key: "signatures",
+    label: "التوقيعات",
+    description:
+      "رائد النشاط ومدير المدرسة",
+  },
+];
+
+/* =========================================================
+   GREGORIAN -> HIJRI
+========================================================= */
 
 const convertToHijri = (
   gregorianDate: string,
@@ -75,12 +185,11 @@ const convertToHijri = (
     return "";
   }
 
-  const date =
-    new Date(
-      year,
-      month - 1,
-      day,
-    );
+  const date = new Date(
+    year,
+    month - 1,
+    day,
+  );
 
   return new Intl.DateTimeFormat(
     "ar-SA-u-ca-islamic-umalqura",
@@ -92,9 +201,9 @@ const convertToHijri = (
   ).format(date);
 };
 
-/* =========================================
-   Component
-========================================= */
+/* =========================================================
+   COMPONENT
+========================================================= */
 
 const ReportForm = () => {
   const [
@@ -102,9 +211,9 @@ const ReportForm = () => {
     setPreview,
   ] = useState(false);
 
-  /* =====================================
-     Formik
-  ====================================== */
+  /* =====================================================
+     FORMIK
+  ===================================================== */
 
   const formik =
     useFormik<ReportFormValues>({
@@ -112,8 +221,9 @@ const ReportForm = () => {
         theme:
           "theme1",
 
-        fontColor:
-          "#111111",
+        textColors: {
+          ...DEFAULT_TEXT_COLORS,
+        },
 
         gender:
           "male",
@@ -170,11 +280,6 @@ const ReportForm = () => {
               "مجال الأيام والمناسبات",
           },
         ],
-
-        /*
-          Default values
-          للمعلم فقط
-        */
 
         regionName:
           DEFAULT_REGION,
@@ -237,27 +342,20 @@ const ReportForm = () => {
           [],
       },
 
-      onSubmit:
-        () => {},
+      onSubmit: () => {},
     });
 
-  /* =====================================
-     Mobile Preview
-  ====================================== */
+  /* =====================================================
+     PREVIEW
+  ===================================================== */
 
-  const openPreview =
-    () => {
-      setPreview(
-        true,
-      );
-    };
+  const openPreview = () => {
+    setPreview(true);
+  };
 
-  const closePreview =
-    () => {
-      setPreview(
-        false,
-      );
-    };
+  const closePreview = () => {
+    setPreview(false);
+  };
 
   useEffect(() => {
     document.body.style.overflow =
@@ -298,9 +396,9 @@ const ReportForm = () => {
     };
   }, [preview]);
 
-  /* =====================================
-     Gender
-  ====================================== */
+  /* =====================================================
+     GENDER
+  ===================================================== */
 
   const isFemale =
     formik.values.gender ===
@@ -333,9 +431,9 @@ const ReportForm = () => {
         : "اسم مدير المدرسة",
   };
 
-  /* =====================================
-     Gender Change
-  ====================================== */
+  /* =====================================================
+     CHANGE GENDER
+  ===================================================== */
 
   const handleGenderChange = (
     gender: Gender,
@@ -349,14 +447,10 @@ const ReportForm = () => {
 
     /*
       معلمة:
-      كل حقول التقرير تصبح فارغة.
+      كل بيانات التقرير تصبح فارغة.
 
-      نترك:
-      - Theme
-      - Font color
-      - Categories
-
-      لأنها إعدادات وليست بيانات التقرير.
+      Theme / Colors / Categories
+      يظلوا كما هم.
     */
 
     if (
@@ -450,8 +544,8 @@ const ReportForm = () => {
     }
 
     /*
-      الرجوع لمعلم:
-      ترجع القيم الثابتة فقط.
+      العودة لمعلم:
+      القيم الثابتة فقط ترجع.
     */
 
     formik.setValues({
@@ -474,9 +568,9 @@ const ReportForm = () => {
     });
   };
 
-  /* =====================================
-     Theme
-  ====================================== */
+  /* =====================================================
+     THEME
+  ===================================================== */
 
   const handleThemeChange = (
     theme: ReportTheme,
@@ -487,9 +581,9 @@ const ReportForm = () => {
     );
   };
 
-  /* =====================================
-     Selected Category
-  ====================================== */
+  /* =====================================================
+     CATEGORY
+  ===================================================== */
 
   const selectedCategory =
     formik.values
@@ -501,44 +595,43 @@ const ReportForm = () => {
             .selectedCategory,
       );
 
-  /* =====================================
-     Custom Fields
-  ====================================== */
+  /* =====================================================
+     CUSTOM FIELDS
+  ===================================================== */
 
-  const addCustomField =
-    () => {
-      if (
-        formik.values
-          .customFields
-          .length >=
-        4
-      ) {
-        toast.error(
-          "الحد الأقصى للحقول الإضافية هو 4 حقول",
-        );
-
-        return;
-      }
-
-      formik.setFieldValue(
-        "customFields",
-        [
-          ...formik.values
-            .customFields,
-
-          {
-            id:
-              crypto.randomUUID(),
-
-            label:
-              "",
-
-            value:
-              "",
-          },
-        ],
+  const addCustomField = () => {
+    if (
+      formik.values
+        .customFields
+        .length >=
+      4
+    ) {
+      toast.error(
+        "الحد الأقصى للحقول الإضافية هو 4 حقول",
       );
-    };
+
+      return;
+    }
+
+    formik.setFieldValue(
+      "customFields",
+      [
+        ...formik.values
+          .customFields,
+
+        {
+          id:
+            crypto.randomUUID(),
+
+          label:
+            "",
+
+          value:
+            "",
+        },
+      ],
+    );
+  };
 
   const removeCustomField = (
     id: string,
@@ -555,9 +648,9 @@ const ReportForm = () => {
     );
   };
 
-  /* =====================================
-     Objectives / Impact
-  ====================================== */
+  /* =====================================================
+     OBJECTIVES / IMPACT
+  ===================================================== */
 
   const updateMultilineField = (
     fieldName:
@@ -590,20 +683,15 @@ const ReportForm = () => {
       return;
     }
 
-    /*
-      Raw value
-      عشان Enter يشتغل طبيعي.
-    */
-
     formik.setFieldValue(
       fieldName,
       value,
     );
   };
 
-  /* =====================================
-     Evidence
-  ====================================== */
+  /* =====================================================
+     IMAGES
+  ===================================================== */
 
   const handleImagesChange = (
     event:
@@ -621,13 +709,13 @@ const ReportForm = () => {
       return;
     }
 
-    const current =
+    const currentImages =
       formik.values
         .evidenceImages;
 
     const remaining =
       4 -
-      current.length;
+      currentImages.length;
 
     if (
       remaining <= 0
@@ -642,14 +730,14 @@ const ReportForm = () => {
       return;
     }
 
-    const selected =
+    const selectedFiles =
       files.slice(
         0,
         remaining,
       );
 
-    const urls =
-      selected.map(
+    const newImages =
+      selectedFiles.map(
         (file) =>
           URL.createObjectURL(
             file,
@@ -659,8 +747,8 @@ const ReportForm = () => {
     formik.setFieldValue(
       "evidenceImages",
       [
-        ...current,
-        ...urls,
+        ...currentImages,
+        ...newImages,
       ],
     );
 
@@ -709,53 +797,44 @@ const ReportForm = () => {
     );
   };
 
-  /* =====================================
-     Print
-  ====================================== */
+  /* =====================================================
+     PRINT
+  ===================================================== */
 
-  const printReport =
-    () => {
-      if (
-        formik.values
-          .evidenceImages
-          .length <
-        2
-      ) {
-        toast.error(
-          "يجب إضافة صورتين على الأقل من الشواهد",
-        );
-
-        return;
-      }
-
-      /*
-        نقفل Mobile Preview
-        قبل الطباعة.
-      */
-
-      setPreview(
-        false,
+  const printReport = () => {
+    if (
+      formik.values
+        .evidenceImages
+        .length <
+      2
+    ) {
+      toast.error(
+        "يجب إضافة صورتين على الأقل من الشواهد",
       );
 
-      /*
-        Safari iOS يحتاج وقت بسيط
-        بعد تغيير الـDOM.
-      */
+      return;
+    }
 
-      setTimeout(
-        () => {
-          window.print();
-        },
-        250,
-      );
-    };
+    setPreview(false);
+
+    /*
+      Safari iOS
+      يحتاج وقت صغير بعد غلق الـModal.
+    */
+
+    setTimeout(
+      () => {
+        window.print();
+      },
+      250,
+    );
+  };
 
   return (
     <section
       id="report"
       className="
         bg-gray-50
-
         px-3
         py-6
 
@@ -766,9 +845,9 @@ const ReportForm = () => {
       "
     >
       <div className="report-page-container mx-auto max-w-7xl">
-        {/* =================================
-            Category
-        ================================== */}
+        {/* =================================================
+            CATEGORY
+        ================================================= */}
 
         <div className="no-print">
           <CategorySelector
@@ -780,17 +859,13 @@ const ReportForm = () => {
               formik.values
                 .selectedCategory
             }
-            onSelect={(
-              id,
-            ) => {
+            onSelect={(id) => {
               formik.setFieldValue(
                 "selectedCategory",
                 id,
               );
             }}
-            onAdd={(
-              category,
-            ) => {
+            onAdd={(category) => {
               formik.setFieldValue(
                 "categories",
                 [
@@ -809,9 +884,9 @@ const ReportForm = () => {
           />
         </div>
 
-        {/* =================================
-            Heading
-        ================================== */}
+        {/* =================================================
+            HEADING
+        ================================================= */}
 
         <div className="no-print mb-6 mt-8">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -819,13 +894,13 @@ const ReportForm = () => {
           </h2>
 
           <p className="mt-2 text-sm text-gray-500">
-            أدخل البيانات واختر تصميم التقرير ثم قم بمعاينته وطباعته.
+            أدخل البيانات واختر التصميم والألوان ثم قم بمعاينة التقرير وطباعته.
           </p>
         </div>
 
-        {/* =================================
-            Main Layout
-        ================================== */}
+        {/* =================================================
+            MAIN LAYOUT
+        ================================================= */}
 
         <div
           className="
@@ -839,9 +914,9 @@ const ReportForm = () => {
             lg:grid-cols-2
           "
         >
-          {/* =================================
+          {/* =================================================
               FORM
-          ================================== */}
+          ================================================= */}
 
           <form
             onSubmit={
@@ -849,7 +924,6 @@ const ReportForm = () => {
             }
             className="
               no-print
-
               min-w-0
 
               rounded-2xl
@@ -867,9 +941,9 @@ const ReportForm = () => {
             "
           >
             <div className="space-y-5">
-              {/* =============================
-                  Gender
-              ============================== */}
+              {/* =============================================
+                  GENDER
+              ============================================= */}
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-800">
@@ -941,9 +1015,9 @@ const ReportForm = () => {
                 </div>
               </div>
 
-              {/* =============================
-                  Themes
-              ============================== */}
+              {/* =============================================
+                  THEMES
+              ============================================= */}
 
               <ThemeSelector
                 value={
@@ -955,28 +1029,40 @@ const ReportForm = () => {
                 }
               />
 
-              {/* =============================
-                  Font Color
-              ============================== */}
+              {/* =============================================
+                  TEXT COLOR EDITOR
+              ============================================= */}
 
-              <ReportColorPicker
-                value={
+              <ReportColorEditor
+                colors={
                   formik.values
-                    .fontColor
+                    .textColors
+                }
+                defaults={
+                  DEFAULT_TEXT_COLORS
                 }
                 onChange={(
-                  value,
-                ) =>
+                  key,
+                  color,
+                ) => {
                   formik.setFieldValue(
-                    "fontColor",
-                    value,
-                  )
-                }
+                    `textColors.${key}`,
+                    color,
+                  );
+                }}
+                onResetAll={() => {
+                  formik.setFieldValue(
+                    "textColors",
+                    {
+                      ...DEFAULT_TEXT_COLORS,
+                    },
+                  );
+                }}
               />
 
-              {/* =============================
-                  Region + School
-              ============================== */}
+              {/* =============================================
+                  REGION + SCHOOL
+              ============================================= */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1056,9 +1142,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Teacher
-              ============================== */}
+              {/* =============================================
+                  TEACHER
+              ============================================= */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1088,9 +1174,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Grade
-              ============================== */}
+              {/* =============================================
+                  GRADE
+              ============================================= */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1118,9 +1204,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Period
-              ============================== */}
+              {/* =============================================
+                  PERIOD + DAY
+              ============================================= */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1147,12 +1233,12 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Date
+              {/* =============================================
+                  DATES
 
                   iPhone X:
-                  يتحول إلى عمود واحد.
-              ============================== */}
+                  يتحولوا لسطرين.
+              ============================================= */}
 
               <div className="mobile-form-grid mobile-date-grid">
                 <InputField
@@ -1167,8 +1253,7 @@ const ReportForm = () => {
                     event,
                   ) => {
                     const value =
-                      event
-                        .target
+                      event.target
                         .value;
 
                     formik.setFieldValue(
@@ -1198,9 +1283,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Program
-              ============================== */}
+              {/* =============================================
+                  PROGRAM
+              ============================================= */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1228,9 +1313,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Attendance
-              ============================== */}
+              {/* =============================================
+                  ATTENDANCE
+              ============================================= */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1258,9 +1343,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Objectives
-              ============================== */}
+              {/* =============================================
+                  OBJECTIVES
+              ============================================= */}
 
               <SingleListField
                 title="أهداف البرنامج"
@@ -1273,9 +1358,7 @@ const ReportForm = () => {
 تعزيز الانتماء الوطني
 تنمية مهارات التواصل
 غرس القيم الإيجابية`}
-                onChange={(
-                  value,
-                ) =>
+                onChange={(value) =>
                   updateMultilineField(
                     "objectives",
                     value,
@@ -1284,9 +1367,9 @@ const ReportForm = () => {
                 }
               />
 
-              {/* =============================
-                  Impact
-              ============================== */}
+              {/* =============================================
+                  IMPACT
+              ============================================= */}
 
               <SingleListField
                 title="الأثر الإيجابي للبرنامج"
@@ -1299,9 +1382,7 @@ const ReportForm = () => {
 رفع مستوى الثقة بالنفس
 تحسين التعاون
 تنمية روح المبادرة`}
-                onChange={(
-                  value,
-                ) =>
+                onChange={(value) =>
                   updateMultilineField(
                     "impact",
                     value,
@@ -1310,13 +1391,13 @@ const ReportForm = () => {
                 }
               />
 
-              {/* =============================
-                  Custom Fields
-              ============================== */}
+              {/* =============================================
+                  CUSTOM FIELDS
+              ============================================= */}
 
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
                 <div className="mb-3 flex items-center justify-between gap-3">
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="text-sm font-bold text-gray-900">
                       الحقول الإضافية
                     </h3>
@@ -1508,7 +1589,6 @@ const ReportForm = () => {
                   }
                   className="
                     mt-3
-
                     w-full
 
                     rounded-xl
@@ -1524,7 +1604,6 @@ const ReportForm = () => {
 
                     text-sm
                     font-semibold
-
                     text-gray-700
 
                     transition
@@ -1545,9 +1624,9 @@ const ReportForm = () => {
                 </button>
               </div>
 
-              {/* =============================
-                  Leader / Manager
-              ============================== */}
+              {/* =============================================
+                  LEADER + MANAGER
+              ============================================= */}
 
               <div className="mobile-form-grid">
                 <InputField
@@ -1631,9 +1710,9 @@ const ReportForm = () => {
                 />
               </div>
 
-              {/* =============================
-                  Images
-              ============================== */}
+              {/* =============================================
+                  EVIDENCE
+              ============================================= */}
 
               <div>
                 <div className="mb-2 flex items-center justify-between gap-3">
@@ -1666,6 +1745,7 @@ const ReportForm = () => {
                     className="
                       flex
                       cursor-pointer
+
                       items-center
                       justify-center
 
@@ -1680,7 +1760,6 @@ const ReportForm = () => {
 
                       text-sm
                       font-medium
-
                       text-gray-600
 
                       transition
@@ -1770,9 +1849,9 @@ const ReportForm = () => {
                 )}
               </div>
 
-              {/* =============================
-                  Actions
-              ============================== */}
+              {/* =============================================
+                  ACTIONS
+              ============================================= */}
 
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -1793,7 +1872,6 @@ const ReportForm = () => {
 
                     text-sm
                     font-semibold
-
                     text-gray-700
                   "
                 >
@@ -1815,7 +1893,6 @@ const ReportForm = () => {
 
                     text-sm
                     font-semibold
-
                     text-white
                   "
                 >
@@ -1825,11 +1902,9 @@ const ReportForm = () => {
             </div>
           </form>
 
-          {/* =================================
-              Desktop Preview
-
-              لا يدخل في الطباعة.
-          ================================== */}
+          {/* =================================================
+              DESKTOP PREVIEW
+          ================================================= */}
 
           <div
             className="
@@ -1849,7 +1924,7 @@ const ReportForm = () => {
               </p>
 
               <p className="mt-1 text-xs text-gray-500">
-                المعاينة تتناسب تلقائيًا مع المساحة المتاحة.
+                أي تغيير في التصميم أو الألوان يظهر هنا مباشرة.
               </p>
             </div>
 
@@ -1870,9 +1945,9 @@ const ReportForm = () => {
           </div>
         </div>
 
-        {/* =================================
-            Mobile Preview
-        ================================== */}
+        {/* =================================================
+            MOBILE PREVIEW
+        ================================================= */}
 
         {preview && (
           <div className="no-print fixed inset-0 z-50 flex flex-col bg-black/70">
@@ -1939,13 +2014,9 @@ const ReportForm = () => {
           </div>
         )}
 
-        {/* =================================
-            PRINT ONLY
-
-            دي النسخة الوحيدة
-            اللي iOS / Desktop
-            هيطبعها.
-        ================================== */}
+        {/* =================================================
+            PRINT ONLY REPORT
+        ================================================= */}
 
         <div className="print-only-report">
           <ReportPreview
@@ -1970,9 +2041,9 @@ const ReportForm = () => {
 
 export default ReportForm;
 
-/* =========================================
-   Theme Selector
-========================================= */
+/* =========================================================
+   THEME SELECTOR
+========================================================= */
 
 type ThemeSelectorProps = {
   value: ReportTheme;
@@ -2018,7 +2089,6 @@ const ThemeSelector = ({
                 }
                 className={`
                   min-w-0
-
                   overflow-hidden
 
                   rounded-xl
@@ -2099,134 +2169,301 @@ const ThemeSelector = ({
   );
 };
 
-/* =========================================
-   Color Picker
-========================================= */
+/* =========================================================
+   COLOR EDITOR
+========================================================= */
 
-type ReportColorPickerProps = {
-  value: string;
+type ReportColorEditorProps = {
+  colors:
+    ReportTextColors;
+
+  defaults:
+    ReportTextColors;
 
   onChange: (
+    key: ColorTarget,
     color: string,
   ) => void;
+
+  onResetAll:
+    () => void;
 };
 
-const ReportColorPicker = ({
-  value,
+const ReportColorEditor = ({
+  colors,
+  defaults,
   onChange,
-}: ReportColorPickerProps) => {
+  onResetAll,
+}: ReportColorEditorProps) => {
+  const [
+    selectedTarget,
+    setSelectedTarget,
+  ] = useState<ColorTarget>(
+    "reportTitle",
+  );
+
+  const selectedItem =
+    COLOR_TARGETS.find(
+      (item) =>
+        item.key ===
+        selectedTarget,
+    );
+
   return (
-    <div>
-      <div className="mb-3">
-        <h3 className="text-sm font-bold text-gray-900">
-          لون خط التقرير
-        </h3>
+    <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 sm:p-4">
+      {/* Header */}
 
-        <p className="mt-1 text-xs text-gray-500">
-          اختر لون النصوص داخل التقرير.
-        </p>
-      </div>
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h3 className="text-sm font-bold text-gray-900">
+            تخصيص ألوان النصوص
+          </h3>
 
-      <div className="flex min-w-0 items-center gap-2">
-        <label
-          htmlFor="report-font-color"
+          <p className="mt-1 text-xs leading-5 text-gray-500">
+            اختر نوع النص ثم غير لونه فقط بدون التأثير على باقي التقرير.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={
+            onResetAll
+          }
           className="
-            flex
-            h-12
-            min-w-0
-            flex-1
+            shrink-0
 
-            cursor-pointer
-            items-center
-            gap-3
-
-            rounded-xl
+            rounded-lg
 
             border
             border-gray-200
 
             bg-white
 
-            px-3
+            px-2.5
+            py-2
+
+            text-[11px]
+            font-semibold
+            text-gray-600
+
+            transition
+
+            hover:border-gray-400
+            hover:text-gray-900
           "
         >
+          إعادة الكل
+        </button>
+      </div>
+
+      {/* Targets */}
+
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        {COLOR_TARGETS.map(
+          (target) => {
+            const active =
+              selectedTarget ===
+              target.key;
+
+            return (
+              <button
+                key={
+                  target.key
+                }
+                type="button"
+                onClick={() =>
+                  setSelectedTarget(
+                    target.key,
+                  )
+                }
+                className={`
+                  flex
+                  min-w-0
+
+                  items-center
+                  gap-2
+
+                  rounded-lg
+
+                  border
+
+                  px-2.5
+                  py-2.5
+
+                  text-right
+                  text-xs
+                  font-semibold
+
+                  transition
+
+                  ${
+                    active
+                      ? "border-black bg-black text-white"
+                      : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                  }
+                `}
+              >
+                <span
+                  className="
+                    h-4
+                    w-4
+
+                    shrink-0
+
+                    rounded-full
+
+                    border
+                    border-black/10
+                  "
+                  style={{
+                    backgroundColor:
+                      colors[
+                        target.key
+                      ],
+                  }}
+                />
+
+                <span className="min-w-0 flex-1 truncate">
+                  {
+                    target.label
+                  }
+                </span>
+              </button>
+            );
+          },
+        )}
+      </div>
+
+      {/* Selected */}
+
+      <div className="mt-3 rounded-xl border border-gray-200 bg-white p-3">
+        <div className="flex items-center gap-3">
           <span
-            className="h-7 w-7 shrink-0 rounded-full border border-gray-200"
+            className="
+              h-10
+              w-10
+
+              shrink-0
+
+              rounded-full
+
+              border
+              border-gray-200
+            "
             style={{
               backgroundColor:
-                value,
+                colors[
+                  selectedTarget
+                ],
             }}
           />
 
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-semibold text-gray-700">
-              اللون الحالي
+            <p className="text-sm font-bold text-gray-900">
+              {
+                selectedItem
+                  ?.label
+              }
+            </p>
+
+            <p className="mt-0.5 text-[11px] text-gray-500">
+              {
+                selectedItem
+                  ?.description
+              }
             </p>
 
             <p
               dir="ltr"
-              className="truncate text-xs text-gray-400"
+              className="mt-1 w-fit text-xs font-semibold text-gray-400"
             >
-              {value.toUpperCase()}
+              {colors[
+                selectedTarget
+              ].toUpperCase()}
             </p>
           </div>
 
           <input
-            id="report-font-color"
             type="color"
+            aria-label={`لون ${selectedItem?.label ?? "النص"}`}
             value={
-              value
+              colors[
+                selectedTarget
+              ]
             }
             onChange={(
               event,
             ) =>
               onChange(
+                selectedTarget,
                 event.target
                   .value,
               )
             }
-            className="h-8 w-8 shrink-0 cursor-pointer border-0 bg-transparent p-0"
+            className="
+              h-11
+              w-12
+
+              shrink-0
+
+              cursor-pointer
+
+              rounded-lg
+
+              border-0
+
+              bg-transparent
+
+              p-0
+            "
           />
-        </label>
+        </div>
 
         <button
           type="button"
           onClick={() =>
             onChange(
-              "#111111",
+              selectedTarget,
+              defaults[
+                selectedTarget
+              ],
             )
           }
           className="
-            h-12
-            shrink-0
+            mt-3
+            w-full
 
-            rounded-xl
+            rounded-lg
 
             border
             border-gray-200
 
-            bg-white
+            bg-gray-50
 
             px-3
+            py-2
 
             text-xs
             font-semibold
-
             text-gray-600
 
-            sm:px-4
+            transition
+
+            hover:border-gray-400
+            hover:bg-white
+            hover:text-gray-900
           "
         >
-          افتراضي
+          إعادة لون هذا العنصر فقط
         </button>
       </div>
     </div>
   );
 };
 
-/* =========================================
-   Objectives / Impact
-========================================= */
+/* =========================================================
+   OBJECTIVES / IMPACT FIELD
+========================================================= */
 
 type SingleListFieldProps = {
   title: string;
@@ -2326,6 +2563,10 @@ const SingleListField = ({
 
           outline-none
 
+          transition
+
+          placeholder:text-gray-300
+
           focus:border-gray-900
 
           sm:text-sm
@@ -2335,9 +2576,9 @@ const SingleListField = ({
   );
 };
 
-/* =========================================
-   Input
-========================================= */
+/* =========================================================
+   INPUT FIELD
+========================================================= */
 
 type InputFieldProps = {
   label: string;
@@ -2384,9 +2625,7 @@ const InputField = ({
 
           text-xs
           font-semibold
-
           leading-4
-
           text-gray-800
 
           sm:min-h-0

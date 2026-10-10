@@ -12,7 +12,7 @@ import type {
 
 import Image from "next/image";
 
-import {
+import type {
   ReportFormValues,
 } from "@/app/types/reports";
 
@@ -21,23 +21,29 @@ import {
 } from "@/app/constants/reportThemes";
 
 type Props = {
-  values: ReportFormValues;
+  values:
+    ReportFormValues;
 
-  categoryName: string;
+  categoryName:
+    string;
 
-  previewId?: string;
+  previewId?:
+    string;
 
   labels: {
-    teacherName: string;
+    teacherName:
+      string;
 
-    supervisor: string;
+    supervisor:
+      string;
 
-    activityLeader: string;
+    activityLeader:
+      string;
   };
 };
 
 /* =========================================
-   Gregorian Date
+   Date
 ========================================= */
 
 const formatGregorianDate = (
@@ -65,7 +71,7 @@ const formatGregorianDate = (
 };
 
 /* =========================================
-   Text -> Items
+   Text -> List
 ========================================= */
 
 const parseListItems = (
@@ -98,7 +104,8 @@ const ReportPreview = ({
   values,
   labels,
   categoryName,
-  previewId = "report-preview",
+  previewId =
+    "report-preview",
 }: Props) => {
   const containerRef =
     useRef<HTMLDivElement>(
@@ -113,17 +120,19 @@ const ReportPreview = ({
   const [
     scale,
     setScale,
-  ] = useState(1);
+  ] =
+    useState(1);
 
   const [
     scaledHeight,
     setScaledHeight,
-  ] = useState<
-    number | undefined
-  >();
+  ] =
+    useState<
+      number | undefined
+    >();
 
   /* =====================================
-     Auto Scale
+     Responsive Preview
   ====================================== */
 
   useEffect(() => {
@@ -144,8 +153,7 @@ const ReportPreview = ({
       () => {
         const availableWidth =
           Math.max(
-            container
-              .clientWidth -
+            container.clientWidth -
               16,
             1,
           );
@@ -156,9 +164,7 @@ const ReportPreview = ({
         const pageHeight =
           page.offsetHeight;
 
-        if (
-          !pageWidth
-        ) {
+        if (!pageWidth) {
           return;
         }
 
@@ -223,8 +229,7 @@ const ReportPreview = ({
   ====================================== */
 
   const contentWeight =
-    values
-      .customFields
+    values.customFields
       .length +
     objectiveItems.length +
     impactItems.length;
@@ -236,10 +241,46 @@ const ReportPreview = ({
         ? "report-density-medium"
         : "report-density-normal";
 
+  /* =====================================
+     Individual Colors
+  ====================================== */
+
   const reportStyle = {
-    "--report-font-color":
-      values.fontColor ||
-      "#111111",
+    "--report-title-color":
+      values.textColors
+        .reportTitle,
+
+    "--report-category-color":
+      values.textColors
+        .categoryTitle,
+
+    "--report-field-label-color":
+      values.textColors
+        .fieldLabels,
+
+    "--report-field-value-color":
+      values.textColors
+        .fieldValues,
+
+    "--report-section-title-color":
+      values.textColors
+        .sectionTitles,
+
+    "--report-list-text-color":
+      values.textColors
+        .listText,
+
+    "--report-list-number-color":
+      values.textColors
+        .listNumbers,
+
+    "--report-school-color":
+      values.textColors
+        .schoolHeader,
+
+    "--report-signature-color":
+      values.textColors
+        .signatures,
   } as CSSProperties;
 
   return (
@@ -278,15 +319,11 @@ const ReportPreview = ({
               }
               className={`
                 report-sheet
-
                 ${densityClass}
-
                 report-${values.theme}
               `}
             >
-              {/* =============================
-                  Theme Header
-              ============================== */}
+              {/* Header */}
 
               <Image
                 src={
@@ -304,9 +341,7 @@ const ReportPreview = ({
                 className="report-frame-header"
               />
 
-              {/* =============================
-                  Theme Footer
-              ============================== */}
+              {/* Footer */}
 
               <Image
                 src={
@@ -324,9 +359,7 @@ const ReportPreview = ({
                 className="report-frame-footer"
               />
 
-              {/* =============================
-                  School
-              ============================== */}
+              {/* School */}
 
               <div className="report-school-header">
                 <p className="report-header-main">
@@ -346,9 +379,7 @@ const ReportPreview = ({
                 </p>
               </div>
 
-              {/* =============================
-                  Content
-              ============================== */}
+              {/* Content */}
 
               <div className="report-content">
                 <div className="report-title-ribbon">
@@ -360,9 +391,7 @@ const ReportPreview = ({
                     "مجال البرنامج"}
                 </h2>
 
-                {/* =============================
-                    Row 1
-                ============================== */}
+                {/* Row 1 */}
 
                 <div className="report-fields-grid report-fields-grid-3">
                   <FieldBox
@@ -389,9 +418,7 @@ const ReportPreview = ({
                   />
                 </div>
 
-                {/* =============================
-                    Row 2
-                ============================== */}
+                {/* Row 2 */}
 
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox
@@ -425,9 +452,7 @@ const ReportPreview = ({
                   />
                 </div>
 
-                {/* =============================
-                    Row 3
-                ============================== */}
+                {/* Row 3 */}
 
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox
@@ -459,13 +484,9 @@ const ReportPreview = ({
                   />
                 </div>
 
-                {/* =============================
-                    Custom Fields
-                ============================== */}
+                {/* Custom Fields */}
 
-                {values
-                  .customFields
-                  .length >
+                {values.customFields.length >
                   0 && (
                   <div className="report-custom-fields-row">
                     {values.customFields.map(
@@ -493,9 +514,7 @@ const ReportPreview = ({
                   </div>
                 )}
 
-                {/* =============================
-                    Objectives
-                ============================== */}
+                {/* Objectives */}
 
                 <ListSection
                   title="أهداف البرنامج"
@@ -504,9 +523,7 @@ const ReportPreview = ({
                   }
                 />
 
-                {/* =============================
-                    Impact
-                ============================== */}
+                {/* Impact */}
 
                 <ListSection
                   title="الأثر الإيجابي للبرنامج"
@@ -515,9 +532,7 @@ const ReportPreview = ({
                   }
                 />
 
-                {/* =============================
-                    Evidence
-                ============================== */}
+                {/* Evidence */}
 
                 <div className="report-evidence-flex">
                   <div className="report-evidence-section">
@@ -525,9 +540,7 @@ const ReportPreview = ({
                       title="الشواهد"
                     />
 
-                    {values
-                      .evidenceImages
-                      .length >
+                    {values.evidenceImages.length >
                     0 ? (
                       <div
                         className="report-images-grid"
@@ -556,8 +569,7 @@ const ReportPreview = ({
                                   image
                                 }
                                 alt={`شاهد ${
-                                  index +
-                                  1
+                                  index + 1
                                 }`}
                                 unoptimized
                                 className="report-image"
@@ -572,9 +584,7 @@ const ReportPreview = ({
                   </div>
                 </div>
 
-                {/* =============================
-                    Signatures
-                ============================== */}
+                {/* Signatures */}
 
                 <div className="report-signatures">
                   <SignatureBox
@@ -614,9 +624,11 @@ const FieldBox = ({
   label,
   value,
 }: {
-  label: string;
+  label:
+    string;
 
-  value: string;
+  value:
+    string;
 }) => {
   return (
     <div className="report-field">
@@ -627,8 +639,7 @@ const FieldBox = ({
       </div>
 
       <div className="report-field-box">
-        {value ||
-          ""}
+        {value || ""}
       </div>
     </div>
   );
@@ -642,9 +653,11 @@ const DateFieldBox = ({
   gregorianDate,
   hijriDate,
 }: {
-  gregorianDate: string;
+  gregorianDate:
+    string;
 
-  hijriDate: string;
+  hijriDate:
+    string;
 }) => {
   return (
     <div className="report-field">
@@ -671,8 +684,7 @@ const DateFieldBox = ({
           </span>
 
           <span>
-            {hijriDate ||
-              ""}
+            {hijriDate || ""}
           </span>
         </div>
       </div>
@@ -681,13 +693,14 @@ const DateFieldBox = ({
 };
 
 /* =========================================
-   Section Heading
+   Heading
 ========================================= */
 
 const SectionHeading = ({
   title,
 }: {
-  title: string;
+  title:
+    string;
 }) => {
   return (
     <div className="report-section-heading">
@@ -712,9 +725,11 @@ const ListSection = ({
   title,
   items,
 }: {
-  title: string;
+  title:
+    string;
 
-  items: string[];
+  items:
+    string[];
 }) => {
   return (
     <div className="report-section">
@@ -724,12 +739,10 @@ const ListSection = ({
         }
       />
 
-      {items.length >
-      0 ? (
+      {items.length > 0 ? (
         <div
           className={`
             report-list-boxes
-
             report-list-boxes-${Math.min(
               items.length,
               4,
@@ -746,8 +759,9 @@ const ListSection = ({
                 className="report-list-box"
               >
                 <span className="report-list-number">
-                  {index +
-                    1}
+                  {
+                    index + 1
+                  }
                 </span>
 
                 <span className="report-list-text">
@@ -774,9 +788,11 @@ const SignatureBox = ({
   title,
   name,
 }: {
-  title: string;
+  title:
+    string;
 
-  name?: string;
+  name?:
+    string;
 }) => {
   return (
     <div className="report-signature-box">
@@ -787,8 +803,7 @@ const SignatureBox = ({
       </p>
 
       <div className="report-signature-name">
-        {name ||
-          ""}
+        {name || ""}
       </div>
     </div>
   );

@@ -1,25 +1,19 @@
 @import "tailwindcss";
 
 /* =========================================================
-   FORM RESPONSIVE
+   FORM
 ========================================================= */
 
 .mobile-form-grid {
   display: grid;
-
   grid-template-columns:
     repeat(2,
       minmax(0, 1fr));
-
   gap: 0.75rem;
 }
 
 /*
-  iPhone X = 375px تقريبًا.
-
-  التاريخ الهجري طويل،
-  لذلك التاريخين فقط
-  يصبحوا تحت بعض.
+  iPhone X
 */
 
 @media (max-width: 390px) {
@@ -55,7 +49,6 @@
 
 .report-preview-shell {
   width: 100%;
-
   min-width: 0;
 
   overflow: hidden;
@@ -118,15 +111,12 @@
   position: relative;
 
   width: 210mm;
-
   height: 297mm;
 
   min-width: 210mm;
-
   min-height: 297mm;
 
   max-width: 210mm;
-
   max-height: 297mm;
 
   margin: 0;
@@ -135,12 +125,9 @@
 
   box-sizing: border-box;
 
-  background:
-    #ffffff;
+  background: #ffffff;
 
-  color:
-    var(--report-font-color,
-      #111111);
+  color: #111111;
 
   border:
     1px solid #cfd6d4;
@@ -157,9 +144,7 @@
   position: absolute;
 
   top: 0;
-
   right: 0;
-
   left: 0;
 
   z-index: 0;
@@ -173,19 +158,19 @@
   background:
     transparent !important;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 
   -webkit-user-select: none;
-  user-select: none;
+  user-select:
+    none;
 }
 
 .report-frame-footer {
   position: absolute;
 
   right: 0;
-
   bottom: 0;
-
   left: 0;
 
   z-index: 0;
@@ -199,19 +184,20 @@
   background:
     transparent !important;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 
   -webkit-user-select: none;
-  user-select: none;
+  user-select:
+    none;
 }
 
 /* =========================================================
-   THEME 1
+   THEMES
 ========================================================= */
 
 .report-theme1 .report-frame-header {
   width: 100%;
-
   height: auto;
 
   object-fit: fill;
@@ -219,15 +205,10 @@
 
 .report-theme1 .report-frame-footer {
   width: 100%;
-
   height: auto;
 
   object-fit: fill;
 }
-
-/* =========================================================
-   THEME 2
-========================================================= */
 
 .report-theme2 .report-frame-header {
   width: 100%;
@@ -245,10 +226,6 @@
   object-fit: fill;
 }
 
-/* =========================================================
-   THEME 3
-========================================================= */
-
 .report-theme3 .report-frame-header {
   width: 100%;
 
@@ -264,10 +241,6 @@
 
   object-fit: fill;
 }
-
-/* =========================================================
-   THEME 4
-========================================================= */
 
 .report-theme4 .report-frame-header {
   width: 100%;
@@ -286,7 +259,7 @@
 }
 
 /* =========================================================
-   SCHOOL
+   SCHOOL HEADER
 ========================================================= */
 
 .report-school-header {
@@ -303,9 +276,11 @@
   box-sizing:
     border-box;
 
-  text-align: center;
+  text-align:
+    center;
 
-  line-height: 1.4;
+  line-height:
+    1.4;
 
   text-align: start;
 }
@@ -315,32 +290,36 @@
 }
 
 .report-header-main {
-  font-size: 12px;
+  font-size:
+    12px;
 
-  font-weight: 800;
+  font-weight:
+    800;
 }
 
 .report-school-name {
   margin-top:
     1px !important;
 
-  font-size: 12px;
+  font-size:
+    12px;
 
-  font-weight: 700;
+  font-weight:
+    700;
 }
 
 .report-region-name {
   margin-top:
     1px !important;
 
-  font-size: 10.5px;
+  font-size:
+    10.5px;
 
-  font-weight: 500;
+  font-weight:
+    500;
 }
 
-/* =========================================================
-   School positions per theme
-========================================================= */
+/* Theme school positions */
 
 .report-theme2 .report-school-header {
   top: 10mm;
@@ -383,10 +362,10 @@
 
   display: flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
   width: 100%;
-
   height: 100%;
 
   box-sizing:
@@ -395,7 +374,8 @@
   padding:
     31mm 7mm 17mm;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 }
 
 /* =========================================================
@@ -414,7 +394,8 @@
   padding:
     8px 16px;
 
-  text-align: center;
+  text-align:
+    center;
 
   background:
     transparent;
@@ -425,24 +406,39 @@
   border-radius:
     8px;
 
-  font-size: 23px;
+  font-size:
+    23px;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
-  line-height: 1.4;
+  line-height:
+    1.4;
+
+  color:
+    var(--report-title-color,
+      #111111);
 }
 
 .report-category-title {
   margin:
     10px 0 12px;
 
-  text-align: center;
+  text-align:
+    center;
 
-  font-size: 20px;
+  font-size:
+    20px;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
-  line-height: 1.35;
+  line-height:
+    1.35;
+
+  color:
+    var(--report-category-color,
+      #111111);
 }
 
 /* =========================================================
@@ -454,7 +450,8 @@
 
   gap: 3.5mm;
 
-  margin-bottom: 4mm;
+  margin-bottom:
+    4mm;
 }
 
 .report-fields-grid-2 {
@@ -476,7 +473,7 @@
 }
 
 /* =========================================================
-   FIELD
+   FIELDS
 ========================================================= */
 
 .report-field {
@@ -486,30 +483,43 @@
 .report-field-label {
   display: flex;
 
-  align-items: flex-end;
+  align-items:
+    flex-end;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  min-height: 4.5mm;
+  min-height:
+    4.5mm;
 
   margin-bottom:
     1.2mm;
 
-  text-align: center;
+  text-align:
+    center;
 
-  font-size: 13px;
+  font-size:
+    13px;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
-  line-height: 1.3;
+  line-height:
+    1.3;
+
+  color:
+    var(--report-field-label-color,
+      #1d2826);
 }
 
 .report-field-box {
   display: flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
   min-height:
     10.5mm;
@@ -543,6 +553,10 @@
 
   overflow-wrap:
     anywhere;
+
+  color:
+    var(--report-field-value-color,
+      #111111);
 }
 
 /* =========================================================
@@ -564,9 +578,11 @@
 }
 
 .report-date-row {
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
   justify-content:
     center;
@@ -598,6 +614,10 @@
 
   font-weight:
     800;
+
+  color:
+    var(--report-field-label-color,
+      #1d2826);
 }
 
 /* =========================================================
@@ -605,9 +625,11 @@
 ========================================================= */
 
 .report-custom-fields-row {
-  display: flex;
+  display:
+    flex;
 
-  flex-wrap: wrap;
+  flex-wrap:
+    wrap;
 
   justify-content:
     center;
@@ -694,6 +716,10 @@
 
   line-height:
     1.3;
+
+  color:
+    var(--report-section-title-color,
+      #173c38);
 }
 
 /* =========================================================
@@ -701,9 +727,11 @@
 ========================================================= */
 
 .report-list-boxes {
-  display: flex;
+  display:
+    flex;
 
-  flex-wrap: wrap;
+  flex-wrap:
+    wrap;
 
   justify-content:
     center;
@@ -728,7 +756,8 @@
 }
 
 .report-list-box {
-  display: flex;
+  display:
+    flex;
 
   align-items:
     center;
@@ -759,7 +788,8 @@
 }
 
 .report-list-number {
-  display: flex;
+  display:
+    flex;
 
   flex:
     0 0 8mm;
@@ -787,6 +817,10 @@
 
   font-weight:
     800;
+
+  color:
+    var(--report-list-number-color,
+      #176c65);
 }
 
 .report-list-text {
@@ -810,6 +844,10 @@
 
   overflow-wrap:
     anywhere;
+
+  color:
+    var(--report-list-text-color,
+      #111111);
 }
 
 .report-list-empty {
@@ -830,11 +868,25 @@
 }
 
 /* =========================================================
+   SCHOOL COLOR
+========================================================= */
+
+.report-school-header,
+.report-header-main,
+.report-school-name,
+.report-region-name {
+  color:
+    var(--report-school-color,
+      #064f4a);
+}
+
+/* =========================================================
    EVIDENCE
 ========================================================= */
 
 .report-evidence-flex {
-  display: flex;
+  display:
+    flex;
 
   flex:
     1 1 auto;
@@ -850,7 +902,8 @@
 }
 
 .report-evidence-section {
-  display: flex;
+  display:
+    flex;
 
   flex:
     1 1 auto;
@@ -888,7 +941,8 @@
 }
 
 .report-images-grid {
-  display: grid;
+  display:
+    grid;
 
   flex:
     1 1 auto;
@@ -994,6 +1048,10 @@
 
   font-weight:
     800;
+
+  color:
+    var(--report-signature-color,
+      #173c38);
 }
 
 .report-signature-name {
@@ -1032,6 +1090,10 @@
 
   font-weight:
     600;
+
+  color:
+    var(--report-signature-color,
+      #173c38);
 }
 
 .report-signature-line {
@@ -1049,31 +1111,10 @@
 
   font-size:
     10px;
-}
 
-/* =========================================================
-   DYNAMIC FONT COLOR
-========================================================= */
-
-.report-sheet,
-.report-sheet .report-title-ribbon,
-.report-sheet .report-category-title,
-.report-sheet .report-field-label,
-.report-sheet .report-field-box,
-.report-sheet .report-date-label,
-.report-sheet .report-section-title,
-.report-sheet .report-list-number,
-.report-sheet .report-list-text,
-.report-sheet .report-signature-title,
-.report-sheet .report-signature-name,
-.report-sheet .report-signature-line,
-.report-sheet .report-school-header,
-.report-sheet .report-header-main,
-.report-sheet .report-school-name,
-.report-sheet .report-region-name {
   color:
-    var(--report-font-color,
-      #111111);
+    var(--report-signature-color,
+      #173c38);
 }
 
 /* =========================================================
@@ -1304,16 +1345,6 @@
 
 /* =========================================================
    PRINT
-
-   IMPORTANT:
-   Desktop/Mobile preview مش بيتطبعوا.
-
-   نسخة واحدة مستقلة فقط
-   اسمها print-only-report.
-
-   208mm × 294mm
-   عشان Safari iOS ما يعملش
-   صفحة ثانية بسبب rounding.
 ========================================================= */
 
 @page {
@@ -1359,9 +1390,7 @@
       exact !important;
   }
 
-  /* =====================================================
-     Hide website
-  ===================================================== */
+  /* Hide website */
 
   .no-print,
   nav,
@@ -1372,20 +1401,12 @@
       none !important;
   }
 
-  /*
-    أضمن إن أي Child
-    غير نسخة الطباعة
-    مش هيظهر.
-  */
-
   .report-page-container>*:not(.print-only-report) {
     display:
       none !important;
   }
 
-  /* =====================================================
-     App wrappers
-  ===================================================== */
+  /* App */
 
   main,
   #report,
@@ -1421,9 +1442,7 @@
       #ffffff !important;
   }
 
-  /* =====================================================
-     Print Report
-  ===================================================== */
+  /* Print-only report */
 
   .print-only-report {
     position:
@@ -1468,10 +1487,6 @@
     page-break-inside:
       avoid !important;
   }
-
-  /* =====================================================
-     Preview wrapper
-  ===================================================== */
 
   .print-only-report .report-preview-shell {
     position:
@@ -1574,9 +1589,7 @@
       top left !important;
   }
 
-  /* =====================================================
-     Final Sheet
-  ===================================================== */
+  /* Sheet */
 
   .print-only-report .report-sheet {
     position:
@@ -1643,9 +1656,7 @@
       avoid !important;
   }
 
-  /* =====================================================
-     Header / Footer
-  ===================================================== */
+  /* Header */
 
   .print-only-report .report-frame-header {
     position:
@@ -1670,6 +1681,8 @@
       transparent !important;
   }
 
+  /* Footer */
+
   .print-only-report .report-frame-footer {
     position:
       absolute !important;
@@ -1693,9 +1706,7 @@
       transparent !important;
   }
 
-  /* =====================================================
-     Content
-  ===================================================== */
+  /* Content */
 
   .print-only-report .report-content {
     position:
@@ -1726,9 +1737,7 @@
       hidden !important;
   }
 
-  /* =====================================================
-     Fields
-  ===================================================== */
+  /* Fields */
 
   .print-only-report .report-fields-grid {
     display:
@@ -1738,27 +1747,22 @@
   .print-only-report .report-fields-grid-2 {
     grid-template-columns:
       repeat(2,
-        minmax(0,
-          1fr)) !important;
+        minmax(0, 1fr)) !important;
   }
 
   .print-only-report .report-fields-grid-3 {
     grid-template-columns:
       repeat(3,
-        minmax(0,
-          1fr)) !important;
+        minmax(0, 1fr)) !important;
   }
 
   .print-only-report .report-fields-grid-4 {
     grid-template-columns:
       repeat(4,
-        minmax(0,
-          1fr)) !important;
+        minmax(0, 1fr)) !important;
   }
 
-  /* =====================================================
-     Custom Fields
-  ===================================================== */
+  /* Custom */
 
   .print-only-report .report-custom-fields-row {
     display:
@@ -1771,9 +1775,7 @@
       center !important;
   }
 
-  /* =====================================================
-     Objectives / Impact
-  ===================================================== */
+  /* List */
 
   .print-only-report .report-list-boxes {
     display:
@@ -1794,9 +1796,7 @@
       avoid !important;
   }
 
-  /* =====================================================
-     Evidence
-  ===================================================== */
+  /* Evidence */
 
   .print-only-report .report-evidence-flex {
     display:
@@ -1882,9 +1882,7 @@
       cover !important;
   }
 
-  /* =====================================================
-     Signatures
-  ===================================================== */
+  /* Signatures */
 
   .print-only-report .report-signatures {
     display:
@@ -1892,8 +1890,7 @@
 
     grid-template-columns:
       repeat(2,
-        minmax(0,
-          1fr)) !important;
+        minmax(0, 1fr)) !important;
 
     flex-shrink:
       0 !important;
@@ -1905,9 +1902,7 @@
       avoid !important;
   }
 
-  /* =====================================================
-     Print quality
-  ===================================================== */
+  /* Quality */
 
   .print-only-report *,
   .print-only-report *::before,
