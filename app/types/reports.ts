@@ -1,6 +1,4 @@
-export type Gender =
-  | "male"
-  | "female";
+export type Gender = "male" | "female";
 
 export type ReportTheme =
   | "theme1"
@@ -22,6 +20,8 @@ export type CustomField = {
 export type ReportFormValues = {
   theme: ReportTheme;
 
+  fontColor: string;
+
   gender: Gender;
 
   selectedCategory: string;
@@ -29,35 +29,42 @@ export type ReportFormValues = {
   categories: Category[];
 
   regionName: string;
+
   schoolName: string;
 
   teacherName: string;
+
   specialization: string;
 
   grade: string;
+
   className: string;
 
   period: string;
+
   day: string;
 
   gregorianDate: string;
+
   hijriDate: string;
 
   programName: string;
+
   location: string;
 
   attendance: string;
+
   absence: string;
 
   /*
-    كل سطر غير فارغ = هدف
-    Maximum 4
+    كل سطر = هدف مستقل
+    Maximum = 4
   */
   objectives: string;
 
   /*
-    كل سطر غير فارغ = أثر
-    Maximum 4
+    كل سطر = أثر مستقل
+    Maximum = 4
   */
   impact: string;
 
@@ -66,12 +73,12 @@ export type ReportFormValues = {
   supervisorName: string;
 
   /*
-    Maximum 4
+    Maximum = 4
   */
   customFields: CustomField[];
 
   /*
-    2 - 4 Images
+    2 - 4 images
   */
   evidenceImages: string[];
 };

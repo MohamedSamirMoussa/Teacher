@@ -6,6 +6,10 @@ import {
   useState,
 } from "react";
 
+import type {
+  CSSProperties,
+} from "react";
+
 import Image from "next/image";
 
 import {
@@ -33,7 +37,7 @@ type Props = {
 };
 
 /* =========================================
-   Date
+   Gregorian Date
 ========================================= */
 
 const formatGregorianDate = (
@@ -61,7 +65,7 @@ const formatGregorianDate = (
 };
 
 /* =========================================
-   Multiline -> List
+   Text -> Items
 ========================================= */
 
 const parseListItems = (
@@ -114,7 +118,9 @@ const ReportPreview = ({
   const [
     scaledHeight,
     setScaledHeight,
-  ] = useState<number>();
+  ] = useState<
+    number | undefined
+  >();
 
   /* =====================================
      Auto Scale
@@ -138,8 +144,9 @@ const ReportPreview = ({
       () => {
         const availableWidth =
           Math.max(
-            container.clientWidth -
-              24,
+            container
+              .clientWidth -
+              16,
             1,
           );
 
@@ -198,7 +205,7 @@ const ReportPreview = ({
     );
 
   /* =====================================
-     Content
+     Lists
   ====================================== */
 
   const objectiveItems =
@@ -210,6 +217,10 @@ const ReportPreview = ({
     parseListItems(
       values.impact,
     );
+
+  /* =====================================
+     Density
+  ====================================== */
 
   const contentWeight =
     values
@@ -224,6 +235,12 @@ const ReportPreview = ({
       : contentWeight >= 6
         ? "report-density-medium"
         : "report-density-normal";
+
+  const reportStyle = {
+    "--report-font-color":
+      values.fontColor ||
+      "#111111",
+  } as CSSProperties;
 
   return (
     <div
@@ -255,6 +272,9 @@ const ReportPreview = ({
               }
               id={
                 previewId
+              }
+              style={
+                reportStyle
               }
               className={`
                 report-sheet
@@ -305,7 +325,7 @@ const ReportPreview = ({
               />
 
               {/* =============================
-                  School Data
+                  School
               ============================== */}
 
               <div className="report-school-header">
@@ -320,10 +340,9 @@ const ReportPreview = ({
                 </p>
 
                 <p className="report-region-name">
-                  بمنطقة{" "}
-                  {
-                    values.regionName
-                  }
+                  {values.regionName
+                    ? `بمنطقة ${values.regionName}`
+                    : ""}
                 </p>
               </div>
 
@@ -341,7 +360,9 @@ const ReportPreview = ({
                     "مجال البرنامج"}
                 </h2>
 
-                {/* Row 1 */}
+                {/* =============================
+                    Row 1
+                ============================== */}
 
                 <div className="report-fields-grid report-fields-grid-3">
                   <FieldBox
@@ -368,7 +389,9 @@ const ReportPreview = ({
                   />
                 </div>
 
-                {/* Row 2 */}
+                {/* =============================
+                    Row 2
+                ============================== */}
 
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox
@@ -402,7 +425,9 @@ const ReportPreview = ({
                   />
                 </div>
 
-                {/* Row 3 */}
+                {/* =============================
+                    Row 3
+                ============================== */}
 
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox
@@ -434,7 +459,9 @@ const ReportPreview = ({
                   />
                 </div>
 
-                {/* Custom */}
+                {/* =============================
+                    Custom Fields
+                ============================== */}
 
                 {values
                   .customFields
@@ -466,7 +493,9 @@ const ReportPreview = ({
                   </div>
                 )}
 
-                {/* Objectives */}
+                {/* =============================
+                    Objectives
+                ============================== */}
 
                 <ListSection
                   title="أهداف البرنامج"
@@ -475,7 +504,9 @@ const ReportPreview = ({
                   }
                 />
 
-                {/* Impact */}
+                {/* =============================
+                    Impact
+                ============================== */}
 
                 <ListSection
                   title="الأثر الإيجابي للبرنامج"
@@ -484,7 +515,9 @@ const ReportPreview = ({
                   }
                 />
 
-                {/* Evidence */}
+                {/* =============================
+                    Evidence
+                ============================== */}
 
                 <div className="report-evidence-flex">
                   <div className="report-evidence-section">
@@ -539,7 +572,9 @@ const ReportPreview = ({
                   </div>
                 </div>
 
-                {/* Signatures */}
+                {/* =============================
+                    Signatures
+                ============================== */}
 
                 <div className="report-signatures">
                   <SignatureBox
@@ -580,16 +615,20 @@ const FieldBox = ({
   value,
 }: {
   label: string;
+
   value: string;
 }) => {
   return (
     <div className="report-field">
       <div className="report-field-label">
-        {label}
+        {
+          label
+        }
       </div>
 
       <div className="report-field-box">
-        {value || ""}
+        {value ||
+          ""}
       </div>
     </div>
   );
@@ -604,6 +643,7 @@ const DateFieldBox = ({
   hijriDate,
 }: {
   gregorianDate: string;
+
   hijriDate: string;
 }) => {
   return (
@@ -641,7 +681,7 @@ const DateFieldBox = ({
 };
 
 /* =========================================
-   Heading
+   Section Heading
 ========================================= */
 
 const SectionHeading = ({
@@ -654,7 +694,9 @@ const SectionHeading = ({
       <span className="report-section-heading-line" />
 
       <h3 className="report-section-title">
-        {title}
+        {
+          title
+        }
       </h3>
 
       <span className="report-section-heading-line" />
@@ -663,7 +705,7 @@ const SectionHeading = ({
 };
 
 /* =========================================
-   List
+   Objectives / Impact
 ========================================= */
 
 const ListSection = ({

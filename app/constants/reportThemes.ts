@@ -1,113 +1,136 @@
 import {
-    ReportTheme,
+  ReportTheme,
 } from "@/app/types/reports";
 
-
 export type ReportThemeConfig = {
-    id: ReportTheme;
+  id: ReportTheme;
 
-    label: string;
+  label: string;
 
-    header: string;
+  header: string;
 
-    footer: string;
+  footer: string;
 
-    headerWidth: number;
+  headerWidth: number;
 
-    headerHeight: number;
+  headerHeight: number;
 
-    footerWidth: number;
+  footerWidth: number;
 
-    footerHeight: number;
+  footerHeight: number;
 };
 
 export const REPORT_THEMES: ReportThemeConfig[] =
-    [
-        {
-            id: "theme1",
+  [
+    {
+      id: "theme1",
 
-            label: "التصميم 1",
+      label:
+        "التصميم 1",
 
-            header:
-                "/report-header.png",
+      header:
+        "/report-header.png",
 
-            footer:
-                "/report-footer.png",
+      footer:
+        "/report-footer.png",
 
-            headerWidth: 1491,
+      headerWidth:
+        1491,
 
-            headerHeight: 205,
+      headerHeight:
+        205,
 
-            footerWidth: 1491,
+      footerWidth:
+        1491,
 
-            footerHeight: 150,
-        },
+      footerHeight:
+        150,
+    },
 
-        {
-            id: "theme2",
+    {
+      id: "theme2",
 
-            label: "التصميم 2",
+      label:
+        "التصميم 2",
 
-            header:
-                "/theme2-header-transparent.png",
+      header:
+        "/theme2-header-transparent.png",
 
-            footer:
-                "/theme2-footer-transparent.png",
+      footer:
+        "/theme2-footer-transparent-fixed.png",
 
-            headerWidth: 1055,
-            headerHeight: 235,
+      headerWidth:
+        1024,
 
-            footerWidth: 1055,
-            footerHeight: 130,
-        },
+      headerHeight:
+        235,
 
-        {
-            id: "theme3",
+      footerWidth:
+        1024,
 
-            label: "التصميم 3",
+      footerHeight:
+        130,
+    },
 
-            header:
-                "/theme3-header-transparent.png",
+    {
+      id: "theme3",
 
-            footer:
-                "/theme3-footer-transparent.png",
+      label:
+        "التصميم 3",
 
-            headerWidth: 1055,
+      header:
+        "/theme3-header-transparent.png",
 
-            headerHeight: 220,
+      footer:
+        "/theme3-footer-transparent.png",
 
-            footerWidth: 1055,
+      headerWidth:
+        1024,
 
-            footerHeight: 175,
-        },
+      headerHeight:
+        220,
 
-        {
-            id: "theme4",
+      footerWidth:
+        1024,
 
-            label: "التصميم 4",
+      footerHeight:
+        175,
+    },
 
-            header:
-                "/theme4-header-transparent.png",
+    {
+      id: "theme4",
 
-            footer:
-                "/theme4-footer-transparent.png",
+      label:
+        "التصميم 4",
 
-            headerWidth: 1055,
-            headerHeight: 225,
+      header:
+        "/theme4-header-transparent.png",
 
-            footerWidth: 1055,
-            footerHeight: 130,
-        },
-    ];
+      footer:
+        "/theme4-footer-transparent.png",
+
+      headerWidth:
+        1024,
+
+      headerHeight:
+        225,
+
+      footerWidth:
+        1024,
+
+      footerHeight:
+        130,
+    },
+  ];
 
 export const getReportTheme = (
-    theme: ReportTheme,
+  theme: ReportTheme,
 ) => {
-    return (
-        REPORT_THEMES.find(
-            (item) =>
-                item.id === theme,
-        ) ??
-        REPORT_THEMES[0]
-    );
+  return (
+    REPORT_THEMES.find(
+      (item) =>
+        item.id === theme,
+    ) ??
+    REPORT_THEMES[0]
+  );
 };
