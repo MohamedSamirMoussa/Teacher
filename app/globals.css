@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 /* =========================================================
-   MOBILE FORM
+   FORM
 ========================================================= */
 
 .mobile-form-grid {
   display: grid;
+
   grid-template-columns:
     repeat(
       2,
       minmax(0, 1fr)
     );
+
   gap: 0.75rem;
 }
 
@@ -26,33 +28,53 @@
 
 .report-preview-shell {
   width: 100%;
+
   min-width: 0;
+
   overflow: hidden;
+
   box-sizing: border-box;
+
   padding: 18px;
-  border: 1px solid #dfe5e4;
+
+  border:
+    1px solid
+    #dfe5e4;
+
   border-radius: 18px;
-  background: #eef2f1;
+
+  background:
+    #eef2f1;
 }
 
 .report-preview-stage {
   position: relative;
+
   width: 100%;
+
   min-height: 1px;
+
   overflow: hidden;
 }
 
 .report-preview-positioner {
   position: absolute;
+
   top: 0;
+
   left: 50%;
+
   width: 210mm;
-  transform: translateX(-50%);
+
+  transform:
+    translateX(-50%);
 }
 
 .report-preview-scale {
   width: 210mm;
-  transform-origin: top center;
+
+  transform-origin:
+    top center;
 }
 
 /* =========================================================
@@ -63,15 +85,16 @@
   position: relative;
 
   width: 210mm;
+
   height: 297mm;
 
   min-width: 210mm;
+
   min-height: 297mm;
 
   max-width: 210mm;
-  max-height: 297mm;
 
-  margin: 0;
+  max-height: 297mm;
 
   overflow: hidden;
 
@@ -81,7 +104,9 @@
 
   color: #111111;
 
-  border: 1px solid #cfd6d4;
+  border:
+    1px solid
+    #cfd6d4;
 
   box-shadow:
     0 12px 35px
@@ -89,14 +114,16 @@
 }
 
 /* =========================================================
-   HEADER / FOOTER
+   THEME HEADER / FOOTER
 ========================================================= */
 
 .report-frame-header {
   position: absolute;
 
   top: 0;
+
   right: 0;
+
   left: 0;
 
   z-index: 0;
@@ -104,22 +131,22 @@
   display: block;
 
   width: 100%;
-  height: auto;
-
-  background:
-    transparent !important;
 
   pointer-events: none;
 
-  -webkit-user-select: none;
   user-select: none;
+
+  background:
+    transparent !important;
 }
 
 .report-frame-footer {
   position: absolute;
 
   right: 0;
+
   bottom: 0;
+
   left: 0;
 
   z-index: 0;
@@ -127,32 +154,117 @@
   display: block;
 
   width: 100%;
-  height: auto;
-
-  background:
-    transparent !important;
 
   pointer-events: none;
 
-  -webkit-user-select: none;
   user-select: none;
+
+  background:
+    transparent !important;
 }
 
 /* =========================================================
-   SCHOOL
+   THEME 1
+========================================================= */
+
+.report-theme1
+.report-frame-header {
+  height: auto;
+
+  object-fit: fill;
+}
+
+.report-theme1
+.report-frame-footer {
+  height: auto;
+
+  object-fit: fill;
+}
+
+/* =========================================================
+   THEME 2
+
+   الصور الجديدة أطول من Theme 1،
+   فنثبت ارتفاع الهيدر حتى لا يدخل
+   على محتوى التقرير.
+========================================================= */
+
+.report-theme2
+.report-frame-header {
+  width: 100%;
+
+  height: 34mm;
+
+  object-fit: fill;
+}
+
+.report-theme2
+.report-frame-footer {
+  width: 100%;
+
+  height: 23mm;
+
+  object-fit: fill;
+}
+
+/* =========================================================
+   THEME 3
+========================================================= */
+
+.report-theme3
+.report-frame-header {
+  width: 100%;
+
+  height: 34mm;
+
+  object-fit: fill;
+}
+
+.report-theme3
+.report-frame-footer {
+  width: 100%;
+
+  height: 22mm;
+
+  object-fit: fill;
+}
+
+/* =========================================================
+   THEME 4
+========================================================= */
+
+.report-theme4
+.report-frame-header {
+  width: 100%;
+
+  height: 34mm;
+
+  object-fit: fill;
+}
+
+.report-theme4
+.report-frame-footer {
+  width: 100%;
+
+  height: 23mm;
+
+  object-fit: fill;
+}
+
+/* =========================================================
+   SCHOOL DATA
 ========================================================= */
 
 .report-school-header {
   position: absolute;
 
   top: 8mm;
+
   right: 37mm;
 
   z-index: 3;
 
   width: 60mm;
-
-  box-sizing: border-box;
 
   text-align: center;
 
@@ -196,6 +308,43 @@
 }
 
 /* =========================================================
+   School info position for new themes
+========================================================= */
+
+.report-theme2
+.report-school-header {
+  top: 10mm;
+
+  right: auto;
+
+  left: 48mm;
+
+  width: 64mm;
+}
+
+.report-theme3
+.report-school-header {
+  top: 9mm;
+
+  right: auto;
+
+  left: 49mm;
+
+  width: 64mm;
+}
+
+.report-theme4
+.report-school-header {
+  top: 10mm;
+
+  right: auto;
+
+  left: 48mm;
+
+  width: 64mm;
+}
+
+/* =========================================================
    CONTENT
 ========================================================= */
 
@@ -209,6 +358,7 @@
   flex-direction: column;
 
   width: 100%;
+
   height: 100%;
 
   box-sizing: border-box;
@@ -230,18 +380,20 @@
 
   box-sizing: border-box;
 
-  margin: 0 auto;
+  margin:
+    0 auto;
 
   padding:
-    8px
-    16px;
+    8px 16px;
 
   text-align: center;
 
-  background: #e3eeec;
+  background:
+    #e3eeec;
 
   border:
-    1px solid #b9cdca;
+    1px solid
+    #b9cdca;
 
   border-radius: 8px;
 
@@ -261,8 +413,6 @@
     12px;
 
   text-align: center;
-
-  color: #111111;
 
   font-size: 20px;
 
@@ -312,7 +462,8 @@
 
   min-height: 4.5mm;
 
-  margin-bottom: 1.2mm;
+  margin-bottom:
+    1.2mm;
 
   text-align: center;
 
@@ -341,7 +492,8 @@
     2.5mm;
 
   border:
-    1px solid #aeb9b7;
+    1px solid
+    #aeb9b7;
 
   border-radius: 3px;
 
@@ -397,7 +549,7 @@
 }
 
 /* =========================================================
-   CUSTOM FIELDS
+   CUSTOM
 ========================================================= */
 
 .report-custom-fields-row {
@@ -406,8 +558,6 @@
   flex-wrap: wrap;
 
   justify-content: center;
-
-  align-items: flex-start;
 
   gap: 3.5mm;
 
@@ -432,9 +582,9 @@
 ========================================================= */
 
 .report-section {
-  margin-top: 3mm;
-
   flex-shrink: 0;
+
+  margin-top: 3mm;
 }
 
 .report-section-heading {
@@ -460,19 +610,18 @@
 }
 
 .report-section-title {
-  flex: 0 0 auto;
+  flex:
+    0 0 auto;
 
   margin: 0;
 
-  text-align: center;
-
   color: #173c38;
+
+  text-align: center;
 
   font-size: 14.5px;
 
   font-weight: 800;
-
-  line-height: 1.3;
 }
 
 /* =========================================================
@@ -494,7 +643,8 @@
 .report-list-boxes-1
 .report-list-box {
   flex:
-    0 0 100%;
+    0 0
+    100%;
 }
 
 .report-list-boxes-2
@@ -529,22 +679,23 @@
     3.5mm;
 
   border:
-    1px solid #b7c1bf;
+    1px solid
+    #b7c1bf;
 
   border-radius: 5px;
 
   background: #ffffff;
-
-  color: #111111;
 }
 
 .report-list-number {
   display: flex;
 
   flex:
-    0 0 8mm;
+    0 0
+    8mm;
 
   width: 8mm;
+
   height: 8mm;
 
   align-items: center;
@@ -567,8 +718,6 @@
 
   flex: 1;
 
-  color: #111111;
-
   text-align: right;
 
   font-size: 13px;
@@ -583,10 +732,9 @@
 .report-list-empty {
   height: 17mm;
 
-  box-sizing: border-box;
-
   border:
-    1px solid #b7c1bf;
+    1px solid
+    #b7c1bf;
 
   border-radius: 5px;
 
@@ -631,14 +779,11 @@
   flex:
     1 1 auto;
 
-  width: 100%;
-
   min-height: 38mm;
 
-  box-sizing: border-box;
-
   border:
-    1px solid #aeb9b7;
+    1px solid
+    #aeb9b7;
 
   border-radius: 4px;
 
@@ -659,24 +804,19 @@
 }
 
 .report-image-box {
-  position: relative;
-
   width: 100%;
-
-  min-height: 38mm;
 
   height: 100%;
 
+  min-height: 38mm;
+
   overflow: hidden;
 
-  box-sizing: border-box;
-
   border:
-    1px solid #aeb9b7;
+    1px solid
+    #aeb9b7;
 
   border-radius: 4px;
-
-  background: #ffffff;
 }
 
 .report-image {
@@ -690,7 +830,7 @@
 }
 
 /* =========================================================
-   SIGNATURES
+   SIGNATURE
 ========================================================= */
 
 .report-signatures {
@@ -710,14 +850,12 @@
   width: 76%;
 
   margin:
-    7mm auto 1.5mm;
-
-  padding-top: 0;
+    7mm
+    auto
+    1.5mm;
 }
 
 .report-signature-box {
-  min-width: 0;
-
   text-align: center;
 }
 
@@ -741,24 +879,17 @@
 
   justify-content: center;
 
-  width: 100%;
-
   height: 10mm;
-
-  box-sizing: border-box;
 
   padding:
     1.5mm
     2.5mm;
 
   border:
-    1px solid #aeb9b7;
+    1px solid
+    #aeb9b7;
 
   border-radius: 4px;
-
-  background: #ffffff;
-
-  color: #111111;
 
   font-size: 12.5px;
 
@@ -770,12 +901,15 @@
 
   margin:
     2.2mm
-    auto 0;
+    auto
+    0;
 
-  padding-top: 1mm;
+  padding-top:
+    1mm;
 
   border-top:
-    1px solid #777777;
+    1px solid
+    #777777;
 
   color: #777777;
 
@@ -783,7 +917,7 @@
 }
 
 /* =========================================================
-   MEDIUM DENSITY
+   DENSITY MEDIUM
 ========================================================= */
 
 .report-density-medium
@@ -794,18 +928,14 @@
 }
 
 .report-density-medium
-.report-field-label {
-  min-height: 4mm;
-
-  margin-bottom: 1mm;
+.report-field-box {
+  min-height: 9.5mm;
 
   font-size: 12px;
 }
 
 .report-density-medium
-.report-field-box {
-  min-height: 9.5mm;
-
+.report-field-label {
   font-size: 12px;
 }
 
@@ -820,7 +950,7 @@
 }
 
 /* =========================================================
-   TIGHT DENSITY
+   DENSITY TIGHT
 ========================================================= */
 
 .report-density-tight
@@ -876,14 +1006,8 @@
 
 .report-density-tight
 .report-section-heading {
-  gap: 3mm;
-
-  margin-bottom: 1.5mm;
-}
-
-.report-density-tight
-.report-section-title {
-  font-size: 13px;
+  margin-bottom:
+    1.5mm;
 }
 
 .report-density-tight
@@ -922,6 +1046,7 @@
   flex-basis: 7mm;
 
   width: 7mm;
+
   height: 7mm;
 
   font-size: 11px;
@@ -939,9 +1064,11 @@
 ========================================================= */
 
 @page {
-  size: A4 portrait;
+  size:
+    A4 portrait;
 
-  margin: 0;
+  margin:
+    0;
 }
 
 @media print {
@@ -951,6 +1078,12 @@
       210mm !important;
 
     height:
+      297mm !important;
+
+    min-width:
+      210mm !important;
+
+    min-height:
       297mm !important;
 
     margin:
@@ -1018,9 +1151,6 @@
   }
 
   .report-preview-shell {
-    display:
-      block !important;
-
     width:
       210mm !important;
 
@@ -1032,9 +1162,6 @@
 
     padding:
       0 !important;
-
-    overflow:
-      hidden !important;
 
     border:
       0 !important;
@@ -1083,6 +1210,12 @@
     height:
       297mm !important;
 
+    min-width:
+      210mm !important;
+
+    min-height:
+      297mm !important;
+
     margin:
       0 !important;
 
@@ -1094,22 +1227,6 @@
 
     background:
       #ffffff !important;
-  }
-
-  .report-frame-header {
-    width:
-      210mm !important;
-
-    background:
-      transparent !important;
-  }
-
-  .report-frame-footer {
-    width:
-      210mm !important;
-
-    background:
-      transparent !important;
   }
 
   .report-content {
@@ -1126,17 +1243,11 @@
   }
 
   .report-evidence-flex {
-    display:
-      flex !important;
-
     flex:
       1 1 auto !important;
   }
 
   .report-images-grid {
-    display:
-      grid !important;
-
     flex:
       1 1 auto !important;
   }
@@ -1149,13 +1260,16 @@
   *,
   *::before,
   *::after {
+    box-shadow:
+      none !important;
+
+    text-shadow:
+      none !important;
+
     -webkit-print-color-adjust:
       exact !important;
 
     print-color-adjust:
       exact !important;
-
-    text-shadow:
-      none !important;
   }
 }

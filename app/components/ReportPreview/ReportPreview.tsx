@@ -8,7 +8,13 @@ import {
 
 import Image from "next/image";
 
-import { ReportFormValues } from "@/app/types/reports";
+import {
+  ReportFormValues,
+} from "@/app/types/reports";
+
+import {
+  getReportTheme,
+} from "@/app/constants/reportThemes";
 
 type Props = {
   values: ReportFormValues;
@@ -37,8 +43,11 @@ const formatGregorianDate = (
     return "";
   }
 
-  const [year, month, day] =
-    value.split("-");
+  const [
+    year,
+    month,
+    day,
+  ] = value.split("-");
 
   if (
     !year ||
@@ -52,23 +61,29 @@ const formatGregorianDate = (
 };
 
 /* =========================================
-   Text -> List
+   Multiline -> List
 ========================================= */
 
 const parseListItems = (
   value: string,
 ) => {
-  if (!value.trim()) {
+  if (
+    !value.trim()
+  ) {
     return [];
   }
 
   return value
     .split("\n")
-    .map((item) =>
-      item.trim(),
+    .map(
+      (item) =>
+        item.trim(),
     )
     .filter(Boolean)
-    .slice(0, 4);
+    .slice(
+      0,
+      4,
+    );
 };
 
 /* =========================================
@@ -91,13 +106,19 @@ const ReportPreview = ({
       null,
     );
 
-  const [scale, setScale] =
-    useState(1);
+  const [
+    scale,
+    setScale,
+  ] = useState(1);
 
   const [
     scaledHeight,
     setScaledHeight,
   ] = useState<number>();
+
+  /* =====================================
+     Auto Scale
+  ====================================== */
 
   useEffect(() => {
     const container =
@@ -113,40 +134,43 @@ const ReportPreview = ({
       return;
     }
 
-    const updateScale = () => {
-      const availableWidth =
-        Math.max(
-          container.clientWidth -
-          24,
-          1,
+    const updateScale =
+      () => {
+        const availableWidth =
+          Math.max(
+            container.clientWidth -
+              24,
+            1,
+          );
+
+        const pageWidth =
+          page.offsetWidth;
+
+        const pageHeight =
+          page.offsetHeight;
+
+        if (
+          !pageWidth
+        ) {
+          return;
+        }
+
+        const nextScale =
+          Math.min(
+            1,
+            availableWidth /
+              pageWidth,
+          );
+
+        setScale(
+          nextScale,
         );
 
-      const pageWidth =
-        page.offsetWidth;
-
-      const pageHeight =
-        page.offsetHeight;
-
-      if (!pageWidth) {
-        return;
-      }
-
-      const nextScale =
-        Math.min(
-          1,
-          availableWidth /
-          pageWidth,
+        setScaledHeight(
+          pageHeight *
+            nextScale,
         );
-
-      setScale(
-        nextScale,
-      );
-
-      setScaledHeight(
-        pageHeight *
-        nextScale,
-      );
-    };
+      };
 
     updateScale();
 
@@ -164,6 +188,19 @@ const ReportPreview = ({
     };
   }, []);
 
+  /* =====================================
+     Theme
+  ====================================== */
+
+  const theme =
+    getReportTheme(
+      values.theme,
+    );
+
+  /* =====================================
+     Content
+  ====================================== */
+
   const objectiveItems =
     parseListItems(
       values.objectives,
@@ -175,7 +212,9 @@ const ReportPreview = ({
     );
 
   const contentWeight =
-    values.customFields.length +
+    values
+      .customFields
+      .length +
     objectiveItems.length +
     impactItems.length;
 
@@ -188,7 +227,9 @@ const ReportPreview = ({
 
   return (
     <div
-      ref={containerRef}
+      ref={
+        containerRef
+      }
       className="report-preview-shell"
     >
       <div
@@ -204,7 +245,8 @@ const ReportPreview = ({
           <div
             className="report-preview-scale"
             style={{
-              transform: `scale(${scale})`,
+              transform:
+                `scale(${scale})`,
             }}
           >
             <div
@@ -214,39 +256,67 @@ const ReportPreview = ({
               id={
                 previewId
               }
-              className={`report-sheet ${densityClass}`}
+              className={`
+                report-sheet
+
+                ${densityClass}
+
+                report-${values.theme}
+              `}
             >
+              {/* =============================
+                  Theme Header
+              ============================== */}
+
               <Image
-                src="/report-header.png"
+                src={
+                  theme.header
+                }
                 alt=""
                 width={
-                  1491
+                  theme.headerWidth
                 }
                 height={
-                  205
+                  theme.headerHeight
                 }
                 priority
                 aria-hidden="true"
                 className="report-frame-header"
               />
 
+              {/* =============================
+                  Theme Footer
+              ============================== */}
+
               <Image
-                src="/report-footer.png"
+                src={
+                  theme.footer
+                }
                 alt=""
                 width={
-                  1491
+                  theme.footerWidth
                 }
                 height={
-                  150
+                  theme.footerHeight
                 }
                 priority
                 aria-hidden="true"
                 className="report-frame-footer"
               />
 
+              {/* =============================
+                  School Data
+              ============================== */}
+
               <div className="report-school-header">
                 <p className="report-header-main">
                   الإدارة العامة للتعليم
+                </p>
+
+                <p className="report-school-name">
+                  {
+                    values.schoolName
+                  }
                 </p>
 
                 <p className="report-region-name">
@@ -254,14 +324,12 @@ const ReportPreview = ({
                   {
                     values.regionName
                   }
-                  <p className="report-school-name">
-                    {
-                      values.schoolName
-                    }
-                  </p>
-
                 </p>
               </div>
+
+              {/* =============================
+                  Content
+              ============================== */}
 
               <div className="report-content">
                 <div className="report-title-ribbon">
@@ -272,6 +340,8 @@ const ReportPreview = ({
                   {categoryName ||
                     "مجال البرنامج"}
                 </h2>
+
+                {/* Row 1 */}
 
                 <div className="report-fields-grid report-fields-grid-3">
                   <FieldBox
@@ -297,6 +367,8 @@ const ReportPreview = ({
                     }
                   />
                 </div>
+
+                {/* Row 2 */}
 
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox
@@ -330,6 +402,8 @@ const ReportPreview = ({
                   />
                 </div>
 
+                {/* Row 3 */}
+
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox
                     label="اسم البرنامج"
@@ -360,33 +434,39 @@ const ReportPreview = ({
                   />
                 </div>
 
-                {values.customFields.length >
+                {/* Custom */}
+
+                {values
+                  .customFields
+                  .length >
                   0 && (
-                    <div className="report-custom-fields-row">
-                      {values.customFields.map(
-                        (
-                          field,
-                        ) => (
-                          <div
-                            key={
-                              field.id
+                  <div className="report-custom-fields-row">
+                    {values.customFields.map(
+                      (
+                        field,
+                      ) => (
+                        <div
+                          key={
+                            field.id
+                          }
+                          className="report-custom-field-item"
+                        >
+                          <FieldBox
+                            label={
+                              field.label ||
+                              "حقل إضافي"
                             }
-                            className="report-custom-field-item"
-                          >
-                            <FieldBox
-                              label={
-                                field.label ||
-                                "حقل إضافي"
-                              }
-                              value={
-                                field.value
-                              }
-                            />
-                          </div>
-                        ),
-                      )}
-                    </div>
-                  )}
+                            value={
+                              field.value
+                            }
+                          />
+                        </div>
+                      ),
+                    )}
+                  </div>
+                )}
+
+                {/* Objectives */}
 
                 <ListSection
                   title="أهداف البرنامج"
@@ -395,6 +475,8 @@ const ReportPreview = ({
                   }
                 />
 
+                {/* Impact */}
+
                 <ListSection
                   title="الأثر الإيجابي للبرنامج"
                   items={
@@ -402,14 +484,18 @@ const ReportPreview = ({
                   }
                 />
 
+                {/* Evidence */}
+
                 <div className="report-evidence-flex">
                   <div className="report-evidence-section">
                     <SectionHeading
                       title="الشواهد"
                     />
 
-                    {values.evidenceImages.length >
-                      0 ? (
+                    {values
+                      .evidenceImages
+                      .length >
+                    0 ? (
                       <div
                         className="report-images-grid"
                         style={{
@@ -436,9 +522,10 @@ const ReportPreview = ({
                                 src={
                                   image
                                 }
-                                alt={`شاهد ${index +
+                                alt={`شاهد ${
+                                  index +
                                   1
-                                  }`}
+                                }`}
                                 unoptimized
                                 className="report-image"
                               />
@@ -451,6 +538,8 @@ const ReportPreview = ({
                     )}
                   </div>
                 </div>
+
+                {/* Signatures */}
 
                 <div className="report-signatures">
                   <SignatureBox
@@ -492,17 +581,19 @@ const FieldBox = ({
 }: {
   label: string;
   value: string;
-}) => (
-  <div className="report-field">
-    <div className="report-field-label">
-      {label}
-    </div>
+}) => {
+  return (
+    <div className="report-field">
+      <div className="report-field-label">
+        {label}
+      </div>
 
-    <div className="report-field-box">
-      {value || ""}
+      <div className="report-field-box">
+        {value || ""}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* =========================================
    Date
@@ -514,38 +605,40 @@ const DateFieldBox = ({
 }: {
   gregorianDate: string;
   hijriDate: string;
-}) => (
-  <div className="report-field">
-    <div className="report-field-label">
-      التاريخ
-    </div>
-
-    <div className="report-field-box report-date-box">
-      <div className="report-date-row">
-        <span className="report-date-label">
-          م:
-        </span>
-
-        <span>
-          {formatGregorianDate(
-            gregorianDate,
-          )}
-        </span>
+}) => {
+  return (
+    <div className="report-field">
+      <div className="report-field-label">
+        التاريخ
       </div>
 
-      <div className="report-date-row">
-        <span className="report-date-label">
-          هـ:
-        </span>
+      <div className="report-field-box report-date-box">
+        <div className="report-date-row">
+          <span className="report-date-label">
+            م:
+          </span>
 
-        <span>
-          {hijriDate ||
-            ""}
-        </span>
+          <span>
+            {formatGregorianDate(
+              gregorianDate,
+            )}
+          </span>
+        </div>
+
+        <div className="report-date-row">
+          <span className="report-date-label">
+            هـ:
+          </span>
+
+          <span>
+            {hijriDate ||
+              ""}
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* =========================================
    Heading
@@ -555,20 +648,22 @@ const SectionHeading = ({
   title,
 }: {
   title: string;
-}) => (
-  <div className="report-section-heading">
-    <span className="report-section-heading-line" />
+}) => {
+  return (
+    <div className="report-section-heading">
+      <span className="report-section-heading-line" />
 
-    <h3 className="report-section-title">
-      {title}
-    </h3>
+      <h3 className="report-section-title">
+        {title}
+      </h3>
 
-    <span className="report-section-heading-line" />
-  </div>
-);
+      <span className="report-section-heading-line" />
+    </div>
+  );
+};
 
 /* =========================================
-   Objectives / Impact
+   List
 ========================================= */
 
 const ListSection = ({
@@ -576,49 +671,58 @@ const ListSection = ({
   items,
 }: {
   title: string;
+
   items: string[];
-}) => (
-  <div className="report-section">
-    <SectionHeading
-      title={
-        title
-      }
-    />
+}) => {
+  return (
+    <div className="report-section">
+      <SectionHeading
+        title={
+          title
+        }
+      />
 
-    {items.length >
+      {items.length >
       0 ? (
-      <div
-        className={`report-list-boxes report-list-boxes-${Math.min(
-          items.length,
-          4,
-        )}`}
-      >
-        {items.map(
-          (
-            item,
-            index,
-          ) => (
-            <div
-              key={`${index}-${item}`}
-              className="report-list-box"
-            >
-              <span className="report-list-number">
-                {index +
-                  1}
-              </span>
+        <div
+          className={`
+            report-list-boxes
 
-              <span className="report-list-text">
-                {item}
-              </span>
-            </div>
-          ),
-        )}
-      </div>
-    ) : (
-      <div className="report-list-empty" />
-    )}
-  </div>
-);
+            report-list-boxes-${Math.min(
+              items.length,
+              4,
+            )}
+          `}
+        >
+          {items.map(
+            (
+              item,
+              index,
+            ) => (
+              <div
+                key={`${index}-${item}`}
+                className="report-list-box"
+              >
+                <span className="report-list-number">
+                  {index +
+                    1}
+                </span>
+
+                <span className="report-list-text">
+                  {
+                    item
+                  }
+                </span>
+              </div>
+            ),
+          )}
+        </div>
+      ) : (
+        <div className="report-list-empty" />
+      )}
+    </div>
+  );
+};
 
 /* =========================================
    Signature
@@ -629,16 +733,21 @@ const SignatureBox = ({
   name,
 }: {
   title: string;
-  name?: string;
-}) => (
-  <div className="report-signature-box">
-    <p className="report-signature-title">
-      {title}
-    </p>
 
-    <div className="report-signature-name">
-      {name ||
-        ""}
+  name?: string;
+}) => {
+  return (
+    <div className="report-signature-box">
+      <p className="report-signature-title">
+        {
+          title
+        }
+      </p>
+
+      <div className="report-signature-name">
+        {name ||
+          ""}
+      </div>
     </div>
-  </div>
-);
+  );
+};
