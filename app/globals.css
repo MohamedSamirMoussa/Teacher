@@ -8,10 +8,8 @@
   display: grid;
 
   grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+    repeat(2,
+      minmax(0, 1fr));
 
   gap: 0.75rem;
 }
@@ -38,10 +36,8 @@
 
   .mobile-date-grid {
     grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      );
+      repeat(2,
+        minmax(0, 1fr));
   }
 }
 
@@ -69,8 +65,7 @@
   padding: 12px;
 
   border:
-    1px solid
-    #dfe5e4;
+    1px solid #dfe5e4;
 
   border-radius:
     18px;
@@ -144,22 +139,14 @@
     #ffffff;
 
   color:
-    var(
-      --report-font-color,
-      #111111
-    );
+    var(--report-font-color,
+      #111111);
 
   border:
-    1px solid
-    #cfd6d4;
+    1px solid #cfd6d4;
 
   box-shadow:
-    0
-    12px
-    35px
-    rgb(
-      0 0 0 / 8%
-    );
+    0 12px 35px rgb(0 0 0 / 8%);
 }
 
 /* =========================================================
@@ -222,8 +209,7 @@
    THEME 1
 ========================================================= */
 
-.report-theme1
-.report-frame-header {
+.report-theme1 .report-frame-header {
   width: 100%;
 
   height: auto;
@@ -231,8 +217,7 @@
   object-fit: fill;
 }
 
-.report-theme1
-.report-frame-footer {
+.report-theme1 .report-frame-footer {
   width: 100%;
 
   height: auto;
@@ -244,8 +229,7 @@
    THEME 2
 ========================================================= */
 
-.report-theme2
-.report-frame-header {
+.report-theme2 .report-frame-header {
   width: 100%;
 
   height: 34mm;
@@ -253,8 +237,7 @@
   object-fit: fill;
 }
 
-.report-theme2
-.report-frame-footer {
+.report-theme2 .report-frame-footer {
   width: 100%;
 
   height: 18mm;
@@ -266,8 +249,7 @@
    THEME 3
 ========================================================= */
 
-.report-theme3
-.report-frame-header {
+.report-theme3 .report-frame-header {
   width: 100%;
 
   height: 34mm;
@@ -275,8 +257,7 @@
   object-fit: fill;
 }
 
-.report-theme3
-.report-frame-footer {
+.report-theme3 .report-frame-footer {
   width: 100%;
 
   height: 22mm;
@@ -288,8 +269,7 @@
    THEME 4
 ========================================================= */
 
-.report-theme4
-.report-frame-header {
+.report-theme4 .report-frame-header {
   width: 100%;
 
   height: 34mm;
@@ -297,8 +277,7 @@
   object-fit: fill;
 }
 
-.report-theme4
-.report-frame-footer {
+.report-theme4 .report-frame-footer {
   width: 100%;
 
   height: 18mm;
@@ -363,8 +342,7 @@
    School positions per theme
 ========================================================= */
 
-.report-theme2
-.report-school-header {
+.report-theme2 .report-school-header {
   top: 10mm;
 
   right: auto;
@@ -374,8 +352,7 @@
   width: 64mm;
 }
 
-.report-theme3
-.report-school-header {
+.report-theme3 .report-school-header {
   top: 9mm;
 
   right: auto;
@@ -385,8 +362,7 @@
   width: 64mm;
 }
 
-.report-theme4
-.report-school-header {
+.report-theme4 .report-school-header {
   top: 10mm;
 
   right: auto;
@@ -417,9 +393,7 @@
     border-box;
 
   padding:
-    31mm
-    7mm
-    17mm;
+    31mm 7mm 17mm;
 
   overflow: hidden;
 }
@@ -435,21 +409,18 @@
     border-box;
 
   margin:
-    0
-    auto;
+    0 auto;
 
   padding:
-    8px
-    16px;
+    8px 16px;
 
   text-align: center;
 
   background:
-    #e3eeec;
+    transparent;
 
   border:
-    1px solid
-    #b9cdca;
+    1px solid #b9cdca;
 
   border-radius:
     8px;
@@ -463,9 +434,7 @@
 
 .report-category-title {
   margin:
-    10px
-    0
-    12px;
+    10px 0 12px;
 
   text-align: center;
 
@@ -490,26 +459,20 @@
 
 .report-fields-grid-2 {
   grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+    repeat(2,
+      minmax(0, 1fr));
 }
 
 .report-fields-grid-3 {
   grid-template-columns:
-    repeat(
-      3,
-      minmax(0, 1fr)
-    );
+    repeat(3,
+      minmax(0, 1fr));
 }
 
 .report-fields-grid-4 {
   grid-template-columns:
-    repeat(
-      4,
-      minmax(0, 1fr)
-    );
+    repeat(4,
+      minmax(0, 1fr));
 }
 
 /* =========================================================
@@ -555,12 +518,10 @@
     border-box;
 
   padding:
-    1.6mm
-    2.5mm;
+    1.6mm 2.5mm;
 
   border:
-    1px solid
-    #aeb9b7;
+    1px solid #aeb9b7;
 
   border-radius:
     3px;
@@ -599,8 +560,7 @@
     1px;
 
   padding:
-    0.7mm
-    1.5mm;
+    0.7mm 1.5mm;
 }
 
 .report-date-row {
@@ -667,12 +627,7 @@
 
 .report-custom-field-item {
   flex:
-    0
-    0
-    calc(
-      (100% - 10.5mm) /
-        4
-    );
+    0 0 calc((100% - 10.5mm) / 4);
 
   min-width:
     0;
@@ -723,9 +678,7 @@
 
 .report-section-title {
   flex:
-    0
-    0
-    auto;
+    0 0 auto;
 
   margin:
     0;
@@ -762,27 +715,16 @@
     3mm;
 }
 
-.report-list-boxes-1
-.report-list-box {
+.report-list-boxes-1 .report-list-box {
   flex:
-    0
-    0
-    100%;
+    0 0 100%;
 }
 
-.report-list-boxes-2
-.report-list-box,
-.report-list-boxes-3
-.report-list-box,
-.report-list-boxes-4
-.report-list-box {
+.report-list-boxes-2 .report-list-box,
+.report-list-boxes-3 .report-list-box,
+.report-list-boxes-4 .report-list-box {
   flex:
-    0
-    0
-    calc(
-      (100% - 3mm) /
-        2
-    );
+    0 0 calc((100% - 3mm) / 2);
 }
 
 .report-list-box {
@@ -804,12 +746,10 @@
     border-box;
 
   padding:
-    2.5mm
-    3.5mm;
+    2.5mm 3.5mm;
 
   border:
-    1px solid
-    #b7c1bf;
+    1px solid #b7c1bf;
 
   border-radius:
     5px;
@@ -822,9 +762,7 @@
   display: flex;
 
   flex:
-    0
-    0
-    8mm;
+    0 0 8mm;
 
   width:
     8mm;
@@ -882,8 +820,7 @@
     border-box;
 
   border:
-    1px solid
-    #b7c1bf;
+    1px solid #b7c1bf;
 
   border-radius:
     5px;
@@ -900,9 +837,7 @@
   display: flex;
 
   flex:
-    1
-    1
-    auto;
+    1 1 auto;
 
   flex-direction:
     column;
@@ -918,9 +853,7 @@
   display: flex;
 
   flex:
-    1
-    1
-    auto;
+    1 1 auto;
 
   flex-direction:
     column;
@@ -929,19 +862,14 @@
     38mm;
 }
 
-.report-evidence-section
-.report-section-heading {
+.report-evidence-section .report-section-heading {
   flex:
-    0
-    0
-    auto;
+    0 0 auto;
 }
 
 .report-evidence-box {
   flex:
-    1
-    1
-    auto;
+    1 1 auto;
 
   min-height:
     38mm;
@@ -950,8 +878,7 @@
     border-box;
 
   border:
-    1px solid
-    #aeb9b7;
+    1px solid #aeb9b7;
 
   border-radius:
     4px;
@@ -964,9 +891,7 @@
   display: grid;
 
   flex:
-    1
-    1
-    auto;
+    1 1 auto;
 
   width:
     100%;
@@ -1001,8 +926,7 @@
     border-box;
 
   border:
-    1px solid
-    #aeb9b7;
+    1px solid #aeb9b7;
 
   border-radius:
     4px;
@@ -1034,15 +958,11 @@
     grid;
 
   flex:
-    0
-    0
-    auto;
+    0 0 auto;
 
   grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+    repeat(2,
+      minmax(0, 1fr));
 
   gap:
     14mm;
@@ -1051,9 +971,7 @@
     76%;
 
   margin:
-    7mm
-    auto
-    1.5mm;
+    7mm auto 1.5mm;
 
   padding-top:
     0;
@@ -1069,9 +987,7 @@
 
 .report-signature-title {
   margin:
-    0
-    0
-    2mm;
+    0 0 2mm;
 
   font-size:
     14px;
@@ -1100,12 +1016,10 @@
     border-box;
 
   padding:
-    1.5mm
-    2.5mm;
+    1.5mm 2.5mm;
 
   border:
-    1px solid
-    #aeb9b7;
+    1px solid #aeb9b7;
 
   border-radius:
     4px;
@@ -1125,16 +1039,13 @@
     65%;
 
   margin:
-    2.2mm
-    auto
-    0;
+    2.2mm auto 0;
 
   padding-top:
     1mm;
 
   border-top:
-    1px solid
-    #777777;
+    1px solid #777777;
 
   font-size:
     10px;
@@ -1145,49 +1056,31 @@
 ========================================================= */
 
 .report-sheet,
-.report-sheet
-.report-title-ribbon,
-.report-sheet
-.report-category-title,
-.report-sheet
-.report-field-label,
-.report-sheet
-.report-field-box,
-.report-sheet
-.report-date-label,
-.report-sheet
-.report-section-title,
-.report-sheet
-.report-list-number,
-.report-sheet
-.report-list-text,
-.report-sheet
-.report-signature-title,
-.report-sheet
-.report-signature-name,
-.report-sheet
-.report-signature-line,
-.report-sheet
-.report-school-header,
-.report-sheet
-.report-header-main,
-.report-sheet
-.report-school-name,
-.report-sheet
-.report-region-name {
+.report-sheet .report-title-ribbon,
+.report-sheet .report-category-title,
+.report-sheet .report-field-label,
+.report-sheet .report-field-box,
+.report-sheet .report-date-label,
+.report-sheet .report-section-title,
+.report-sheet .report-list-number,
+.report-sheet .report-list-text,
+.report-sheet .report-signature-title,
+.report-sheet .report-signature-name,
+.report-sheet .report-signature-line,
+.report-sheet .report-school-header,
+.report-sheet .report-header-main,
+.report-sheet .report-school-name,
+.report-sheet .report-region-name {
   color:
-    var(
-      --report-font-color,
-      #111111
-    );
+    var(--report-font-color,
+      #111111);
 }
 
 /* =========================================================
    MEDIUM DENSITY
 ========================================================= */
 
-.report-density-medium
-.report-fields-grid {
+.report-density-medium .report-fields-grid {
   gap:
     3mm;
 
@@ -1195,8 +1088,7 @@
     3mm;
 }
 
-.report-density-medium
-.report-field-label {
+.report-density-medium .report-field-label {
   min-height:
     4mm;
 
@@ -1207,8 +1099,7 @@
     12px;
 }
 
-.report-density-medium
-.report-field-box {
+.report-density-medium .report-field-box {
   min-height:
     9.5mm;
 
@@ -1216,48 +1107,32 @@
     12px;
 }
 
-.report-density-medium
-.report-section {
+.report-density-medium .report-section {
   margin-top:
     2mm;
 }
 
-.report-density-medium
-.report-list-boxes {
+.report-density-medium .report-list-boxes {
   gap:
     2.5mm;
 }
 
-.report-density-medium
-.report-list-boxes-2
-.report-list-box,
-.report-density-medium
-.report-list-boxes-3
-.report-list-box,
-.report-density-medium
-.report-list-boxes-4
-.report-list-box {
+.report-density-medium .report-list-boxes-2 .report-list-box,
+.report-density-medium .report-list-boxes-3 .report-list-box,
+.report-density-medium .report-list-boxes-4 .report-list-box {
   flex:
-    0
-    0
-    calc(
-      (100% - 2.5mm) /
-        2
-    );
+    0 0 calc((100% - 2.5mm) / 2);
 }
 
-.report-density-medium
-.report-list-box {
+.report-density-medium .report-list-box {
   min-height:
     13.5mm;
 
   padding:
-    2mm
-    3mm;
+    2mm 3mm;
 }
 
-.report-density-medium
-.report-evidence-flex {
+.report-density-medium .report-evidence-flex {
   min-height:
     34mm;
 
@@ -1265,20 +1140,15 @@
     3mm;
 }
 
-.report-density-medium
-.report-evidence-section,
-.report-density-medium
-.report-images-grid,
-.report-density-medium
-.report-image-box,
-.report-density-medium
-.report-evidence-box {
+.report-density-medium .report-evidence-section,
+.report-density-medium .report-images-grid,
+.report-density-medium .report-image-box,
+.report-density-medium .report-evidence-box {
   min-height:
     34mm;
 }
 
-.report-density-medium
-.report-signatures {
+.report-density-medium .report-signatures {
   margin-top:
     5mm;
 }
@@ -1287,29 +1157,23 @@
    TIGHT DENSITY
 ========================================================= */
 
-.report-density-tight
-.report-title-ribbon {
+.report-density-tight .report-title-ribbon {
   padding:
-    6px
-    14px;
+    6px 14px;
 
   font-size:
     21px;
 }
 
-.report-density-tight
-.report-category-title {
+.report-density-tight .report-category-title {
   margin:
-    7px
-    0
-    8px;
+    7px 0 8px;
 
   font-size:
     18px;
 }
 
-.report-density-tight
-.report-fields-grid {
+.report-density-tight .report-fields-grid {
   gap:
     2.5mm;
 
@@ -1317,8 +1181,7 @@
     2.4mm;
 }
 
-.report-density-tight
-.report-field-label {
+.report-density-tight .report-field-label {
   min-height:
     3.5mm;
 
@@ -1329,27 +1192,23 @@
     11.5px;
 }
 
-.report-density-tight
-.report-field-box {
+.report-density-tight .report-field-box {
   min-height:
     8.5mm;
 
   padding:
-    1mm
-    2mm;
+    1mm 2mm;
 
   font-size:
     11.5px;
 }
 
-.report-density-tight
-.report-date-box {
+.report-density-tight .report-date-box {
   min-height:
     8.5mm;
 }
 
-.report-density-tight
-.report-custom-fields-row {
+.report-density-tight .report-custom-fields-row {
   gap:
     2.5mm;
 
@@ -1357,25 +1216,17 @@
     2.5mm;
 }
 
-.report-density-tight
-.report-custom-field-item {
+.report-density-tight .report-custom-field-item {
   flex:
-    0
-    0
-    calc(
-      (100% - 7.5mm) /
-        4
-    );
+    0 0 calc((100% - 7.5mm) / 4);
 }
 
-.report-density-tight
-.report-section {
+.report-density-tight .report-section {
   margin-top:
     1.5mm;
 }
 
-.report-density-tight
-.report-section-heading {
+.report-density-tight .report-section-heading {
   gap:
     3mm;
 
@@ -1383,48 +1234,32 @@
     1.5mm;
 }
 
-.report-density-tight
-.report-section-title {
+.report-density-tight .report-section-title {
   font-size:
     13px;
 }
 
-.report-density-tight
-.report-list-boxes {
+.report-density-tight .report-list-boxes {
   gap:
     2mm;
 }
 
-.report-density-tight
-.report-list-boxes-2
-.report-list-box,
-.report-density-tight
-.report-list-boxes-3
-.report-list-box,
-.report-density-tight
-.report-list-boxes-4
-.report-list-box {
+.report-density-tight .report-list-boxes-2 .report-list-box,
+.report-density-tight .report-list-boxes-3 .report-list-box,
+.report-density-tight .report-list-boxes-4 .report-list-box {
   flex:
-    0
-    0
-    calc(
-      (100% - 2mm) /
-        2
-    );
+    0 0 calc((100% - 2mm) / 2);
 }
 
-.report-density-tight
-.report-list-box {
+.report-density-tight .report-list-box {
   min-height:
     11.5mm;
 
   padding:
-    1.5mm
-    2.5mm;
+    1.5mm 2.5mm;
 }
 
-.report-density-tight
-.report-list-number {
+.report-density-tight .report-list-number {
   flex-basis:
     7mm;
 
@@ -1438,8 +1273,7 @@
     11px;
 }
 
-.report-density-tight
-.report-list-text {
+.report-density-tight .report-list-text {
   font-size:
     12px;
 
@@ -1447,8 +1281,7 @@
     1.4;
 }
 
-.report-density-tight
-.report-evidence-flex {
+.report-density-tight .report-evidence-flex {
   min-height:
     30mm;
 
@@ -1456,20 +1289,15 @@
     2.5mm;
 }
 
-.report-density-tight
-.report-evidence-section,
-.report-density-tight
-.report-images-grid,
-.report-density-tight
-.report-image-box,
-.report-density-tight
-.report-evidence-box {
+.report-density-tight .report-evidence-section,
+.report-density-tight .report-images-grid,
+.report-density-tight .report-image-box,
+.report-density-tight .report-evidence-box {
   min-height:
     30mm;
 }
 
-.report-density-tight
-.report-signatures {
+.report-density-tight .report-signatures {
   margin-top:
     4mm;
 }
@@ -1497,6 +1325,7 @@
 }
 
 @media print {
+
   html,
   body {
     width:
@@ -1549,10 +1378,7 @@
     مش هيظهر.
   */
 
-  .report-page-container
-    > *:not(
-      .print-only-report
-    ) {
+  .report-page-container>*:not(.print-only-report) {
     display:
       none !important;
   }
@@ -1647,8 +1473,7 @@
      Preview wrapper
   ===================================================== */
 
-  .print-only-report
-  .report-preview-shell {
+  .print-only-report .report-preview-shell {
     position:
       static !important;
 
@@ -1692,8 +1517,7 @@
       #ffffff !important;
   }
 
-  .print-only-report
-  .report-preview-stage {
+  .print-only-report .report-preview-stage {
     position:
       static !important;
 
@@ -1713,8 +1537,7 @@
       hidden !important;
   }
 
-  .print-only-report
-  .report-preview-positioner {
+  .print-only-report .report-preview-positioner {
     position:
       static !important;
 
@@ -1734,8 +1557,7 @@
       none !important;
   }
 
-  .print-only-report
-  .report-preview-scale {
+  .print-only-report .report-preview-scale {
     display:
       block !important;
 
@@ -1756,8 +1578,7 @@
      Final Sheet
   ===================================================== */
 
-  .print-only-report
-  .report-sheet {
+  .print-only-report .report-sheet {
     position:
       relative !important;
 
@@ -1826,8 +1647,7 @@
      Header / Footer
   ===================================================== */
 
-  .print-only-report
-  .report-frame-header {
+  .print-only-report .report-frame-header {
     position:
       absolute !important;
 
@@ -1850,8 +1670,7 @@
       transparent !important;
   }
 
-  .print-only-report
-  .report-frame-footer {
+  .print-only-report .report-frame-footer {
     position:
       absolute !important;
 
@@ -1878,8 +1697,7 @@
      Content
   ===================================================== */
 
-  .print-only-report
-  .report-content {
+  .print-only-report .report-content {
     position:
       relative !important;
 
@@ -1902,9 +1720,7 @@
       border-box !important;
 
     padding:
-      31mm
-      7mm
-      17mm !important;
+      31mm 7mm 17mm !important;
 
     overflow:
       hidden !important;
@@ -1914,54 +1730,37 @@
      Fields
   ===================================================== */
 
-  .print-only-report
-  .report-fields-grid {
+  .print-only-report .report-fields-grid {
     display:
       grid !important;
   }
 
-  .print-only-report
-  .report-fields-grid-2 {
+  .print-only-report .report-fields-grid-2 {
     grid-template-columns:
-      repeat(
-        2,
-        minmax(
-          0,
-          1fr
-        )
-      ) !important;
+      repeat(2,
+        minmax(0,
+          1fr)) !important;
   }
 
-  .print-only-report
-  .report-fields-grid-3 {
+  .print-only-report .report-fields-grid-3 {
     grid-template-columns:
-      repeat(
-        3,
-        minmax(
-          0,
-          1fr
-        )
-      ) !important;
+      repeat(3,
+        minmax(0,
+          1fr)) !important;
   }
 
-  .print-only-report
-  .report-fields-grid-4 {
+  .print-only-report .report-fields-grid-4 {
     grid-template-columns:
-      repeat(
-        4,
-        minmax(
-          0,
-          1fr
-        )
-      ) !important;
+      repeat(4,
+        minmax(0,
+          1fr)) !important;
   }
 
   /* =====================================================
      Custom Fields
   ===================================================== */
 
-  .print-only-report
-  .report-custom-fields-row {
+  .print-only-report .report-custom-fields-row {
     display:
       flex !important;
 
@@ -1976,8 +1775,7 @@
      Objectives / Impact
   ===================================================== */
 
-  .print-only-report
-  .report-list-boxes {
+  .print-only-report .report-list-boxes {
     display:
       flex !important;
 
@@ -1988,8 +1786,7 @@
       center !important;
   }
 
-  .print-only-report
-  .report-section {
+  .print-only-report .report-section {
     break-inside:
       avoid !important;
 
@@ -2001,15 +1798,12 @@
      Evidence
   ===================================================== */
 
-  .print-only-report
-  .report-evidence-flex {
+  .print-only-report .report-evidence-flex {
     display:
       flex !important;
 
     flex:
-      1
-      1
-      auto !important;
+      1 1 auto !important;
 
     flex-direction:
       column !important;
@@ -2021,15 +1815,12 @@
       hidden !important;
   }
 
-  .print-only-report
-  .report-evidence-section {
+  .print-only-report .report-evidence-section {
     display:
       flex !important;
 
     flex:
-      1
-      1
-      auto !important;
+      1 1 auto !important;
 
     flex-direction:
       column !important;
@@ -2041,12 +1832,9 @@
       hidden !important;
   }
 
-  .print-only-report
-  .report-evidence-box {
+  .print-only-report .report-evidence-box {
     flex:
-      1
-      1
-      auto !important;
+      1 1 auto !important;
 
     min-height:
       0 !important;
@@ -2055,15 +1843,12 @@
       hidden !important;
   }
 
-  .print-only-report
-  .report-images-grid {
+  .print-only-report .report-images-grid {
     display:
       grid !important;
 
     flex:
-      1
-      1
-      auto !important;
+      1 1 auto !important;
 
     min-height:
       0 !important;
@@ -2072,8 +1857,7 @@
       hidden !important;
   }
 
-  .print-only-report
-  .report-image-box {
+  .print-only-report .report-image-box {
     height:
       100% !important;
 
@@ -2084,8 +1868,7 @@
       hidden !important;
   }
 
-  .print-only-report
-  .report-image {
+  .print-only-report .report-image {
     display:
       block !important;
 
@@ -2103,19 +1886,14 @@
      Signatures
   ===================================================== */
 
-  .print-only-report
-  .report-signatures {
+  .print-only-report .report-signatures {
     display:
       grid !important;
 
     grid-template-columns:
-      repeat(
-        2,
-        minmax(
-          0,
-          1fr
-        )
-      ) !important;
+      repeat(2,
+        minmax(0,
+          1fr)) !important;
 
     flex-shrink:
       0 !important;
