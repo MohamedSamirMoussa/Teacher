@@ -57,7 +57,7 @@ export const REPORT_THEMES: ReportThemeConfig[] =
         "/theme2-header-transparent.png",
 
       footer:
-        "/theme2-footer-transparent-fixed.png",
+        "/theme2-footer-transparent.png",
 
       headerWidth:
         1024,
