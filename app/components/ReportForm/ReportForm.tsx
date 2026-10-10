@@ -282,7 +282,7 @@ const ReportForm = () => {
           [],
       },
 
-      onSubmit: () => {},
+      onSubmit: () => { },
     });
 
   /* =====================================
@@ -300,7 +300,7 @@ const ReportForm = () => {
         : "اسم المعلم",
 
     supervisor:
-      "مدير المدرسة",
+      isFemale ? "مديرة المدرسة" : "مدير المدرسة",
 
     activityLeader:
       isFemale
@@ -532,7 +532,7 @@ const ReportForm = () => {
     const files =
       Array.from(
         event.target.files ??
-          [],
+        [],
       );
 
     if (
@@ -797,13 +797,12 @@ const ReportForm = () => {
                       font-semibold
                       transition
 
-                      ${
-                        formik
-                          .values
-                          .gender ===
+                      ${formik
+                        .values
+                        .gender ===
                         "male"
-                          ? "border-black bg-black text-white"
-                          : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                        ? "border-black bg-black text-white"
+                        : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
                       }
                     `}
                   >
@@ -826,13 +825,12 @@ const ReportForm = () => {
                       font-semibold
                       transition
 
-                      ${
-                        formik
-                          .values
-                          .gender ===
+                      ${formik
+                        .values
+                        .gender ===
                         "female"
-                          ? "border-black bg-black text-white"
-                          : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
+                        ? "border-black bg-black text-white"
+                        : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
                       }
                     `}
                   >
@@ -875,7 +873,7 @@ const ReportForm = () => {
                       !isFemale &&
                       formik.values
                         .regionName ===
-                        DEFAULT_REGION
+                      DEFAULT_REGION
                     ) {
                       formik.setFieldValue(
                         "regionName",
@@ -913,7 +911,7 @@ const ReportForm = () => {
                       !isFemale &&
                       formik.values
                         .schoolName ===
-                        DEFAULT_SCHOOL
+                      DEFAULT_SCHOOL
                     ) {
                       formik.setFieldValue(
                         "schoolName",
@@ -1218,74 +1216,74 @@ const ReportForm = () => {
                   .customFields
                   .length >
                   0 && (
-                  <div className="space-y-2">
-                    {formik.values.customFields.map(
-                      (
-                        field,
-                        index,
-                      ) => (
-                        <div
-                          key={
-                            field.id
-                          }
-                          className="rounded-xl border border-gray-200 bg-white p-3"
-                        >
-                          <div className="mb-2 flex items-center justify-between">
-                            <span className="text-xs font-bold text-gray-500">
-                              الحقل{" "}
-                              {index +
-                                1}
-                            </span>
+                    <div className="space-y-2">
+                      {formik.values.customFields.map(
+                        (
+                          field,
+                          index,
+                        ) => (
+                          <div
+                            key={
+                              field.id
+                            }
+                            className="rounded-xl border border-gray-200 bg-white p-3"
+                          >
+                            <div className="mb-2 flex items-center justify-between">
+                              <span className="text-xs font-bold text-gray-500">
+                                الحقل{" "}
+                                {index +
+                                  1}
+                              </span>
 
-                            <button
-                              type="button"
-                              onClick={() =>
-                                removeCustomField(
-                                  field.id,
-                                )
-                              }
-                              className="text-xs font-semibold text-red-600"
-                            >
-                              حذف
-                            </button>
-                          </div>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  removeCustomField(
+                                    field.id,
+                                  )
+                                }
+                                className="text-xs font-semibold text-red-600"
+                              >
+                                حذف
+                              </button>
+                            </div>
 
-                          <div className="grid grid-cols-2 gap-2">
-                            <input
-                              type="text"
-                              placeholder="اسم الحقل"
-                              value={
-                                field.label
-                              }
-                              onChange={(
-                                event,
-                              ) => {
-                                const updated =
-                                  [
-                                    ...formik
-                                      .values
-                                      .customFields,
-                                  ];
+                            <div className="grid grid-cols-2 gap-2">
+                              <input
+                                type="text"
+                                placeholder="اسم الحقل"
+                                value={
+                                  field.label
+                                }
+                                onChange={(
+                                  event,
+                                ) => {
+                                  const updated =
+                                    [
+                                      ...formik
+                                        .values
+                                        .customFields,
+                                    ];
 
-                                updated[
-                                  index
-                                ] = {
-                                  ...updated[
+                                  updated[
                                     index
-                                  ],
+                                  ] = {
+                                    ...updated[
+                                    index
+                                    ],
 
-                                  label:
-                                    event
-                                      .target
-                                      .value,
-                                };
+                                    label:
+                                      event
+                                        .target
+                                        .value,
+                                  };
 
-                                formik.setFieldValue(
-                                  "customFields",
-                                  updated,
-                                );
-                              }}
-                              className="
+                                  formik.setFieldValue(
+                                    "customFields",
+                                    updated,
+                                  );
+                                }}
+                                className="
                                 min-w-0
                                 rounded-lg
                                 border
@@ -1297,43 +1295,43 @@ const ReportForm = () => {
                                 transition
                                 focus:border-gray-900
                               "
-                            />
+                              />
 
-                            <input
-                              type="text"
-                              placeholder="القيمة"
-                              value={
-                                field.value
-                              }
-                              onChange={(
-                                event,
-                              ) => {
-                                const updated =
-                                  [
-                                    ...formik
-                                      .values
-                                      .customFields,
-                                  ];
+                              <input
+                                type="text"
+                                placeholder="القيمة"
+                                value={
+                                  field.value
+                                }
+                                onChange={(
+                                  event,
+                                ) => {
+                                  const updated =
+                                    [
+                                      ...formik
+                                        .values
+                                        .customFields,
+                                    ];
 
-                                updated[
-                                  index
-                                ] = {
-                                  ...updated[
+                                  updated[
                                     index
-                                  ],
+                                  ] = {
+                                    ...updated[
+                                    index
+                                    ],
 
-                                  value:
-                                    event
-                                      .target
-                                      .value,
-                                };
+                                    value:
+                                      event
+                                        .target
+                                        .value,
+                                  };
 
-                                formik.setFieldValue(
-                                  "customFields",
-                                  updated,
-                                );
-                              }}
-                              className="
+                                  formik.setFieldValue(
+                                    "customFields",
+                                    updated,
+                                  );
+                                }}
+                                className="
                                 min-w-0
                                 rounded-lg
                                 border
@@ -1345,13 +1343,13 @@ const ReportForm = () => {
                                 transition
                                 focus:border-gray-900
                               "
-                            />
+                              />
+                            </div>
                           </div>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                )}
+                        ),
+                      )}
+                    </div>
+                  )}
 
                 <button
                   type="button"
@@ -1387,7 +1385,7 @@ const ReportForm = () => {
                   {formik.values
                     .customFields
                     .length >=
-                  4
+                    4
                     ? "تم الوصول للحد الأقصى"
                     : "+ إضافة حقل"}
                 </button>
@@ -1415,7 +1413,7 @@ const ReportForm = () => {
                       !isFemale &&
                       formik.values
                         .activityLeaderName ===
-                        DEFAULT_ACTIVITY_LEADER
+                      DEFAULT_ACTIVITY_LEADER
                     ) {
                       formik.setFieldValue(
                         "activityLeaderName",
@@ -1439,7 +1437,7 @@ const ReportForm = () => {
                 />
 
                 <InputField
-                  label="اسم مدير المدرسة"
+                  label={labels.supervisor}
                   name="supervisorName"
                   value={
                     formik.values
@@ -1453,7 +1451,7 @@ const ReportForm = () => {
                       !isFemale &&
                       formik.values
                         .supervisorName ===
-                        DEFAULT_SCHOOL_MANAGER
+                      DEFAULT_SCHOOL_MANAGER
                     ) {
                       formik.setFieldValue(
                         "supervisorName",
@@ -1507,9 +1505,9 @@ const ReportForm = () => {
                   .evidenceImages
                   .length <
                   4 && (
-                  <label
-                    htmlFor="evidence-images"
-                    className="
+                    <label
+                      htmlFor="evidence-images"
+                      className="
                       flex
                       cursor-pointer
                       items-center
@@ -1526,62 +1524,61 @@ const ReportForm = () => {
                       transition
                       hover:border-gray-700
                     "
-                  >
-                    + إضافة صور الشواهد
+                    >
+                      + إضافة صور الشواهد
 
-                    <input
-                      id="evidence-images"
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp"
-                      multiple
-                      onChange={
-                        handleImagesChange
-                      }
-                      className="hidden"
-                    />
-                  </label>
-                )}
+                      <input
+                        id="evidence-images"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        multiple
+                        onChange={
+                          handleImagesChange
+                        }
+                        className="hidden"
+                      />
+                    </label>
+                  )}
 
                 {formik.values
                   .evidenceImages
                   .length >
                   0 && (
-                  <div className="mt-3 grid grid-cols-2 gap-2">
-                    {formik.values.evidenceImages.map(
-                      (
-                        image,
-                        index,
-                      ) => (
-                        <div
-                          key={`${image}-${index}`}
-                          className="relative overflow-hidden rounded-xl border border-gray-200"
-                        >
-                          <Image
-                            src={
-                              image
-                            }
-                            alt={`شاهد ${
-                              index +
-                              1
-                            }`}
-                            width={
-                              500
-                            }
-                            height={
-                              350
-                            }
-                            unoptimized
-                            className="h-28 w-full object-cover"
-                          />
+                    <div className="mt-3 grid grid-cols-2 gap-2">
+                      {formik.values.evidenceImages.map(
+                        (
+                          image,
+                          index,
+                        ) => (
+                          <div
+                            key={`${image}-${index}`}
+                            className="relative overflow-hidden rounded-xl border border-gray-200"
+                          >
+                            <Image
+                              src={
+                                image
+                              }
+                              alt={`شاهد ${index +
+                                1
+                                }`}
+                              width={
+                                500
+                              }
+                              height={
+                                350
+                              }
+                              unoptimized
+                              className="h-28 w-full object-cover"
+                            />
 
-                          <button
-                            type="button"
-                            onClick={() =>
-                              removeImage(
-                                index,
-                              )
-                            }
-                            className="
+                            <button
+                              type="button"
+                              onClick={() =>
+                                removeImage(
+                                  index,
+                                )
+                              }
+                              className="
                               absolute
                               left-2
                               top-2
@@ -1594,14 +1591,14 @@ const ReportForm = () => {
                               bg-black/70
                               text-white
                             "
-                          >
-                            ×
-                          </button>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                )}
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  )}
               </div>
 
               {/* =============================
@@ -1814,10 +1811,9 @@ const ThemeSelector = ({
                   text-right
                   transition
 
-                  ${
-                    selected
-                      ? "border-black ring-2 ring-black/10"
-                      : "border-gray-200 hover:border-gray-400"
+                  ${selected
+                    ? "border-black ring-2 ring-black/10"
+                    : "border-gray-200 hover:border-gray-400"
                   }
                 `}
               >
@@ -1856,10 +1852,9 @@ const ThemeSelector = ({
                       rounded-full
                       border
 
-                      ${
-                        selected
-                          ? "border-black bg-black"
-                          : "border-gray-300"
+                      ${selected
+                        ? "border-black bg-black"
+                        : "border-gray-300"
                       }
                     `}
                   >
@@ -1982,13 +1977,13 @@ type InputFieldProps = {
   disabled?: boolean;
 
   onChange:
-    React.ChangeEventHandler<HTMLInputElement>;
+  React.ChangeEventHandler<HTMLInputElement>;
 
   onFocus?:
-    React.FocusEventHandler<HTMLInputElement>;
+  React.FocusEventHandler<HTMLInputElement>;
 
   onBlur?:
-    React.FocusEventHandler<HTMLInputElement>;
+  React.FocusEventHandler<HTMLInputElement>;
 };
 
 const InputField = ({

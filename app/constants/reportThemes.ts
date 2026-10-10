@@ -55,12 +55,10 @@ export const REPORT_THEMES: ReportThemeConfig[] =
                 "/theme2-footer-transparent.png",
 
             headerWidth: 1055,
-
             headerHeight: 235,
 
             footerWidth: 1055,
-
-            footerHeight: 185,
+            footerHeight: 130,
         },
 
         {
@@ -95,12 +93,10 @@ export const REPORT_THEMES: ReportThemeConfig[] =
                 "/theme4-footer-transparent.png",
 
             headerWidth: 1055,
-
             headerHeight: 225,
 
             footerWidth: 1055,
-
-            footerHeight: 180,
+            footerHeight: 130,
         },
     ];
 
