@@ -1,38 +1,20 @@
 "use client";
 
-
-
 import { useEffect, useState } from "react";
-
-
 
 import type { ChangeEvent, ChangeEventHandler, FocusEventHandler } from "react";
 
-
-
 import { useFormik } from "formik";
-
-
 
 import Image from "next/image";
 
-
-
 import toast from "react-hot-toast";
-
-
 
 import ReportPreview from "../ReportPreview/ReportPreview";
 
-
-
 import CategorySelector from "../CategorySelector/CategorySelector";
 
-
-
 import { DEFAULT_REPORT_TEXT_COLORS } from "@/app/types/reports";
-
-
 
 import type {
 
@@ -48,15 +30,9 @@ import type {
 
 } from "@/app/types/reports";
 
-
-
 import { REPORT_THEMES } from "@/app/constants/reportThemes";
 
-
-
 import { generateReportPdf } from "@/app/utils/generateReportPdf";
-
-
 
 /* =========================================================
 
@@ -64,31 +40,19 @@ import { generateReportPdf } from "@/app/utils/generateReportPdf";
 
 ========================================================= */
 
-
-
 const DEFAULT_ACTIVITY_LEADER = "أ.عمر سعيد الصاعدي";
-
-
 
 const DEFAULT_SCHOOL_MANAGER = "أ.عبدالعزيز عوض العلوي";
 
-
-
 const DEFAULT_SCHOOL = "مدرسة ابتدائية أبيار الماشي";
 
-
-
 const DEFAULT_REGION = "المدينة المنورة";
-
-
 
 /* =========================================================
 
    DATE
 
 ========================================================= */
-
-
 
 const convertToHijri = (gregorianDate: string) => {
 
@@ -98,11 +62,7 @@ const convertToHijri = (gregorianDate: string) => {
 
   }
 
-
-
   const [year, month, day] = gregorianDate.split("-").map(Number);
-
-
 
   if (!year || !month || !day) {
 
@@ -110,11 +70,7 @@ const convertToHijri = (gregorianDate: string) => {
 
   }
 
-
-
   const date = new Date(year, month - 1, day);
-
-
 
   return new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
 
@@ -128,25 +84,17 @@ const convertToHijri = (gregorianDate: string) => {
 
 };
 
-
-
 /* =========================================================
 
    REPORT FORM
 
 ========================================================= */
 
-
-
 const ReportForm = () => {
 
   const [preview, setPreview] = useState(false);
 
-
-
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
-
-
 
   /* =======================================================
 
@@ -154,15 +102,11 @@ const ReportForm = () => {
 
   ======================================================= */
 
-
-
   const formik = useFormik<ReportFormValues>({
 
     initialValues: {
 
       theme: "theme1",
-
-
 
       textColors: {
 
@@ -170,15 +114,9 @@ const ReportForm = () => {
 
       },
 
-
-
       gender: "male",
 
-
-
       selectedCategory: "citizenship",
-
-
 
       categories: [
 
@@ -186,67 +124,45 @@ const ReportForm = () => {
 
           id: "citizenship",
 
-
-
           name: "مجال المواطنة والحياة",
 
         },
-
-
 
         {
 
           id: "sports",
 
-
-
           name: "مجال الرياضة والصحة",
 
         },
-
-
 
         {
 
           id: "scouting",
 
-
-
           name: "مجال النشاط الكشفي",
 
         },
-
-
 
         {
 
           id: "culture",
 
-
-
           name: "مجال الثقافة والفنون",
 
         },
-
-
 
         {
 
           id: "science",
 
-
-
           name: "مجال العلوم والتقنية",
 
         },
 
-
-
         {
 
           id: "events",
-
-
 
           name: "مجال الأيام والمناسبات",
 
@@ -254,95 +170,51 @@ const ReportForm = () => {
 
       ],
 
-
-
       regionName: DEFAULT_REGION,
-
-
 
       schoolName: DEFAULT_SCHOOL,
 
-
-
       teacherName: "",
-
-
 
       specialization: "",
 
-
-
       grade: "",
-
-
 
       className: "",
 
-
-
       period: "",
-
-
 
       day: "",
 
-
-
       gregorianDate: "",
-
-
 
       hijriDate: "",
 
-
-
       programName: "",
-
-
 
       location: "",
 
-
-
       attendance: "",
-
-
 
       absence: "",
 
-
-
       objectives: "",
-
-
 
       impact: "",
 
-
-
       activityLeaderName: DEFAULT_ACTIVITY_LEADER,
-
-
 
       supervisorName: DEFAULT_SCHOOL_MANAGER,
 
-
-
       customFields: [],
-
-
 
       evidenceImages: [],
 
     },
 
-
-
     onSubmit: () => {},
 
   });
-
-
 
   /* =======================================================
 
@@ -350,15 +222,11 @@ const ReportForm = () => {
 
   ======================================================= */
 
-
-
   const openPreview = () => {
 
     setPreview(true);
 
   };
-
-
 
   const closePreview = () => {
 
@@ -366,13 +234,9 @@ const ReportForm = () => {
 
   };
 
-
-
   useEffect(() => {
 
     document.body.style.overflow = preview ? "hidden" : "";
-
-
 
     return () => {
 
@@ -381,8 +245,6 @@ const ReportForm = () => {
     };
 
   }, [preview]);
-
-
 
   useEffect(() => {
 
@@ -396,15 +258,11 @@ const ReportForm = () => {
 
     };
 
-
-
     if (preview) {
 
       window.addEventListener("keydown", handleEscape);
 
     }
-
-
 
     return () => {
 
@@ -414,43 +272,27 @@ const ReportForm = () => {
 
   }, [preview]);
 
-
-
   /* =======================================================
 
      GENDER
 
   ======================================================= */
 
-
-
   const isFemale = formik.values.gender === "female";
-
-
 
   const labels = {
 
     teacherName: isFemale ? "اسم المعلمة" : "اسم المعلم",
 
-
-
     activityLeader: isFemale ? "رائدة النشاط" : "رائد النشاط",
-
-
 
     supervisor: isFemale ? "مديرة المدرسة" : "مدير المدرسة",
 
-
-
     activityLeaderInput: isFemale ? "اسم رائدة النشاط" : "اسم رائد النشاط",
-
-
 
     supervisorInput: isFemale ? "اسم مديرة المدرسة" : "اسم مدير المدرسة",
 
   };
-
-
 
   const handleGenderChange = (gender: Gender) => {
 
@@ -460,23 +302,17 @@ const ReportForm = () => {
 
     }
 
-
-
     /*
 
       المعلمة:
 
       كل بيانات التقرير تصبح فارغة.
 
-
-
       Theme / Colors / Categories
 
       يفضلوا كما هم.
 
     */
-
-
 
     if (gender === "female") {
 
@@ -490,105 +326,57 @@ const ReportForm = () => {
 
       });
 
-
-
       formik.setValues({
 
         ...formik.values,
 
-
-
         gender: "female",
-
-
 
         regionName: "",
 
-
-
         schoolName: "",
-
-
 
         teacherName: "",
 
-
-
         specialization: "",
-
-
 
         grade: "",
 
-
-
         className: "",
-
-
 
         period: "",
 
-
-
         day: "",
-
-
 
         gregorianDate: "",
 
-
-
         hijriDate: "",
-
-
 
         programName: "",
 
-
-
         location: "",
-
-
 
         attendance: "",
 
-
-
         absence: "",
-
-
 
         objectives: "",
 
-
-
         impact: "",
-
-
 
         activityLeaderName: "",
 
-
-
         supervisorName: "",
 
-
-
         customFields: [],
-
-
 
         evidenceImages: [],
 
       });
 
-
-
       return;
 
     }
-
-
 
     /*
 
@@ -598,29 +386,17 @@ const ReportForm = () => {
 
     */
 
-
-
     formik.setValues({
 
       ...formik.values,
 
-
-
       gender: "male",
-
-
 
       regionName: DEFAULT_REGION,
 
-
-
       schoolName: DEFAULT_SCHOOL,
 
-
-
       activityLeaderName: DEFAULT_ACTIVITY_LEADER,
-
-
 
       supervisorName: DEFAULT_SCHOOL_MANAGER,
 
@@ -628,15 +404,11 @@ const ReportForm = () => {
 
   };
 
-
-
   /* =======================================================
 
      CATEGORY
 
   ======================================================= */
-
-
 
   const selectedCategory = formik.values.categories.find(
 
@@ -644,15 +416,11 @@ const ReportForm = () => {
 
   );
 
-
-
   /* =======================================================
 
      THEME
 
   ======================================================= */
-
-
 
   const handleThemeChange = (theme: ReportTheme) => {
 
@@ -660,21 +428,15 @@ const ReportForm = () => {
 
   };
 
-
-
   /* =======================================================
 
      TEXT COLORS
 
   ======================================================= */
 
-
-
   const handleTextColorChange = (
 
     key: ReportTextColorKey,
-
-
 
     color: string,
 
@@ -683,8 +445,6 @@ const ReportForm = () => {
     formik.setFieldValue(`textColors.${key}`, color);
 
   };
-
-
 
   const resetTextColors = () => {
 
@@ -696,15 +456,11 @@ const ReportForm = () => {
 
   };
 
-
-
   /* =======================================================
 
      CUSTOM FIELDS
 
   ======================================================= */
-
-
 
   const addCustomField = () => {
 
@@ -712,29 +468,19 @@ const ReportForm = () => {
 
       toast.error("الحد الأقصى للحقول الإضافية هو 4 حقول");
 
-
-
       return;
 
     }
-
-
 
     formik.setFieldValue("customFields", [
 
       ...formik.values.customFields,
 
-
-
       {
 
         id: crypto.randomUUID(),
 
-
-
         label: "",
-
-
 
         value: "",
 
@@ -744,15 +490,11 @@ const ReportForm = () => {
 
   };
 
-
-
   const removeCustomField = (id: string) => {
 
     formik.setFieldValue(
 
       "customFields",
-
-
 
       formik.values.customFields.filter((field) => field.id !== id),
 
@@ -760,25 +502,17 @@ const ReportForm = () => {
 
   };
 
-
-
   /* =======================================================
 
      OBJECTIVES / IMPACT
 
   ======================================================= */
 
-
-
   const updateMultilineField = (
 
     fieldName: "objectives" | "impact",
 
-
-
     value: string,
-
-
 
     title: string,
 
@@ -786,25 +520,17 @@ const ReportForm = () => {
 
     const items = value.split("\n").filter((line) => line.trim().length > 0);
 
-
-
     if (items.length > 4) {
 
       toast.error(`الحد الأقصى في ${title} هو 4 عناصر`);
-
-
 
       return;
 
     }
 
-
-
     formik.setFieldValue(fieldName, value);
 
   };
-
-
 
   /* =======================================================
 
@@ -812,13 +538,9 @@ const ReportForm = () => {
 
   ======================================================= */
 
-
-
   const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
 
     const files = Array.from(event.target.files ?? []);
-
-
 
     if (!files.length) {
 
@@ -826,43 +548,25 @@ const ReportForm = () => {
 
     }
 
-
-
     const current = formik.values.evidenceImages;
 
-
-
     const remaining = 4 - current.length;
-
-
 
     if (remaining <= 0) {
 
       toast.error("الحد الأقصى للصور هو 4 صور");
 
-
-
       event.target.value = "";
-
-
 
       return;
 
     }
 
-
-
     const selectedFiles = files.slice(0, remaining);
-
-
 
     const urls = selectedFiles.map((file) => URL.createObjectURL(file));
 
-
-
     formik.setFieldValue("evidenceImages", [...current, ...urls]);
-
-
 
     if (files.length > remaining) {
 
@@ -870,23 +574,15 @@ const ReportForm = () => {
 
     }
 
-
-
     event.target.value = "";
 
   };
-
-
 
   const removeImage = (index: number) => {
 
     const images = [...formik.values.evidenceImages];
 
-
-
     const image = images[index];
-
-
 
     if (image?.startsWith("blob:")) {
 
@@ -894,125 +590,45 @@ const ReportForm = () => {
 
     }
 
-
-
     images.splice(index, 1);
-
-
 
     formik.setFieldValue("evidenceImages", images);
 
   };
 
-
-
   /* =======================================================
 
      PDF
-
-
 
      مفيش window.print()
 
   ======================================================= */
 
-
-
   const downloadPdf = async () => {
-
     if (formik.values.evidenceImages.length < 2) {
-
       toast.error("يجب إضافة صورتين على الأقل من الشواهد");
-
-
-
       return;
-
     }
 
-
-
-    if (isGeneratingPdf) {
-
-      return;
-
-    }
-
-
+    if (isGeneratingPdf) return;
 
     try {
-
       setIsGeneratingPdf(true);
 
-
-
-      /*
-
-          نقفل Preview الموبايل
-
-          قبل Capture.
-
-        */
-
-
-
-      setPreview(false);
-
-
-
-      /*
-
-          Safari ياخد فرصة
-
-          يحدث الـDOM.
-
-        */
-
-
-
-      await new Promise<void>((resolve) => {
-
-        window.setTimeout(resolve, 300);
-
-      });
-
-
-
       const programName = formik.values.programName.trim();
-
-
-
       const fileName = programName
-
         ? `تقرير - ${programName}.pdf`
-
         : "تقرير-الأنشطة.pdf";
 
-
-
-      await generateReportPdf("pdf-report-preview", fileName);
-
-
-
+      await generateReportPdf("report-preview", fileName);
       toast.success("تم إنشاء ملف PDF بنجاح");
-
     } catch (error) {
-
       console.error("PDF generation error:", error);
-
-
-
       toast.error("حدث خطأ أثناء إنشاء ملف PDF");
-
     } finally {
-
       setIsGeneratingPdf(false);
-
     }
-
   };
-
-
 
   return (
 
@@ -1024,19 +640,13 @@ const ReportForm = () => {
 
         bg-gray-50
 
-
-
         px-3
 
         py-6
 
-
-
         sm:px-6
 
         sm:py-12
-
-
 
         lg:px-8
 
@@ -1051,8 +661,6 @@ const ReportForm = () => {
             CATEGORY
 
         ================================================== */}
-
-
 
         <div className="no-print">
 
@@ -1074,13 +682,9 @@ const ReportForm = () => {
 
                 ...formik.values.categories,
 
-
-
                 category,
 
               ]);
-
-
 
               formik.setFieldValue("selectedCategory", category.id);
 
@@ -1090,21 +694,15 @@ const ReportForm = () => {
 
         </div>
 
-
-
         {/* =================================================
 
             HEADING
 
         ================================================== */}
 
-
-
         <div className="no-print mb-6 mt-8">
 
           <h2 className="text-2xl font-bold text-gray-900">إنشاء التقرير</h2>
-
-
 
           <p className="mt-2 text-sm text-gray-500">
 
@@ -1114,23 +712,17 @@ const ReportForm = () => {
 
         </div>
 
-
-
         {/* =================================================
 
             LAYOUT
 
         ================================================== */}
 
-
-
         <div
 
           className="
 
             report-layout
-
-
 
             grid
 
@@ -1139,8 +731,6 @@ const ReportForm = () => {
             items-start
 
             gap-8
-
-
 
             lg:grid-cols-2
 
@@ -1154,8 +744,6 @@ const ReportForm = () => {
 
           ================================================ */}
 
-
-
           <form
 
             onSubmit={formik.handleSubmit}
@@ -1164,33 +752,19 @@ const ReportForm = () => {
 
               no-print
 
-
-
               min-w-0
 
-
-
               rounded-2xl
-
-
 
               border
 
               border-gray-200
 
-
-
               bg-white
-
-
 
               p-3
 
-
-
               shadow-sm
-
-
 
               sm:p-6
 
@@ -1202,8 +776,6 @@ const ReportForm = () => {
 
               {/* Gender */}
 
-
-
               <div>
 
                 <label className="mb-2 block text-sm font-semibold text-gray-800">
@@ -1211,8 +783,6 @@ const ReportForm = () => {
                   النوع
 
                 </label>
-
-
 
                 <div className="grid grid-cols-2 gap-2">
 
@@ -1228,23 +798,15 @@ const ReportForm = () => {
 
                       border
 
-
-
                       px-3
 
                       py-3
-
-
 
                       text-sm
 
                       font-semibold
 
-
-
                       transition
-
-
 
                       ${
 
@@ -1264,8 +826,6 @@ const ReportForm = () => {
 
                   </button>
 
-
-
                   <button
 
                     type="button"
@@ -1278,23 +838,15 @@ const ReportForm = () => {
 
                       border
 
-
-
                       px-3
 
                       py-3
-
-
 
                       text-sm
 
                       font-semibold
 
-
-
                       transition
-
-
 
                       ${
 
@@ -1318,11 +870,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Themes */}
-
-
 
               <ThemeSelector
 
@@ -1332,11 +880,7 @@ const ReportForm = () => {
 
               />
 
-
-
               {/* Color customization */}
-
-
 
               <ReportColorEditor
 
@@ -1348,11 +892,7 @@ const ReportForm = () => {
 
               />
 
-
-
               {/* Region / School */}
-
-
 
               <div className="mobile-form-grid">
 
@@ -1394,8 +934,6 @@ const ReportForm = () => {
 
                 />
 
-
-
                 <InputField
 
                   label="اسم المدرسة"
@@ -1436,11 +974,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Teacher */}
-
-
 
               <div className="mobile-form-grid">
 
@@ -1456,8 +990,6 @@ const ReportForm = () => {
 
                 />
 
-
-
                 <InputField
 
                   label="التخصص"
@@ -1472,11 +1004,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Grade */}
-
-
 
               <div className="mobile-form-grid">
 
@@ -1492,8 +1020,6 @@ const ReportForm = () => {
 
                 />
 
-
-
                 <InputField
 
                   label="الفصل الدراسي"
@@ -1508,11 +1034,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Period / Day */}
-
-
 
               <div className="mobile-form-grid">
 
@@ -1528,8 +1050,6 @@ const ReportForm = () => {
 
                 />
 
-
-
                 <InputField
 
                   label="اليوم"
@@ -1544,11 +1064,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Date */}
-
-
 
               <div className="mobile-form-grid mobile-date-grid">
 
@@ -1566,19 +1082,13 @@ const ReportForm = () => {
 
                     const value = event.target.value;
 
-
-
                     formik.setFieldValue("gregorianDate", value);
-
-
 
                     formik.setFieldValue("hijriDate", convertToHijri(value));
 
                   }}
 
                 />
-
-
 
                 <InputField
 
@@ -1594,11 +1104,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Program */}
-
-
 
               <div className="mobile-form-grid">
 
@@ -1614,8 +1120,6 @@ const ReportForm = () => {
 
                 />
 
-
-
                 <InputField
 
                   label="مكان التنفيذ"
@@ -1630,11 +1134,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Attendance */}
-
-
 
               <div className="mobile-form-grid">
 
@@ -1650,8 +1150,6 @@ const ReportForm = () => {
 
                 />
 
-
-
                 <InputField
 
                   label="الغياب"
@@ -1666,11 +1164,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Objectives */}
-
-
 
               <SingleListField
 
@@ -1696,11 +1190,7 @@ const ReportForm = () => {
 
               />
 
-
-
               {/* Impact */}
-
-
 
               <SingleListField
 
@@ -1726,11 +1216,7 @@ const ReportForm = () => {
 
               />
 
-
-
               {/* Custom Fields */}
-
-
 
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
 
@@ -1744,8 +1230,6 @@ const ReportForm = () => {
 
                     </h3>
 
-
-
                     <p className="mt-1 text-xs text-gray-500">
 
                       يمكنك إضافة حتى 4 حقول.
@@ -1753,8 +1237,6 @@ const ReportForm = () => {
                     </p>
 
                   </div>
-
-
 
                   <span className="shrink-0 rounded-full bg-white px-2 py-1 text-xs font-bold text-gray-600">
 
@@ -1765,8 +1247,6 @@ const ReportForm = () => {
                   </span>
 
                 </div>
-
-
 
                 {formik.values.customFields.length > 0 && (
 
@@ -1790,8 +1270,6 @@ const ReportForm = () => {
 
                           </span>
 
-
-
                           <button
 
                             type="button"
@@ -1808,8 +1286,6 @@ const ReportForm = () => {
 
                         </div>
 
-
-
                         <div className="grid grid-cols-1 gap-2 min-[360px]:grid-cols-2">
 
                           <input
@@ -1824,19 +1300,13 @@ const ReportForm = () => {
 
                               const updated = [...formik.values.customFields];
 
-
-
                               updated[index] = {
 
                                 ...updated[index],
 
-
-
                                 label: event.target.value,
 
                               };
-
-
 
                               formik.setFieldValue("customFields", updated);
 
@@ -1852,43 +1322,27 @@ const ReportForm = () => {
 
                                 max-w-full
 
-
-
                                 rounded-lg
-
-
 
                                 border
 
                                 border-gray-200
 
-
-
                                 px-3
 
                                 py-2.5
 
-
-
                                 text-base
-
-
 
                                 outline-none
 
-
-
                                 focus:border-gray-900
-
-
 
                                 sm:text-sm
 
                               "
 
                           />
-
-
 
                           <input
 
@@ -1902,19 +1356,13 @@ const ReportForm = () => {
 
                               const updated = [...formik.values.customFields];
 
-
-
                               updated[index] = {
 
                                 ...updated[index],
 
-
-
                                 value: event.target.value,
 
                               };
-
-
 
                               formik.setFieldValue("customFields", updated);
 
@@ -1930,35 +1378,21 @@ const ReportForm = () => {
 
                                 max-w-full
 
-
-
                                 rounded-lg
-
-
 
                                 border
 
                                 border-gray-200
 
-
-
                                 px-3
 
                                 py-2.5
 
-
-
                                 text-base
-
-
 
                                 outline-none
 
-
-
                                 focus:border-gray-900
-
-
 
                                 sm:text-sm
 
@@ -1976,8 +1410,6 @@ const ReportForm = () => {
 
                 )}
 
-
-
                 <button
 
                   type="button"
@@ -1990,15 +1422,9 @@ const ReportForm = () => {
 
                     mt-3
 
-
-
                     w-full
 
-
-
                     rounded-xl
-
-
 
                     border
 
@@ -2006,35 +1432,21 @@ const ReportForm = () => {
 
                     border-gray-300
 
-
-
                     bg-white
-
-
 
                     px-4
 
                     py-2.5
 
-
-
                     text-sm
 
                     font-semibold
 
-
-
                     text-gray-700
-
-
 
                     transition
 
-
-
                     hover:border-gray-800
-
-
 
                     disabled:cursor-not-allowed
 
@@ -2056,11 +1468,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Activity Leader / Manager */}
-
-
 
               <div className="mobile-form-grid">
 
@@ -2110,8 +1518,6 @@ const ReportForm = () => {
 
                 />
 
-
-
                 <InputField
 
                   label={labels.supervisorInput}
@@ -2158,11 +1564,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Evidence */}
-
-
 
               <div>
 
@@ -2176,8 +1578,6 @@ const ReportForm = () => {
 
                     </label>
 
-
-
                     <p className="mt-1 text-xs text-gray-500">
 
                       أضف من صورتين إلى أربع صور.
@@ -2185,8 +1585,6 @@ const ReportForm = () => {
                     </p>
 
                   </div>
-
-
 
                   <span className="shrink-0 text-xs font-semibold text-gray-400">
 
@@ -2197,8 +1595,6 @@ const ReportForm = () => {
                   </span>
 
                 </div>
-
-
 
                 {formik.values.evidenceImages.length < 4 && (
 
@@ -2216,11 +1612,7 @@ const ReportForm = () => {
 
                       justify-center
 
-
-
                       rounded-xl
-
-
 
                       border
 
@@ -2228,13 +1620,9 @@ const ReportForm = () => {
 
                       border-gray-300
 
-
-
                       px-4
 
                       py-5
-
-
 
                       text-sm
 
@@ -2242,11 +1630,7 @@ const ReportForm = () => {
 
                       text-gray-600
 
-
-
                       transition
-
-
 
                       hover:border-gray-700
 
@@ -2275,8 +1659,6 @@ const ReportForm = () => {
                   </label>
 
                 )}
-
-
 
                 {formik.values.evidenceImages.length > 0 && (
 
@@ -2308,8 +1690,6 @@ const ReportForm = () => {
 
                         />
 
-
-
                         <button
 
                           type="button"
@@ -2324,29 +1704,19 @@ const ReportForm = () => {
 
                               top-2
 
-
-
                               flex
 
                               h-7
 
                               w-7
 
-
-
                               items-center
 
                               justify-center
 
-
-
                               rounded-full
 
-
-
                               bg-black/70
-
-
 
                               text-white
 
@@ -2368,11 +1738,7 @@ const ReportForm = () => {
 
               </div>
 
-
-
               {/* Actions */}
-
-
 
               <div className="grid grid-cols-2 gap-2">
 
@@ -2386,29 +1752,19 @@ const ReportForm = () => {
 
                     rounded-xl
 
-
-
                     border
 
                     border-gray-300
 
-
-
                     bg-white
-
-
 
                     px-3
 
                     py-3
 
-
-
                     text-sm
 
                     font-semibold
-
-
 
                     text-gray-700
 
@@ -2419,8 +1775,6 @@ const ReportForm = () => {
                   معاينة
 
                 </button>
-
-
 
                 <button
 
@@ -2434,35 +1788,21 @@ const ReportForm = () => {
 
                     rounded-xl
 
-
-
                     bg-black
-
-
 
                     px-3
 
                     py-3
 
-
-
                     text-sm
 
                     font-semibold
 
-
-
                     text-white
-
-
 
                     transition
 
-
-
                     hover:bg-gray-800
-
-
 
                     disabled:cursor-not-allowed
 
@@ -2482,15 +1822,11 @@ const ReportForm = () => {
 
           </form>
 
-
-
           {/* ===============================================
 
               DESKTOP PREVIEW
 
           ================================================ */}
-
-
 
           <div
 
@@ -2498,13 +1834,9 @@ const ReportForm = () => {
 
               report-print-area
 
-
-
               hidden
 
               min-w-0
-
-
 
               lg:sticky
 
@@ -2520,8 +1852,6 @@ const ReportForm = () => {
 
               <p className="text-sm font-bold text-gray-900">معاينة التقرير</p>
 
-
-
               <p className="mt-1 text-xs text-gray-500">
 
                 التعديلات تظهر مباشرة في المعاينة.
@@ -2529,8 +1859,6 @@ const ReportForm = () => {
               </p>
 
             </div>
-
-
 
             <ReportPreview
 
@@ -2548,8 +1876,6 @@ const ReportForm = () => {
 
         </div>
 
-
-
         {/* =================================================
             MOBILE PREVIEW
         ================================================== */}
@@ -2559,7 +1885,6 @@ const ReportForm = () => {
             <div className="flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3">
               <div>
                 <strong className="block text-sm">معاينة التقرير</strong>
-
                 <span className="text-xs text-gray-500">A4</span>
               </div>
 
@@ -2594,17 +1919,7 @@ const ReportForm = () => {
                 type="button"
                 onClick={downloadPdf}
                 disabled={isGeneratingPdf}
-                className="
-                  rounded-xl
-                  bg-black
-                  px-3
-                  py-3
-                  text-sm
-                  font-semibold
-                  text-white
-                  disabled:cursor-not-allowed
-                  disabled:bg-gray-400
-                "
+                className="rounded-xl bg-black px-3 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {isGeneratingPdf ? "جاري الإنشاء..." : "تحميل PDF"}
               </button>
@@ -2612,21 +1927,6 @@ const ReportForm = () => {
           </div>
         )}
 
-        {/* =================================================
-            PDF RENDER VERSION
-
-            نسخة واحدة فقط موجودة خارج الشاشة.
-            html2canvas يصور الـ report-sheet دي مباشرة.
-        ================================================== */}
-
-        <div className="pdf-render-report" aria-hidden="true">
-          <ReportPreview
-            previewId="pdf-report-preview"
-            values={formik.values}
-            labels={labels}
-            categoryName={selectedCategory?.name ?? ""}
-          />
-        </div>
       </div>
 
     </section>
@@ -2635,11 +1935,7 @@ const ReportForm = () => {
 
 };
 
-
-
 export default ReportForm;
-
-
 
 /* =========================================================
 
@@ -2647,19 +1943,13 @@ export default ReportForm;
 
 ========================================================= */
 
-
-
 type ThemeSelectorProps = {
 
   value: ReportTheme;
 
-
-
   onChange: (theme: ReportTheme) => void;
 
 };
-
-
 
 const ThemeSelector = ({ value, onChange }: ThemeSelectorProps) => {
 
@@ -2671,21 +1961,15 @@ const ThemeSelector = ({ value, onChange }: ThemeSelectorProps) => {
 
         <h3 className="text-sm font-bold text-gray-900">تصميم التقرير</h3>
 
-
-
         <p className="mt-1 text-xs text-gray-500">اختر شكل الهيدر والفوتر.</p>
 
       </div>
-
-
 
       <div className="grid grid-cols-2 gap-2 sm:gap-3">
 
         {REPORT_THEMES.map((theme) => {
 
           const selected = value === theme.id;
-
-
 
           return (
 
@@ -2703,27 +1987,15 @@ const ThemeSelector = ({ value, onChange }: ThemeSelectorProps) => {
 
                   overflow-hidden
 
-
-
                   rounded-xl
-
-
 
                   border
 
-
-
                   bg-white
-
-
 
                   text-right
 
-
-
                   transition
-
-
 
                   ${
 
@@ -2757,8 +2029,6 @@ const ThemeSelector = ({ value, onChange }: ThemeSelectorProps) => {
 
               </div>
 
-
-
               <div className="flex items-center justify-between gap-2 border-t border-gray-100 px-2.5 py-2 sm:px-3">
 
                 <span className="truncate text-xs font-bold text-gray-800">
@@ -2766,8 +2036,6 @@ const ThemeSelector = ({ value, onChange }: ThemeSelectorProps) => {
                   {theme.label}
 
                 </span>
-
-
 
                 <span
 
@@ -2779,25 +2047,15 @@ const ThemeSelector = ({ value, onChange }: ThemeSelectorProps) => {
 
                       w-4
 
-
-
                       shrink-0
-
-
 
                       items-center
 
                       justify-center
 
-
-
                       rounded-full
 
-
-
                       border
-
-
 
                       ${selected ? "border-black bg-black" : "border-gray-300"}
 
@@ -2829,49 +2087,33 @@ const ThemeSelector = ({ value, onChange }: ThemeSelectorProps) => {
 
 };
 
-
-
 /* =========================================================
 
    COLOR ACCORDION
 
 ========================================================= */
 
-
-
 type ReportColorEditorProps = {
 
   colors: ReportTextColors;
-
-
 
   onChange: (
 
     key: ReportTextColorKey,
 
-
-
     color: string,
 
   ) => void;
-
-
 
   onResetAll: () => void;
 
 };
 
-
-
 const COLOR_TARGETS: {
 
   key: ReportTextColorKey;
 
-
-
   label: string;
-
-
 
   description: string;
 
@@ -2881,147 +2123,93 @@ const COLOR_TARGETS: {
 
     key: "reportTitle",
 
-
-
     label: "عنوان التقرير",
-
-
 
     description: "برامج الأنشطة الطلابية",
 
   },
 
-
-
   {
 
     key: "categoryTitle",
 
-
-
     label: "اسم المجال",
-
-
 
     description: "مثل مجال المواطنة والحياة",
 
   },
 
-
-
   {
 
     key: "fieldLabels",
 
-
-
     label: "أسماء الحقول",
-
-
 
     description: "اسم المعلم، الصف، اليوم...",
 
   },
 
-
-
   {
 
     key: "fieldValues",
 
-
-
     label: "بيانات الحقول",
-
-
 
     description: "القيم التي يتم إدخالها في التقرير",
 
   },
 
-
-
   {
 
     key: "sectionTitles",
 
-
-
     label: "عناوين الأقسام",
-
-
 
     description: "الأهداف، الأثر الإيجابي، الشواهد",
 
   },
 
-
-
   {
 
     key: "listText",
 
-
-
     label: "الأهداف والأثر",
-
-
 
     description: "نص الأهداف ونص الأثر الإيجابي",
 
   },
 
-
-
   {
 
     key: "listNumbers",
 
-
-
     label: "أرقام العناصر",
-
-
 
     description: "الأرقام 1، 2، 3، 4",
 
   },
 
-
-
   {
 
     key: "schoolHeader",
 
-
-
     label: "بيانات المدرسة",
-
-
 
     description: "الإدارة العامة والمدرسة والمنطقة",
 
   },
 
-
-
   {
 
     key: "signatures",
 
-
-
     label: "التوقيعات",
-
-
 
     description: "رائد النشاط ومدير المدرسة والأسماء",
 
   },
 
 ];
-
-
 
 const ReportColorEditor = ({
 
@@ -3035,13 +2223,9 @@ const ReportColorEditor = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
-
-
   const [selectedTarget, setSelectedTarget] =
 
     useState<ReportTextColorKey>("reportTitle");
-
-
 
   const currentTarget = COLOR_TARGETS.find(
 
@@ -3049,15 +2233,9 @@ const ReportColorEditor = ({
 
   );
 
-
-
   const currentColor = colors[selectedTarget];
 
-
-
   const defaultColor = DEFAULT_REPORT_TEXT_COLORS[selectedTarget];
-
-
 
   const changedColorsCount = COLOR_TARGETS.filter(
 
@@ -3065,15 +2243,11 @@ const ReportColorEditor = ({
 
   ).length;
 
-
-
   return (
 
     <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
 
       {/* Accordion Header */}
-
-
 
       <button
 
@@ -3089,35 +2263,21 @@ const ReportColorEditor = ({
 
           w-full
 
-
-
           items-center
 
           justify-between
 
-
-
           gap-3
-
-
 
           px-4
 
           py-4
 
-
-
           text-right
-
-
 
           transition
 
-
-
           hover:bg-gray-50
-
-
 
           sm:px-5
 
@@ -3157,23 +2317,15 @@ const ReportColorEditor = ({
 
               />
 
-
-
               <circle cx="8" cy="10" r="1" fill="currentColor" />
 
-
-
               <circle cx="12" cy="7" r="1" fill="currentColor" />
-
-
 
               <circle cx="16" cy="10" r="1" fill="currentColor" />
 
             </svg>
 
           </div>
-
-
 
           <div className="min-w-0">
 
@@ -3184,8 +2336,6 @@ const ReportColorEditor = ({
                 تخصيص ألوان النصوص
 
               </h3>
-
-
 
               {changedColorsCount > 0 && (
 
@@ -3199,8 +2349,6 @@ const ReportColorEditor = ({
 
             </div>
 
-
-
             <p className="mt-1 text-xs leading-5 text-gray-500">
 
               اختر كل جزء من التقرير وعدّل لونه بشكل منفصل.
@@ -3210,8 +2358,6 @@ const ReportColorEditor = ({
           </div>
 
         </div>
-
-
 
         <span
 
@@ -3223,41 +2369,25 @@ const ReportColorEditor = ({
 
             w-8
 
-
-
             shrink-0
-
-
 
             items-center
 
             justify-center
 
-
-
             rounded-full
-
-
 
             border
 
             border-gray-200
 
-
-
             bg-white
 
-
-
             text-gray-500
-
-
 
             transition-transform
 
             duration-300
-
-
 
             ${isOpen ? "rotate-180" : ""}
 
@@ -3299,11 +2429,7 @@ const ReportColorEditor = ({
 
       </button>
 
-
-
       {/* Content */}
-
-
 
       <div
 
@@ -3311,15 +2437,11 @@ const ReportColorEditor = ({
 
           grid
 
-
-
           transition-all
 
           duration-300
 
           ease-in-out
-
-
 
           ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
 
@@ -3339,8 +2461,6 @@ const ReportColorEditor = ({
 
               </p>
 
-
-
               <button
 
                 type="button"
@@ -3357,15 +2477,11 @@ const ReportColorEditor = ({
 
             </div>
 
-
-
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
 
               {COLOR_TARGETS.map((target) => {
 
                 const active = selectedTarget === target.key;
-
-
 
                 return (
 
@@ -3387,29 +2503,17 @@ const ReportColorEditor = ({
 
                         gap-2
 
-
-
                         rounded-xl
 
-
-
                         border
-
-
 
                         px-2.5
 
                         py-2.5
 
-
-
                         text-right
 
-
-
                         transition
-
-
 
                         ${
 
@@ -3437,8 +2541,6 @@ const ReportColorEditor = ({
 
                     />
 
-
-
                     <span className="min-w-0 flex-1 truncate text-[11px] font-semibold sm:text-xs">
 
                       {target.label}
@@ -3452,8 +2554,6 @@ const ReportColorEditor = ({
               })}
 
             </div>
-
-
 
             <div className="mt-4 rounded-xl border border-gray-200 bg-white p-3">
 
@@ -3473,8 +2573,6 @@ const ReportColorEditor = ({
 
                   />
 
-
-
                   <p className="text-sm font-bold text-gray-900">
 
                     {currentTarget?.label}
@@ -3483,8 +2581,6 @@ const ReportColorEditor = ({
 
                 </div>
 
-
-
                 <p className="mt-1.5 text-xs leading-5 text-gray-500">
 
                   {currentTarget?.description}
@@ -3492,8 +2588,6 @@ const ReportColorEditor = ({
                 </p>
 
               </div>
-
-
 
               <div className="flex min-w-0 items-stretch gap-2">
 
@@ -3517,8 +2611,6 @@ const ReportColorEditor = ({
 
                   />
 
-
-
                   <div className="min-w-0 flex-1">
 
                     <p className="text-xs font-semibold text-gray-700">
@@ -3526,8 +2618,6 @@ const ReportColorEditor = ({
                       اللون الحالي
 
                     </p>
-
-
 
                     <p
 
@@ -3542,8 +2632,6 @@ const ReportColorEditor = ({
                     </p>
 
                   </div>
-
-
 
                   <input
 
@@ -3564,8 +2652,6 @@ const ReportColorEditor = ({
                   />
 
                 </label>
-
-
 
                 <button
 
@@ -3597,39 +2683,25 @@ const ReportColorEditor = ({
 
 };
 
-
-
 /* =========================================================
 
    OBJECTIVES / IMPACT
 
 ========================================================= */
 
-
-
 type SingleListFieldProps = {
 
   title: string;
 
-
-
   description: string;
-
-
 
   value: string;
 
-
-
   placeholder: string;
-
-
 
   onChange: (value: string) => void;
 
 };
-
-
 
 const SingleListField = ({
 
@@ -3651,8 +2723,6 @@ const SingleListField = ({
 
     .filter((line) => line.trim().length > 0).length;
 
-
-
   return (
 
     <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
@@ -3663,8 +2733,6 @@ const SingleListField = ({
 
           <h3 className="text-sm font-bold text-gray-900">{title}</h3>
 
-
-
           <p className="mt-0.5 text-[11px] leading-5 text-gray-500">
 
             {description}
@@ -3672,8 +2740,6 @@ const SingleListField = ({
           </p>
 
         </div>
-
-
 
         <span className="shrink-0 rounded-full bg-white px-2 py-1 text-[11px] font-bold text-gray-600">
 
@@ -3684,8 +2750,6 @@ const SingleListField = ({
         </span>
 
       </div>
-
-
 
       <textarea
 
@@ -3707,53 +2771,31 @@ const SingleListField = ({
 
           max-w-full
 
-
-
           resize-none
 
-
-
           rounded-lg
-
-
 
           border
 
           border-gray-200
 
-
-
           bg-white
-
-
 
           px-3
 
           py-2
 
-
-
           text-base
 
           leading-6
 
-
-
           outline-none
-
-
 
           transition
 
-
-
           placeholder:text-gray-300
 
-
-
           focus:border-gray-900
-
-
 
           sm:text-sm
 
@@ -3767,51 +2809,31 @@ const SingleListField = ({
 
 };
 
-
-
 /* =========================================================
 
    INPUT
 
 ========================================================= */
 
-
-
 type InputFieldProps = {
 
   label: string;
 
-
-
   name: string;
-
-
 
   value: string;
 
-
-
   type?: string;
-
-
 
   disabled?: boolean;
 
-
-
   onChange: ChangeEventHandler<HTMLInputElement>;
 
-
-
   onFocus?: FocusEventHandler<HTMLInputElement>;
-
-
 
   onBlur?: FocusEventHandler<HTMLInputElement>;
 
 };
-
-
 
 const InputField = ({
 
@@ -3847,25 +2869,15 @@ const InputField = ({
 
           block
 
-
-
           min-h-8
-
-
 
           text-xs
 
           font-semibold
 
-
-
           leading-4
 
-
-
           text-gray-800
-
-
 
           sm:min-h-0
 
@@ -3880,8 +2892,6 @@ const InputField = ({
         {label}
 
       </label>
-
-
 
       <input
 
@@ -3905,57 +2915,35 @@ const InputField = ({
 
           block
 
-
-
           w-full
 
           min-w-0
 
           max-w-full
 
-
-
           rounded-xl
-
-
 
           border
 
           border-gray-200
 
-
-
           bg-white
-
-
 
           px-3
 
           py-2.5
 
-
-
           text-base
-
-
 
           outline-none
 
-
-
           transition
 
-
-
           focus:border-gray-900
-
-
 
           disabled:cursor-not-allowed
 
           disabled:bg-gray-100
-
-
 
           sm:text-sm
 

@@ -1,59 +1,33 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
 import type { CSSProperties } from "react";
 
 import type { ReportFormValues } from "@/app/types/reports";
-
 import { getReportTheme } from "@/app/constants/reportThemes";
-
-/* =========================================
-   Props
-========================================= */
 
 type Props = {
   values: ReportFormValues;
-
   categoryName: string;
-
   previewId?: string;
-
   labels: {
     teacherName: string;
-
     supervisor: string;
-
     activityLeader: string;
   };
 };
 
-/* =========================================
-   Gregorian Date
-========================================= */
-
 const formatGregorianDate = (value: string) => {
-  if (!value) {
-    return "";
-  }
+  if (!value) return "";
 
   const [year, month, day] = value.split("-");
-
-  if (!year || !month || !day) {
-    return value;
-  }
+  if (!year || !month || !day) return value;
 
   return `${day}/${month}/${year}`;
 };
 
-/* =========================================
-   Text -> Items
-========================================= */
-
 const parseListItems = (value: string) => {
-  if (!value.trim()) {
-    return [];
-  }
+  if (!value.trim()) return [];
 
   return value
     .split("\n")
@@ -62,10 +36,6 @@ const parseListItems = (value: string) => {
     .slice(0, 4);
 };
 
-/* =========================================
-   Report Preview
-========================================= */
-
 const ReportPreview = ({
   values,
   labels,
@@ -73,80 +43,39 @@ const ReportPreview = ({
   previewId = "report-preview",
 }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
-
   const pageRef = useRef<HTMLDivElement>(null);
 
   const [scale, setScale] = useState(1);
-
   const [scaledHeight, setScaledHeight] = useState<number | undefined>();
-
-  /* =====================================
-     Responsive Preview Scale
-  ====================================== */
 
   useEffect(() => {
     const container = containerRef.current;
-
     const page = pageRef.current;
 
-    if (!container || !page) {
-      return;
-    }
+    if (!container || !page) return;
 
-    const updateScale = () => {
-      const availableWidth = Math.max(
-        container.clientWidth - 16,
-
-        1,
-      );
-
+    const observer = new ResizeObserver(() => {
+      const availableWidth = Math.max(container.clientWidth - 16, 1);
       const pageWidth = page.offsetWidth;
-
       const pageHeight = page.offsetHeight;
 
-      if (!pageWidth) {
-        return;
-      }
+      if (!pageWidth) return;
 
-      const nextScale = Math.min(
-        1,
-
-        availableWidth / pageWidth,
-      );
-
+      const nextScale = Math.min(1, availableWidth / pageWidth);
       setScale(nextScale);
-
       setScaledHeight(pageHeight * nextScale);
-    };
-
-    updateScale();
-
-    const observer = new ResizeObserver(updateScale);
+    });
 
     observer.observe(container);
+    observer.observe(page);
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
-
-  /* =====================================
-     Theme
-  ====================================== */
 
   const theme = getReportTheme(values.theme);
 
-  /* =====================================
-     Lists
-  ====================================== */
-
   const objectiveItems = parseListItems(values.objectives);
-
   const impactItems = parseListItems(values.impact);
-
-  /* =====================================
-     Density
-  ====================================== */
 
   const contentWeight =
     values.customFields.length + objectiveItems.length + impactItems.length;
@@ -158,77 +87,48 @@ const ReportPreview = ({
         ? "report-density-medium"
         : "report-density-normal";
 
-  /* =====================================
-     Individual Text Colors
-  ====================================== */
-
   const reportStyle = {
     "--report-title-color": values.textColors.reportTitle,
-
     "--report-category-color": values.textColors.categoryTitle,
-
     "--report-field-label-color": values.textColors.fieldLabels,
-
     "--report-field-value-color": values.textColors.fieldValues,
-
     "--report-section-title-color": values.textColors.sectionTitles,
-
     "--report-list-text-color": values.textColors.listText,
-
     "--report-list-number-color": values.textColors.listNumbers,
-
     "--report-school-color": values.textColors.schoolHeader,
-
     "--report-signature-color": values.textColors.signatures,
   } as CSSProperties;
 
+  const stageStyle: CSSProperties = {
+    height: scaledHeight ? `${scaledHeight}px` : undefined,
+  };
+
+  const scaleStyle: CSSProperties = {
+    width: "210mm",
+    transform: `scale(${scale})`,
+    transformOrigin: "top center",
+  };
+
   return (
     <div ref={containerRef} className="report-preview-shell">
-      <div
-        className="report-preview-stage"
-        style={{
-          height: scaledHeight ? `${scaledHeight}px` : undefined,
-        }}
-      >
+      <div className="report-preview-stage" style={stageStyle}>
         <div className="report-preview-positioner">
-          <div
-            className="report-preview-scale"
-            style={{
-              transform: `scale(${scale})`,
-            }}
-          >
-            {/* =================================
-                A4
-            ================================== */}
-
+          <div className="report-preview-scale" style={scaleStyle}>
             <div
               ref={pageRef}
               id={previewId}
               style={reportStyle}
-              className={`
-                report-sheet
-
-                ${densityClass}
-
-                report-${values.theme}
-              `}
+              className={`report-sheet ${densityClass} report-${values.theme}`}
             >
-              {/* =============================
-                  Header
-              ============================== */}
-
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={theme.header}
                 alt=""
                 aria-hidden="true"
                 draggable={false}
+                loading="eager"
                 className="report-frame-header"
               />
-
-              {/* =============================
-                  Footer
-              ============================== */}
 
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -236,88 +136,50 @@ const ReportPreview = ({
                 alt=""
                 aria-hidden="true"
                 draggable={false}
+                loading="eager"
                 className="report-frame-footer"
               />
 
-              {/* =============================
-                  School Information
-              ============================== */}
-
               <div className="report-school-header">
                 <p className="report-header-main">الإدارة العامة للتعليم</p>
-
                 <p className="report-region-name">
                   {values.regionName ? `بمنطقة ${values.regionName}` : ""}
                 </p>
                 <p className="report-school-name">{values.schoolName}</p>
               </div>
 
-              {/* =============================
-                  Content
-              ============================== */}
-
               <div className="report-content">
-                {/* Title */}
-
-                <div className="report-title-ribbon">
-                  برامج الأنشطة الطلابية
-                </div>
-
-                {/* Category */}
+                <div className="report-title-ribbon">برامج الأنشطة الطلابية</div>
 
                 <h2 className="report-category-title">
                   {categoryName || "مجال البرنامج"}
                 </h2>
-
-                {/* =========================
-                    Row 1
-                ========================== */}
 
                 <div className="report-fields-grid report-fields-grid-3">
                   <FieldBox
                     label={labels.teacherName}
                     value={values.teacherName}
                   />
-
                   <FieldBox label="التخصص" value={values.specialization} />
-
                   <FieldBox label="الفصل الدراسي" value={values.className} />
                 </div>
 
-                {/* =========================
-                    Row 2
-                ========================== */}
-
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox label="الصف" value={values.grade} />
-
                   <FieldBox label="الحصة" value={values.period} />
-
                   <FieldBox label="اليوم" value={values.day} />
-
                   <DateFieldBox
                     gregorianDate={values.gregorianDate}
                     hijriDate={values.hijriDate}
                   />
                 </div>
 
-                {/* =========================
-                    Row 3
-                ========================== */}
-
                 <div className="report-fields-grid report-fields-grid-4">
                   <FieldBox label="اسم البرنامج" value={values.programName} />
-
                   <FieldBox label="مكان التنفيذ" value={values.location} />
-
                   <FieldBox label="الحضور" value={values.attendance} />
-
                   <FieldBox label="الغياب" value={values.absence} />
                 </div>
-
-                {/* =========================
-                    Custom Fields
-                ========================== */}
 
                 {values.customFields.length > 0 && (
                   <div className="report-custom-fields-row">
@@ -332,24 +194,12 @@ const ReportPreview = ({
                   </div>
                 )}
 
-                {/* =========================
-                    Objectives
-                ========================== */}
-
                 <ListSection title="أهداف البرنامج" items={objectiveItems} />
-
-                {/* =========================
-                    Impact
-                ========================== */}
 
                 <ListSection
                   title="الأثر الإيجابي للبرنامج"
                   items={impactItems}
                 />
-
-                {/* =========================
-                    Evidence
-                ========================== */}
 
                 <div className="report-evidence-flex">
                   <div className="report-evidence-section">
@@ -384,16 +234,11 @@ const ReportPreview = ({
                   </div>
                 </div>
 
-                {/* =========================
-                    Signatures
-                ========================== */}
-
                 <div className="report-signatures">
                   <SignatureBox
                     title={labels.activityLeader}
                     name={values.activityLeaderName}
                   />
-
                   <SignatureBox
                     title={labels.supervisor}
                     name={values.supervisorName}
@@ -410,53 +255,32 @@ const ReportPreview = ({
 
 export default ReportPreview;
 
-/* =========================================
-   Field Box
-========================================= */
-
-const FieldBox = ({
-  label,
-  value,
-}: {
-  label: string;
-
-  value: string;
-}) => {
+const FieldBox = ({ label, value }: { label: string; value: string }) => {
   return (
     <div className="report-field">
       <div className="report-field-label">{label}</div>
-
       <div className="report-field-box">{value || ""}</div>
     </div>
   );
 };
-
-/* =========================================
-   Date Box
-========================================= */
 
 const DateFieldBox = ({
   gregorianDate,
   hijriDate,
 }: {
   gregorianDate: string;
-
   hijriDate: string;
 }) => {
   return (
     <div className="report-field">
       <div className="report-field-label">التاريخ</div>
-
       <div className="report-field-box report-date-box">
         <div className="report-date-row">
           <span className="report-date-label">م:</span>
-
           <span>{formatGregorianDate(gregorianDate)}</span>
         </div>
-
         <div className="report-date-row">
           <span className="report-date-label">هـ:</span>
-
           <span>{hijriDate || ""}</span>
         </div>
       </div>
@@ -464,50 +288,28 @@ const DateFieldBox = ({
   );
 };
 
-/* =========================================
-   Section Heading
-========================================= */
-
 const SectionHeading = ({ title }: { title: string }) => {
   return (
     <div className="report-section-heading">
       <span className="report-section-heading-line" />
-
       <h3 className="report-section-title">{title}</h3>
-
       <span className="report-section-heading-line" />
     </div>
   );
 };
 
-/* =========================================
-   List Section
-========================================= */
-
-const ListSection = ({
-  title,
-  items,
-}: {
-  title: string;
-
-  items: string[];
-}) => {
+const ListSection = ({ title, items }: { title: string; items: string[] }) => {
   return (
     <div className="report-section">
       <SectionHeading title={title} />
 
       {items.length > 0 ? (
         <div
-          className={`
-            report-list-boxes
-
-            report-list-boxes-${Math.min(items.length, 4)}
-          `}
+          className={`report-list-boxes report-list-boxes-${Math.min(items.length, 4)}`}
         >
           {items.map((item, index) => (
             <div key={`${index}-${item}`} className="report-list-box">
               <span className="report-list-number">{index + 1}</span>
-
               <span className="report-list-text">{item}</span>
             </div>
           ))}
@@ -519,22 +321,10 @@ const ListSection = ({
   );
 };
 
-/* =========================================
-   Signature
-========================================= */
-
-const SignatureBox = ({
-  title,
-  name,
-}: {
-  title: string;
-
-  name?: string;
-}) => {
+const SignatureBox = ({ title, name }: { title: string; name?: string }) => {
   return (
     <div className="report-signature-box">
       <p className="report-signature-title">{title}</p>
-
       <div className="report-signature-name">{name || ""}</div>
     </div>
   );

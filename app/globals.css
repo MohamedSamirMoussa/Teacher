@@ -1,43 +1,69 @@
 @import "tailwindcss";
 
 /* =========================================================
+
    FORM RESPONSIVE
+
 ========================================================= */
 
 .mobile-form-grid {
+
   display: grid;
+
   grid-template-columns: repeat(
+
     2,
+
     minmax(0, 1fr)
+
   );
+
   gap: 0.75rem;
+
 }
 
 @media (max-width: 390px) {
+
   .mobile-date-grid {
+
     grid-template-columns: minmax(0, 1fr);
+
   }
+
 }
 
 @media (min-width: 640px) {
+
   .mobile-form-grid {
+
     gap: 1rem;
+
   }
 
   .mobile-date-grid {
+
     grid-template-columns: repeat(
+
       2,
+
       minmax(0, 1fr)
+
     );
+
   }
+
 }
 
 /* =========================================================
+
    NORMAL PREVIEW
+
 ========================================================= */
 
 .report-preview-shell {
+
   width: 100%;
+
   min-width: 0;
 
   box-sizing: border-box;
@@ -47,57 +73,81 @@
   padding: 12px;
 
   border: 1px solid #dfe5e4;
+
   border-radius: 18px;
 
   background: #eef2f1;
+
 }
 
 @media (min-width: 640px) {
+
   .report-preview-shell {
+
     padding: 18px;
+
   }
+
 }
 
 .report-preview-stage {
+
   position: relative;
 
   width: 100%;
+
   min-height: 1px;
 
   overflow: hidden;
+
 }
 
 .report-preview-positioner {
+
   position: absolute;
 
   top: 0;
+
   left: 50%;
 
   width: 210mm;
 
   transform: translateX(-50%);
+
 }
 
 .report-preview-scale {
+
   width: 210mm;
 
   transform-origin: top center;
+
 }
 
 /* =========================================================
+
    A4
+
 ========================================================= */
 
 .report-sheet {
+
   position: relative;
 
+  font-family: var(--font-cairo), Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+
   width: 210mm;
+
   height: 297mm;
 
   min-width: 210mm;
+
   min-height: 297mm;
 
   max-width: 210mm;
+
   max-height: 297mm;
 
   box-sizing: border-box;
@@ -113,21 +163,31 @@
   color: #111111;
 
   box-shadow:
+
     0
+
     12px
+
     35px
+
     rgb(0 0 0 / 8%);
+
 }
 
 /* =========================================================
+
    HEADER / FOOTER
+
 ========================================================= */
 
 .report-frame-header {
+
   position: absolute;
 
   top: 0;
+
   right: 0;
+
   left: 0;
 
   z-index: 0;
@@ -135,6 +195,7 @@
   display: block;
 
   width: 100%;
+
   height: auto;
 
   margin: 0;
@@ -142,15 +203,21 @@
   background: transparent !important;
 
   pointer-events: none;
+
   -webkit-user-select: none;
+
   user-select: none;
+
 }
 
 .report-frame-footer {
+
   position: absolute;
 
   right: 0;
+
   bottom: 0;
+
   left: 0;
 
   z-index: 0;
@@ -158,6 +225,7 @@
   display: block;
 
   width: 100%;
+
   height: auto;
 
   margin: 0;
@@ -165,98 +233,145 @@
   background: transparent !important;
 
   pointer-events: none;
+
   -webkit-user-select: none;
+
   user-select: none;
+
 }
 
 /* =========================================================
+
    THEME 1
+
 ========================================================= */
 
 .report-theme1
+
 .report-frame-header {
+
   width: 100%;
+
   height: auto;
 
   object-fit: fill;
+
 }
 
 .report-theme1
+
 .report-frame-footer {
+
   width: 100%;
+
   height: auto;
 
   object-fit: fill;
+
 }
 
 /* =========================================================
+
    THEME 2
+
 ========================================================= */
 
 .report-theme2
+
 .report-frame-header {
+
   width: 100%;
+
   height: 34mm;
 
   object-fit: fill;
+
 }
 
 .report-theme2
+
 .report-frame-footer {
+
   width: 100%;
+
   height: 18mm;
 
   object-fit: fill;
+
 }
 
 /* =========================================================
+
    THEME 3
+
 ========================================================= */
 
 .report-theme3
+
 .report-frame-header {
+
   width: 100%;
+
   height: 34mm;
 
   object-fit: fill;
+
 }
 
 .report-theme3
+
 .report-frame-footer {
+
   width: 100%;
+
   height: 22mm;
 
   object-fit: fill;
+
 }
 
 /* =========================================================
+
    THEME 4
+
 ========================================================= */
 
 .report-theme4
+
 .report-frame-header {
+
   width: 100%;
+
   height: 34mm;
 
   object-fit: fill;
+
 }
 
 .report-theme4
+
 .report-frame-footer {
+
   width: 100%;
+
   height: 18mm;
 
   object-fit: fill;
+
 }
 
 /* =========================================================
+
    SCHOOL HEADER
+
 ========================================================= */
 
 .report-school-header {
+
   position: absolute;
 
   top: 8mm;
+
   right: 37mm;
 
   z-index: 3;
@@ -270,231 +385,339 @@
   line-height: 1.4;
 
   color: var(
+
     --report-school-color,
+
     #064f4a
+
   );
+
+  text-align: start;
+
 }
 
 .report-school-header p {
+
   margin: 0;
+
 }
 
 .report-header-main {
+
   font-size: 12px;
+
   font-weight: 800;
 
   color: var(
+
     --report-school-color,
+
     #064f4a
+
   );
+
 }
 
 .report-school-name {
+
   margin-top: 1px !important;
 
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+
+  font-weight: 800;
 
   color: var(
+
     --report-school-color,
+
     #064f4a
+
   );
+
 }
 
 .report-region-name {
+
   margin-top: 1px !important;
 
-  font-size: 10.5px;
-  font-weight: 500;
+  font-size: 14px;
+
+  font-weight: 800;
 
   color: var(
+
     --report-school-color,
+
     #064f4a
+
   );
+
 }
 
 /* =========================================================
+
    SCHOOL POSITION PER THEME
+
 ========================================================= */
 
 .report-theme2
+
 .report-school-header {
+
   top: 10mm;
 
   right: auto;
+
   left: 48mm;
 
   width: 64mm;
+
 }
 
 .report-theme3
+
 .report-school-header {
+
   top: 9mm;
 
   right: auto;
+
   left: 49mm;
 
   width: 64mm;
+
 }
 
 .report-theme4
+
 .report-school-header {
+
   top: 10mm;
 
   right: auto;
+
   left: 48mm;
 
   width: 64mm;
+
 }
 
 /* =========================================================
+
    CONTENT
+
 ========================================================= */
 
 .report-content {
+
   position: relative;
 
   z-index: 2;
 
   display: flex;
+
   flex-direction: column;
 
   width: 100%;
+
   height: 100%;
 
   box-sizing: border-box;
 
   padding:
+
     31mm
+
     7mm
+
     17mm;
 
   overflow: hidden;
+
 }
 
 /* =========================================================
+
    TITLE
+
 ========================================================= */
 
 .report-title-ribbon {
+
   width: 98mm;
 
   box-sizing: border-box;
 
   margin:
+
     0
+
     auto;
 
   padding:
+
     8px
+
     16px;
 
   text-align: center;
 
   border: 1px solid #b9cdca;
+
   border-radius: 8px;
 
-  background: #e3eeec;
+  background: transparent;
 
   font-size: 23px;
+
   font-weight: 800;
+
   line-height: 1.4;
 
   color: var(
+
     --report-title-color,
+
     #111111
+
   );
+
 }
 
 .report-category-title {
+
   margin:
+
     10px
+
     0
+
     12px;
 
   text-align: center;
 
   font-size: 20px;
+
   font-weight: 800;
+
   line-height: 1.35;
 
   color: var(
+
     --report-category-color,
+
     #111111
+
   );
+
 }
 
 /* =========================================================
+
    FIELD GRID
+
 ========================================================= */
 
 .report-fields-grid {
+
   display: grid;
 
   gap: 3.5mm;
 
   margin-bottom: 4mm;
+
 }
 
 .report-fields-grid-2 {
+
   grid-template-columns: repeat(
+
     2,
+
     minmax(0, 1fr)
+
   );
+
 }
 
 .report-fields-grid-3 {
+
   grid-template-columns: repeat(
+
     3,
+
     minmax(0, 1fr)
+
   );
+
 }
 
 .report-fields-grid-4 {
+
   grid-template-columns: repeat(
+
     4,
+
     minmax(0, 1fr)
+
   );
+
 }
 
 /* =========================================================
+
    FIELD
+
 ========================================================= */
 
 .report-field {
+
   display: flex;
+
   flex-direction: column;
+
   justify-content: flex-start;
 
   min-width: 0;
+
 }
 
 .report-field-label {
+
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   width: 100%;
 
   height: 6mm;
+
   min-height: 6mm;
 
   box-sizing: border-box;
 
   margin:
+
     0
+
     0
+
     1.6mm;
 
   padding:
+
     0
+
     1mm;
 
   text-align: center;
 
   font-size: 13px;
+
   font-weight: 700;
+
   line-height: 1.35;
 
   white-space: normal;
@@ -502,15 +725,21 @@
   overflow: visible;
 
   color: var(
+
     --report-field-label-color,
+
     #1d2826
+
   );
+
 }
 
 .report-field-box {
+
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   width: 100%;
@@ -522,10 +751,13 @@
   margin: 0;
 
   padding:
+
     1.6mm
+
     2.5mm;
 
   border: 1px solid #aeb9b7;
+
   border-radius: 3px;
 
   background: #ffffff;
@@ -533,38 +765,53 @@
   text-align: center;
 
   font-size: 13px;
+
   font-weight: 600;
+
   line-height: 1.35;
 
   overflow-wrap: anywhere;
 
   color: var(
+
     --report-field-value-color,
+
     #111111
+
   );
+
 }
 
 /* =========================================================
+
    DATE
+
 ========================================================= */
 
 .report-date-box {
+
   min-height: 10.5mm;
 
   flex-direction: column;
+
   justify-content: center;
 
   gap: 1px;
 
   padding:
+
     0.8mm
+
     1.5mm;
+
 }
 
 .report-date-row {
+
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   gap: 4px;
@@ -574,36 +821,49 @@
   min-width: 0;
 
   line-height: 1.3;
+
 }
 
 .report-date-row span {
+
   min-width: 0;
 
   overflow-wrap: anywhere;
+
 }
 
 .report-date-label {
+
   flex-shrink: 0;
 
   font-size: 11.5px;
+
   font-weight: 800;
 
   color: var(
+
     --report-field-label-color,
+
     #1d2826
+
   );
+
 }
 
 /* =========================================================
+
    CUSTOM FIELDS
+
 ========================================================= */
 
 .report-custom-fields-row {
+
   display: flex;
 
   flex-wrap: wrap;
 
   justify-content: center;
+
   align-items: flex-start;
 
   gap: 3.5mm;
@@ -611,31 +871,45 @@
   width: 100%;
 
   margin-bottom: 4mm;
+
 }
 
 .report-custom-field-item {
+
   flex:
+
     0
+
     0
+
     calc(
+
       (100% - 10.5mm) /
+
         4
+
     );
 
   min-width: 0;
+
 }
 
 /* =========================================================
+
    SECTION HEADINGS
+
 ========================================================= */
 
 .report-section {
+
   flex-shrink: 0;
 
   margin-top: 3mm;
+
 }
 
 .report-section-heading {
+
   position: relative;
 
   z-index: 2;
@@ -643,6 +917,7 @@
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   gap: 4mm;
@@ -654,17 +929,25 @@
   box-sizing: border-box;
 
   margin:
+
     0
+
     0
+
     2.5mm;
 
   padding: 0;
+
 }
 
 .report-section-heading-line {
+
   flex:
+
     0
+
     0
+
     30mm;
 
   width: 30mm;
@@ -672,22 +955,29 @@
   height: 1px;
 
   background: #bfd0cd;
+
 }
 
 .report-section-title {
+
   position: relative;
 
   z-index: 2;
 
   flex:
+
     0
+
     0
+
     auto;
 
   margin: 0;
 
   padding:
+
     0
+
     2mm;
 
   background: #ffffff;
@@ -695,27 +985,37 @@
   text-align: center;
 
   font-size: 14.5px;
+
   font-weight: 800;
+
   line-height: 1.35;
 
   white-space: nowrap;
 
   color: var(
+
     --report-section-title-color,
+
     #173c38
+
   );
+
 }
 
 /* =========================================================
+
    OBJECTIVES / IMPACT
+
 ========================================================= */
 
 .report-list-boxes {
+
   display: flex;
 
   flex-wrap: wrap;
 
   justify-content: center;
+
   align-items: stretch;
 
   gap: 3mm;
@@ -723,33 +1023,55 @@
   width: 100%;
 
   margin: 0;
+
   padding: 0;
+
 }
 
 .report-list-boxes-1
+
 .report-list-box {
+
   flex:
+
     0
+
     0
+
     100%;
+
 }
 
 .report-list-boxes-2
+
 .report-list-box,
+
 .report-list-boxes-3
+
 .report-list-box,
+
 .report-list-boxes-4
+
 .report-list-box {
+
   flex:
+
     0
+
     0
+
     calc(
+
       (100% - 3mm) /
+
         2
+
     );
+
 }
 
 .report-list-box {
+
   display: flex;
 
   align-items: center;
@@ -765,27 +1087,38 @@
   margin: 0;
 
   padding:
+
     2.5mm
+
     3.5mm;
 
   border: 1px solid #b7c1bf;
+
   border-radius: 5px;
 
   background: #ffffff;
+
 }
 
 .report-list-number {
-  display: flex;
+
+  display: grid;
+  place-items: center;
 
   flex:
+
     0
+
     0
+
     8mm;
 
   width: 8mm;
+
   height: 8mm;
 
   align-items: center;
+
   justify-content: center;
 
   border-radius: 50%;
@@ -793,15 +1126,22 @@
   background: #e3eeec;
 
   font-size: 12.5px;
+
   font-weight: 800;
+  line-height: 1;
 
   color: var(
+
     --report-list-number-color,
+
     #176c65
+
   );
+
 }
 
 .report-list-text {
+
   min-width: 0;
 
   flex: 1;
@@ -809,38 +1149,53 @@
   text-align: right;
 
   font-size: 13px;
+
   font-weight: 600;
+
   line-height: 1.55;
 
   overflow-wrap: anywhere;
 
   color: var(
+
     --report-list-text-color,
+
     #111111
+
   );
+
 }
 
 .report-list-empty {
+
   height: 17mm;
 
   box-sizing: border-box;
 
   border: 1px solid #b7c1bf;
+
   border-radius: 5px;
 
   background: #ffffff;
+
 }
 
 /* =========================================================
+
    EVIDENCE
+
 ========================================================= */
 
 .report-evidence-flex {
+
   display: flex;
 
   flex:
+
     1
+
     1
+
     auto;
 
   flex-direction: column;
@@ -848,35 +1203,51 @@
   min-height: 38mm;
 
   margin-top: 4mm;
+
 }
 
 .report-evidence-section {
+
   display: flex;
 
   flex:
+
     1
+
     1
+
     auto;
 
   flex-direction: column;
 
   min-height: 38mm;
+
 }
 
 .report-evidence-section
+
 .report-section-heading {
+
   flex:
+
     0
+
     0
+
     auto;
 
   margin-bottom: 2.5mm;
+
 }
 
 .report-evidence-box {
+
   flex:
+
     1
+
     1
+
     auto;
 
   min-height: 38mm;
@@ -884,17 +1255,23 @@
   box-sizing: border-box;
 
   border: 1px solid #aeb9b7;
+
   border-radius: 4px;
 
   background: #ffffff;
+
 }
 
 .report-images-grid {
+
   display: grid;
 
   flex:
+
     1
+
     1
+
     auto;
 
   width: 100%;
@@ -902,9 +1279,11 @@
   min-height: 38mm;
 
   gap: 2.8mm;
+
 }
 
 .report-image-box {
+
   position: relative;
 
   width: 100%;
@@ -912,6 +1291,7 @@
   min-width: 0;
 
   height: 100%;
+
   min-height: 38mm;
 
   overflow: hidden;
@@ -919,35 +1299,49 @@
   box-sizing: border-box;
 
   border: 1px solid #aeb9b7;
+
   border-radius: 4px;
 
   background: #ffffff;
+
 }
 
 .report-image {
+
   display: block;
 
   width: 100%;
+
   height: 100%;
 
   object-fit: cover;
+
 }
 
 /* =========================================================
+
    SIGNATURES
+
 ========================================================= */
 
 .report-signatures {
+
   display: grid;
 
   flex:
+
     0
+
     0
+
     auto;
 
   grid-template-columns: repeat(
+
     2,
+
     minmax(0, 1fr)
+
   );
 
   gap: 14mm;
@@ -955,38 +1349,55 @@
   width: 76%;
 
   margin:
+
     7mm
+
     auto
+
     1.5mm;
 
   padding-top: 0;
+
 }
 
 .report-signature-box {
+
   min-width: 0;
 
   text-align: center;
+
 }
 
 .report-signature-title {
+
   margin:
+
     0
+
     0
+
     2mm;
 
   font-size: 14px;
+
   font-weight: 800;
 
   color: var(
+
     --report-signature-color,
+
     #173c38
+
   );
+
 }
 
 .report-signature-name {
+
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   width: 100%;
@@ -996,29 +1407,41 @@
   box-sizing: border-box;
 
   padding:
+
     1.5mm
+
     2.5mm;
 
   border: 1px solid #aeb9b7;
+
   border-radius: 4px;
 
   background: #ffffff;
 
   font-size: 12.5px;
+
   font-weight: 600;
 
   color: var(
+
     --report-signature-color,
+
     #173c38
+
   );
+
 }
 
 .report-signature-line {
+
   width: 65%;
 
   margin:
+
     2.2mm
+
     auto
+
     0;
 
   padding-top: 1mm;
@@ -1028,519 +1451,557 @@
   font-size: 10px;
 
   color: var(
+
     --report-signature-color,
+
     #173c38
+
   );
+
 }
 
 /* =========================================================
+
    MEDIUM DENSITY
+
 ========================================================= */
 
 .report-density-medium
+
 .report-fields-grid {
+
   gap: 3mm;
 
   margin-bottom: 3mm;
+
 }
 
 .report-density-medium
+
 .report-field-label {
+
   height: 5.5mm;
 
   min-height: 5.5mm;
 
   margin:
+
     0
+
     0
+
     1.4mm;
 
   padding:
+
     0
+
     0.8mm;
 
   font-size: 12px;
+
   line-height: 1.3;
+
 }
 
 .report-density-medium
+
 .report-field-box {
+
   min-height: 9.5mm;
 
   font-size: 12px;
+
   line-height: 1.3;
+
 }
 
 .report-density-medium
+
 .report-section {
+
   margin-top: 2.5mm;
+
 }
 
 .report-density-medium
+
 .report-section-heading {
+
   min-height: 5.5mm;
 
   gap: 3.5mm;
 
   margin:
+
     0
+
     0
+
     2.2mm;
+
 }
 
 .report-density-medium
+
 .report-section-heading-line {
+
   width: 28mm;
 
   flex-basis: 28mm;
+
 }
 
 .report-density-medium
+
 .report-section-title {
+
   padding:
+
     0
+
     1.7mm;
 
   font-size: 13.5px;
+
   line-height: 1.3;
+
 }
 
 .report-density-medium
+
 .report-list-boxes {
+
   gap: 2.5mm;
 
   margin: 0;
+
 }
 
 .report-density-medium
+
 .report-list-boxes-2
+
 .report-list-box,
+
 .report-density-medium
+
 .report-list-boxes-3
+
 .report-list-box,
+
 .report-density-medium
+
 .report-list-boxes-4
+
 .report-list-box {
+
   flex:
+
     0
+
     0
+
     calc(
+
       (100% - 2.5mm) /
+
         2
+
     );
+
 }
 
 .report-density-medium
+
 .report-list-box {
+
   min-height: 13.5mm;
 
   margin: 0;
 
   padding:
+
     2mm
+
     3mm;
+
 }
 
 .report-density-medium
+
 .report-evidence-flex {
+
   min-height: 34mm;
 
   margin-top: 3mm;
+
 }
 
 .report-density-medium
+
 .report-evidence-section,
+
 .report-density-medium
+
 .report-images-grid,
+
 .report-density-medium
+
 .report-image-box,
+
 .report-density-medium
+
 .report-evidence-box {
+
   min-height: 34mm;
+
 }
 
 .report-density-medium
+
 .report-evidence-section
+
 .report-section-heading {
+
   margin-bottom: 2.2mm;
+
 }
 
 .report-density-medium
+
 .report-signatures {
+
   margin-top: 5mm;
+
 }
 
 /* =========================================================
+
    TIGHT DENSITY
+
 ========================================================= */
 
 .report-density-tight
+
 .report-title-ribbon {
+
   padding:
+
     6px
+
     14px;
 
   font-size: 21px;
+
 }
 
 .report-density-tight
+
 .report-category-title {
+
   margin:
+
     7px
+
     0
+
     8px;
 
   font-size: 18px;
+
 }
 
 .report-density-tight
+
 .report-fields-grid {
+
   gap: 2.5mm;
 
   margin-bottom: 2.4mm;
+
 }
 
 .report-density-tight
+
 .report-field-label {
+
   height: 5mm;
 
   min-height: 5mm;
 
   margin:
+
     0
+
     0
+
     1.2mm;
 
   padding:
+
     0
+
     0.7mm;
 
   font-size: 11.5px;
+
   line-height: 1.25;
+
 }
 
 .report-density-tight
+
 .report-field-box {
+
   min-height: 8.5mm;
 
   padding:
+
     1mm
+
     2mm;
 
   font-size: 11.5px;
+
   line-height: 1.3;
+
 }
 
 .report-density-tight
+
 .report-date-box {
+
   min-height: 8.5mm;
 
   justify-content: center;
+
 }
 
 .report-density-tight
+
 .report-custom-fields-row {
+
   gap: 2.5mm;
 
   margin-bottom: 2.5mm;
+
 }
 
 .report-density-tight
+
 .report-custom-field-item {
+
   flex:
+
     0
+
     0
+
     calc(
+
       (100% - 7.5mm) /
+
         4
+
     );
+
 }
 
 /* =========================================================
+
    IMPORTANT TIGHT SECTION FIX
+
 ========================================================= */
 
 .report-density-tight
+
 .report-section {
+
   margin-top: 2mm;
+
 }
 
 .report-density-tight
+
 .report-section-heading {
+
   min-height: 5mm;
 
   gap: 3mm;
 
   margin:
+
     0
+
     0
+
     2mm;
+
 }
 
 .report-density-tight
+
 .report-section-heading-line {
+
   width: 27mm;
 
   flex-basis: 27mm;
+
 }
 
 .report-density-tight
+
 .report-section-title {
+
   padding:
+
     0
+
     1.5mm;
 
   font-size: 13px;
+
   line-height: 1.3;
+
 }
 
 .report-density-tight
+
 .report-list-boxes {
+
   gap: 2mm;
 
   margin: 0;
+
 }
 
 .report-density-tight
+
 .report-list-boxes-2
+
 .report-list-box,
+
 .report-density-tight
+
 .report-list-boxes-3
+
 .report-list-box,
+
 .report-density-tight
+
 .report-list-boxes-4
+
 .report-list-box {
+
   flex:
+
     0
+
     0
+
     calc(
+
       (100% - 2mm) /
+
         2
+
     );
+
 }
 
 .report-density-tight
+
 .report-list-box {
+
   min-height: 11.5mm;
 
   margin: 0;
 
   padding:
+
     1.5mm
+
     2.5mm;
+
 }
 
 .report-density-tight
+
 .report-list-number {
+
   flex-basis: 7mm;
 
   width: 7mm;
+
   height: 7mm;
 
   font-size: 11px;
+
 }
 
 .report-density-tight
+
 .report-list-text {
+
   font-size: 12px;
+
   line-height: 1.4;
+
 }
 
 .report-density-tight
+
 .report-evidence-flex {
+
   min-height: 30mm;
 
   margin-top: 2.5mm;
+
 }
 
 .report-density-tight
+
 .report-evidence-section,
+
 .report-density-tight
+
 .report-images-grid,
+
 .report-density-tight
+
 .report-image-box,
+
 .report-density-tight
+
 .report-evidence-box {
+
   min-height: 30mm;
+
 }
 
 .report-density-tight
+
 .report-evidence-section
+
 .report-section-heading {
+
   min-height: 5mm;
 
   margin:
+
     0
+
     0
+
     2mm;
+
 }
 
 .report-density-tight
+
 .report-signatures {
+
   margin-top: 4mm;
-}
 
-/* =========================================================
-   PDF RENDER SOURCE
-
-   نفس التقرير الطبيعي 210mm × 297mm
-========================================================= */
-
-.pdf-render-report {
-  position: fixed !important;
-
-  top: 0 !important;
-  left: -10000px !important;
-
-  z-index: -99999 !important;
-
-  display: block !important;
-
-  width: 210mm !important;
-  height: 297mm !important;
-
-  min-width: 210mm !important;
-  min-height: 297mm !important;
-
-  max-width: 210mm !important;
-  max-height: 297mm !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  overflow: hidden !important;
-
-  pointer-events: none !important;
-
-  background: #ffffff !important;
-}
-
-/* =========================================================
-   PDF SHELL
-========================================================= */
-
-.pdf-render-report
-.report-preview-shell {
-  position: relative !important;
-
-  display: block !important;
-
-  width: 210mm !important;
-  height: 297mm !important;
-
-  min-width: 210mm !important;
-  min-height: 297mm !important;
-
-  max-width: 210mm !important;
-  max-height: 297mm !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  overflow: hidden !important;
-
-  border: 0 !important;
-  border-radius: 0 !important;
-
-  box-shadow: none !important;
-
-  background: #ffffff !important;
-}
-
-/* =========================================================
-   PDF STAGE
-========================================================= */
-
-.pdf-render-report
-.report-preview-stage {
-  position: relative !important;
-
-  display: block !important;
-
-  width: 210mm !important;
-  height: 297mm !important;
-
-  min-width: 210mm !important;
-  min-height: 297mm !important;
-
-  max-width: 210mm !important;
-  max-height: 297mm !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  overflow: hidden !important;
-}
-
-/* =========================================================
-   REMOVE NORMAL PREVIEW POSITIONING
-========================================================= */
-
-.pdf-render-report
-.report-preview-positioner {
-  position: static !important;
-
-  display: block !important;
-
-  width: 210mm !important;
-  height: 297mm !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  transform: none !important;
-}
-
-/* =========================================================
-   REMOVE PREVIEW SCALE
-========================================================= */
-
-.pdf-render-report
-.report-preview-scale {
-  position: static !important;
-
-  display: block !important;
-
-  width: 210mm !important;
-  height: 297mm !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  transform: none !important;
-
-  transform-origin:
-    top left !important;
-}
-
-/* =========================================================
-   EXACT A4 PDF SHEET
-========================================================= */
-
-.pdf-render-report
-.report-sheet {
-  position: relative !important;
-
-  display: block !important;
-
-  width: 210mm !important;
-  height: 297mm !important;
-
-  min-width: 210mm !important;
-  min-height: 297mm !important;
-
-  max-width: 210mm !important;
-  max-height: 297mm !important;
-
-  margin: 0 !important;
-
-  overflow: hidden !important;
-
-  box-sizing: border-box !important;
-
-  border: 0 !important;
-
-  box-shadow: none !important;
-
-  background: #ffffff !important;
 }

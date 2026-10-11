@@ -5,10 +5,7 @@ export default function Home() {
     <main>
       <section className="no-print flex min-h-[55vh] items-center justify-center px-4">
         <div className="max-w-3xl text-center">
-          <h1 className="text-4xl font-bold sm:text-5xl">
-            أنشئ تقريرك بسهولة
-          </h1>
-
+          <h1 className="text-4xl font-bold sm:text-5xl">أنشئ تقريرك بسهولة</h1>
           <p className="mx-auto mt-5 max-w-xl text-lg text-gray-500">
             أدخل بيانات التقرير، أضف الحقول التي تحتاجها، ثم اطبع التقرير مباشرة
             بصيغة PDF.
@@ -16,7 +13,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ReportForm />    
+      <ReportForm />
     </main>
   );
 }
