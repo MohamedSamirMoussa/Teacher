@@ -699,17 +699,6 @@ const ReportForm = () => {
     }
   };
 
-  const handleDirectPdfDownload = () => {
-    if (!generatedPdf) {
-      return;
-    }
-
-    downloadPdfBlob(
-      generatedPdf.blob,
-      generatedPdf.fileName,
-    );
-  };
-
   return (
 
     <section
@@ -2050,9 +2039,9 @@ const ReportForm = () => {
                 </h3>
 
                 <p className="mt-2 text-sm leading-6 text-gray-500">
-                  على iPhone اضغط على زر حفظ / مشاركة PDF، ثم اختر
-                  &quot;حفظ في الملفات&quot; للاحتفاظ بالملف أو
-                  &quot;طباعة&quot; للطباعة مباشرة.
+                  على iPhone يتم الحفظ من قائمة المشاركة الخاصة بالنظام. اضغط
+                  على زر حفظ / مشاركة PDF، ثم اختر &quot;حفظ في الملفات&quot;
+                  للاحتفاظ بالملف أو &quot;طباعة&quot; للطباعة مباشرة.
                 </p>
 
                 <p
@@ -2070,14 +2059,6 @@ const ReportForm = () => {
                 className="mt-5 w-full rounded-xl bg-black px-4 py-3 text-sm font-bold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {isSharingPdf ? "جاري الفتح..." : "حفظ / مشاركة PDF"}
-              </button>
-
-              <button
-                type="button"
-                onClick={handleDirectPdfDownload}
-                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition hover:border-gray-400"
-              >
-                تنزيل مباشر
               </button>
 
               <button
