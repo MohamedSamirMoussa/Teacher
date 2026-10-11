@@ -6,6 +6,11 @@ const A4_HEIGHT_MM = 297;
 const CAPTURE_HOST_ID = "report-pdf-capture-host";
 const CAPTURE_SHEET_ID = "report-pdf-capture-sheet";
 
+export type GeneratedPdfFile = {
+  blob: Blob;
+  fileName: string;
+};
+
 const wait = (ms: number) =>
   new Promise<void>((resolve) => {
     window.setTimeout(resolve, ms);
@@ -28,6 +33,7 @@ const waitForImage = async (image: HTMLImageElement) => {
       const finish = () => {
         if (finished) return;
         finished = true;
+
         image.removeEventListener("load", finish);
         image.removeEventListener("error", finish);
         resolve();
@@ -43,7 +49,7 @@ const waitForImage = async (image: HTMLImageElement) => {
     try {
       await image.decode();
     } catch {
-      // The load/error listeners above are enough if decode() fails.
+      // load/error handling above is enough if decode() fails.
     }
   }
 };
@@ -84,6 +90,7 @@ const createCaptureClone = (source: HTMLElement) => {
   clone.style.setProperty("transform", "none", "important");
   clone.style.setProperty("transform-origin", "top left", "important");
   clone.style.setProperty("box-shadow", "none", "important");
+  clone.style.setProperty("border", "0", "important");
   clone.style.setProperty("overflow", "hidden", "important");
   clone.style.setProperty("background", "#ffffff", "important");
   clone.style.setProperty("font-family", computed.fontFamily, "important");
@@ -100,11 +107,6 @@ const createCaptureHost = (clone: HTMLElement) => {
   host.id = CAPTURE_HOST_ID;
   host.dir = "rtl";
 
-  /*
-    Keep the cloned A4 page rendered at its real size.
-    It stays behind the app so the user never sees a flash,
-    but it is not display:none / visibility:hidden / opacity:0.
-  */
   host.style.position = "fixed";
   host.style.top = "0";
   host.style.left = "0";
@@ -173,10 +175,69 @@ const assertSnapshotIsNotBlank = async (dataUrl: string) => {
   }
 };
 
+export const isAppleMobileDevice = () => {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
+  const userAgent = navigator.userAgent;
+  const platform = navigator.platform;
+
+  const iPhoneOrIPad = /iPhone|iPad|iPod/i.test(userAgent);
+  const modernIPad = platform === "MacIntel" && navigator.maxTouchPoints > 1;
+
+  return iPhoneOrIPad || modernIPad;
+};
+
+export const downloadPdfBlob = (blob: Blob, fileName: string) => {
+  const objectUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+
+  anchor.href = objectUrl;
+  anchor.download = fileName;
+  anchor.rel = "noopener";
+
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+
+  window.setTimeout(() => {
+    URL.revokeObjectURL(objectUrl);
+  }, 30000);
+};
+
+export const sharePdfBlob = async (
+  blob: Blob,
+  fileName: string,
+) => {
+  const file = new File([blob], fileName, {
+    type: "application/pdf",
+    lastModified: Date.now(),
+  });
+
+  if (typeof navigator.share !== "function") {
+    throw new Error("Web Share API is not available.");
+  }
+
+  const shareData: ShareData = {
+    title: fileName.replace(/\.pdf$/i, ""),
+    files: [file],
+  };
+
+  if (
+    typeof navigator.canShare === "function" &&
+    !navigator.canShare(shareData)
+  ) {
+    throw new Error("Sharing PDF files is not supported on this device.");
+  }
+
+  await navigator.share(shareData);
+};
+
 export const generateReportPdf = async (
   elementId: string,
   fileName = "تقرير-الأنشطة.pdf",
-) => {
+): Promise<GeneratedPdfFile> => {
   const source = document.getElementById(elementId);
 
   if (!(source instanceof HTMLElement)) {
@@ -200,12 +261,6 @@ export const generateReportPdf = async (
       throw new Error("PDF report has invalid dimensions.");
     }
 
-    /*
-      modern-screenshot renders the cloned DOM through the browser's own
-      SVG/foreignObject layout path instead of html2canvas's text painter.
-      This keeps Arabic font metrics, flex/grid alignment, baselines and
-      vertical centering much closer to the real browser preview.
-    */
     const imageData = await domToPng(clone, {
       width,
       height,
@@ -256,7 +311,10 @@ export const generateReportPdf = async (
       finalFileName += ".pdf";
     }
 
-    pdf.save(finalFileName);
+    return {
+      blob: pdf.output("blob"),
+      fileName: finalFileName,
+    };
   } finally {
     host.remove();
   }

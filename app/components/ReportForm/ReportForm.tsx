@@ -32,7 +32,16 @@ import type {
 
 import { REPORT_THEMES } from "@/app/constants/reportThemes";
 
-import { generateReportPdf } from "@/app/utils/generateReportPdf";
+import {
+  downloadPdfBlob,
+  generateReportPdf,
+  isAppleMobileDevice,
+  sharePdfBlob,
+} from "@/app/utils/generateReportPdf";
+
+import type {
+  GeneratedPdfFile,
+} from "@/app/utils/generateReportPdf";
 
 /* =========================================================
 
@@ -95,6 +104,10 @@ const ReportForm = () => {
   const [preview, setPreview] = useState(false);
 
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+
+  const [generatedPdf, setGeneratedPdf] = useState<GeneratedPdfFile | null>(null);
+
+  const [isSharingPdf, setIsSharingPdf] = useState(false);
 
   /* =======================================================
 
@@ -610,24 +623,91 @@ const ReportForm = () => {
       return;
     }
 
-    if (isGeneratingPdf) return;
+    if (isGeneratingPdf) {
+      return;
+    }
 
     try {
       setIsGeneratingPdf(true);
+      setGeneratedPdf(null);
 
       const programName = formik.values.programName.trim();
       const fileName = programName
         ? `تقرير - ${programName}.pdf`
         : "تقرير-الأنشطة.pdf";
 
-      await generateReportPdf("report-preview", fileName);
-      toast.success("تم إنشاء ملف PDF بنجاح");
+      /*
+        لو معاينة الموبايل مفتوحة نستخدم نفس النسخة الظاهرة فعلًا.
+        غير كده نستخدم معاينة الديسكتوب كـ source للـclone.
+      */
+      const sourceId = preview
+        ? "mobile-report-preview"
+        : "report-preview";
+
+      const generated = await generateReportPdf(sourceId, fileName);
+
+      /*
+        iPhone / iPad:
+        لا نستخدم anchor download تلقائيًا؛ Safari قد يفتح PDF Viewer
+        بخلفية سوداء بدل حفظ الملف. نحفظ الـBlob في state ونطلب من
+        المستخدم ضغطة ثانية لفتح Share Sheet داخل user gesture حقيقية.
+      */
+      if (isAppleMobileDevice()) {
+        setPreview(false);
+        setGeneratedPdf(generated);
+        toast.success("تم تجهيز ملف PDF");
+        return;
+      }
+
+      /* Android / Windows / macOS desktop */
+      downloadPdfBlob(generated.blob, generated.fileName);
+      toast.success("تم تحميل ملف PDF بنجاح");
     } catch (error) {
       console.error("PDF generation error:", error);
       toast.error("حدث خطأ أثناء إنشاء ملف PDF");
     } finally {
       setIsGeneratingPdf(false);
     }
+  };
+
+  const handleSharePdf = async () => {
+    if (!generatedPdf || isSharingPdf) {
+      return;
+    }
+
+    try {
+      setIsSharingPdf(true);
+
+      await sharePdfBlob(
+        generatedPdf.blob,
+        generatedPdf.fileName,
+      );
+
+      toast.success("تم فتح خيارات الحفظ والمشاركة");
+    } catch (error) {
+      if (
+        error instanceof DOMException &&
+        error.name === "AbortError"
+      ) {
+        return;
+      }
+
+      console.error("PDF share error:", error);
+      toast.error("تعذر فتح قائمة المشاركة على هذا الجهاز");
+    } finally {
+      setIsSharingPdf(false);
+    }
+  };
+
+  const handleDirectPdfDownload = () => {
+    if (!generatedPdf) {
+      return;
+    }
+
+    downloadPdfBlob(
+      generatedPdf.blob,
+      generatedPdf.fileName,
+    );
   };
 
   return (
@@ -1922,6 +2002,90 @@ const ReportForm = () => {
                 className="rounded-xl bg-black px-3 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {isGeneratingPdf ? "جاري الإنشاء..." : "تحميل PDF"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* =================================================
+            iPhone / iPad PDF READY
+        ================================================== */}
+
+        {generatedPdf && (
+          <div className="no-print fixed inset-0 z-[70] flex items-center justify-center bg-black/60 px-4 py-6">
+            <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-2xl sm:p-6">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M7 3H14L19 8V21H7V3Z"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M14 3V8H19"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M9.5 13L11.3 14.8L15 11"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+
+              <div className="mt-4 text-center">
+                <h3 className="text-lg font-bold text-gray-900">
+                  ملف PDF جاهز
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-gray-500">
+                  على iPhone اضغط على زر حفظ / مشاركة PDF، ثم اختر
+                  &quot;حفظ في الملفات&quot; للاحتفاظ بالملف أو
+                  &quot;طباعة&quot; للطباعة مباشرة.
+                </p>
+
+                <p
+                  dir="ltr"
+                  className="mt-3 truncate rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-500"
+                >
+                  {generatedPdf.fileName}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleSharePdf}
+                disabled={isSharingPdf}
+                className="mt-5 w-full rounded-xl bg-black px-4 py-3 text-sm font-bold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+              >
+                {isSharingPdf ? "جاري الفتح..." : "حفظ / مشاركة PDF"}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleDirectPdfDownload}
+                className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition hover:border-gray-400"
+              >
+                تنزيل مباشر
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setGeneratedPdf(null)}
+                className="mt-2 w-full px-4 py-2 text-sm font-semibold text-gray-400 transition hover:text-gray-700"
+              >
+                إغلاق
               </button>
             </div>
           </div>
