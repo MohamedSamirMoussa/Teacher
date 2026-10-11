@@ -142,10 +142,10 @@ const ReportPreview = ({
 
               <div className="report-school-header">
                 <p className="report-header-main">الإدارة العامة للتعليم</p>
+                <p className="report-school-name">{values.schoolName}</p>
                 <p className="report-region-name">
                   {values.regionName ? `بمنطقة ${values.regionName}` : ""}
                 </p>
-                <p className="report-school-name">{values.schoolName}</p>
               </div>
 
               <div className="report-content">
