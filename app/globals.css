@@ -203,7 +203,7 @@
 .report-theme1 .report-school-header {
   border-right: #064f4a solid 2px;
 
-  padding-right: 5px;
+  padding-right: 8px;
 }
 
 /* =========================================================
@@ -296,6 +296,8 @@
   color: var(--report-school-color, #064f4a);
 
   text-align: start;
+
+  font-size: 12px;
 }
 
 .report-school-header p {
@@ -303,7 +305,6 @@
 }
 
 .report-header-main {
-  font-size: 12px;
 
   font-weight: 800;
 
@@ -313,7 +314,6 @@
 .report-school-name {
   margin-top: 1px !important;
 
-  font-size: 14px;
 
   font-weight: 800;
 
@@ -323,7 +323,6 @@
 .report-region-name {
   margin-top: 1px !important;
 
-  font-size: 14px;
 
   font-weight: 800;
 
