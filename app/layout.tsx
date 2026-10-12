@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 import Navbar from "./components/Navbar/Navbar";
-// import Footer from "./components/Footer/Footer";
+import Footer from "./components/Footer/Footer";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -35,7 +35,10 @@ export default function RootLayout({
 
         {children}
 
-        <div className="no-print">{/* <Footer /> */}</div>
+        <div className="no-print">
+          <Footer />
+
+        </div>
 
         <div className="no-print">
           <Toaster position="bottom-right" reverseOrder={false} />
