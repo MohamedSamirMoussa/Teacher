@@ -7,6 +7,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -46,6 +47,7 @@ export default function RootLayout({
         </div>
 
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
