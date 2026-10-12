@@ -6,6 +6,7 @@ import "./globals.css";
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -43,6 +44,8 @@ export default function RootLayout({
         <div className="no-print">
           <Toaster position="bottom-right" reverseOrder={false} />
         </div>
+
+        <Analytics />
       </body>
     </html>
   );

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mk01/react-hijri-date-picker": "^2.0.1",
+    "@vercel/analytics": "^2.0.1",
     "formik": "^2.4.9",
     "jspdf": "^4.2.1",
     "modern-screenshot": "^4.7.0",
