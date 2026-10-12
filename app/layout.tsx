@@ -46,8 +46,8 @@ export default function RootLayout({
           <Toaster position="bottom-right" reverseOrder={false} />
         </div>
 
-        <Analytics />
-        <SpeedInsights />
+        {/* <Analytics /> */}
+        {/* <SpeedInsights /> */}
       </body>
     </html>
   );

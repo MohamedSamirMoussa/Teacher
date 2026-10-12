@@ -214,9 +214,11 @@
 .report-theme2 .report-frame-header {
   width: 100%;
 
-  height: 34mm;
+  height: 45mm;
 
   object-fit: fill;
+
+  top: -1%;
 }
 
 .report-theme2 .report-frame-footer {
@@ -248,8 +250,7 @@
 
   object-fit: fill;
 }
-.report-theme3 .report-school-header {  
-
+.report-theme3 .report-school-header {
   margin-top: -5px;
 }
 
@@ -279,7 +280,7 @@
   border-right: #064f4a solid 2px;
 
   padding-right: 8px;
-  
+
   margin-right: 12px;
 
   margin-top: -10px;
@@ -314,7 +315,6 @@
 }
 
 .report-header-main {
-
   font-weight: 800;
 
   color: var(--report-school-color, #064f4a);
@@ -323,7 +323,6 @@
 .report-school-name {
   margin-top: 1px !important;
 
-
   font-weight: 800;
 
   color: var(--report-school-color, #064f4a);
@@ -331,7 +330,6 @@
 
 .report-region-name {
   margin-top: 1px !important;
-
 
   font-weight: 800;
 
