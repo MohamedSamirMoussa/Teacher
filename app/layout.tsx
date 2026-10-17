@@ -18,6 +18,7 @@ const cairo = Cairo({
 export const metadata: Metadata = {
   title: "إنشاء التقارير",
   description: "إنشاء وطباعة التقارير بسهولة",
+  keywords:"تقارير انشاء تقرير pdf word تقارير المدارس"
 };
 
 export default function RootLayout({
